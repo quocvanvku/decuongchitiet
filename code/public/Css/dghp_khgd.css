@@ -1,0 +1,253 @@
+.danh-gia-hoc-phan .row {
+    margin-left: 20px;
+    
+}
+
+.danh-gia-hoc-phan .table-chuan-dau-ra {
+    width: 100%;
+    height: auto;  
+    margin-bottom: 20px;
+} 
+
+.danh-gia-hoc-phan .row .nopadding {
+    margin: 0px;
+    padding: 0px;
+}
+
+.danh-gia-hoc-phan .top-danh-gia-hoc-phan {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    margin-top: 84px;
+}
+
+.danh-gia-hoc-phan .title {
+	width: 100%;
+	height: 52px;
+	border: 1px solid transparent;
+    border-radius: 4px;	
+	color: #fff;
+    background-color: rgba(38,185,154,.88);
+    border-color: rgba(38,185,154,.88);
+}
+
+.danh-gia-hoc-phan .title p {
+	line-height: 47px;
+	padding-left: 7px;
+}   
+
+.danh-gia-hoc-phan .table-chuan-dau-ra table {
+    width: 100%;
+    height: auto;
+}
+
+.danh-gia-hoc-phan .table-chuan-dau-ra table thead {
+    background: rgba(52,73,94,.94);
+    color: #ECF0F1;
+}
+
+.danh-gia-hoc-phan .table-danh-gia-hoc-phan {
+    margin-bottom: 100px;
+}
+
+.danh-gia-hoc-phan .table-danh-gia-hoc-phan table {
+    width: 100%;
+    height: auto;
+}
+
+.danh-gia-hoc-phan .table-danh-gia-hoc-phan .sm-dghp {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.danh-gia-hoc-phan .table-danh-gia-hoc-phan table thead {
+    background: rgba(52,73,94,.94);
+    color: #ECF0F1; 
+}
+
+.danh-gia-hoc-phan .table-danh-gia-hoc-phan .sm-dghp input {
+    width: 260px;
+    height: 40px;
+    color: #fff;
+    background: #02BFFE;
+    border: none;
+    border: 1px solid #02BFFE;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+/* Ke hoach giang day */
+
+.ke-hoach-giang-day {
+    width: 100%;
+    height: auto;
+}
+
+.ke-hoach-giang-day .row {
+    margin-left: 0px;
+}
+
+.ke-hoach-giang-day .row .nopadding {
+    margin: 0px;
+    padding: 0px;
+}
+
+.ke-hoach-giang-day .top-ke-hoach-giang-day {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    margin-top: 84px;
+}
+
+.ke-hoach-giang-day .title {
+	width: 100%;
+	height: 52px;
+	border: 1px solid transparent;
+    border-radius: 4px;	
+	color: #fff;
+    background-color: rgba(38,185,154,.88);
+    border-color: rgba(38,185,154,.88);
+}
+
+.ke-hoach-giang-day .title p {
+	line-height: 47px;
+	padding-left: 7px;
+}
+
+
+.ke-hoach-giang-day .table-chuan-dau-ra {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.ke-hoach-giang-day .table-chuan-dau-ra table thead {
+    background: rgba(52,73,94,.94);
+    color: #ECF0F1;
+}
+
+.ke-hoach-giang-day .table-danh-gia-hoc-phan {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.ke-hoach-giang-day .table-danh-gia-hoc-phan table thead {
+    background: rgba(52,73,94,.94);
+    color: #ECF0F1;
+}
+
+.ke-hoach-giang-day .table-danh-gia-hoc-phan table tbody tr td p {
+    display: inline-block
+}
+
+.ke-hoach-giang-day .table-ke-hoach-giang-day {
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+.ke-hoach-giang-day .table-ke-hoach-giang-day table thead {
+    background: rgba(52,73,94,.94);
+    color: #ECF0F1;
+}
+
+.ke-hoach-giang-day .table-ke-hoach-giang-day table tbody tr td {
+    text-align: center;
+}
+
+.ke-hoach-giang-day .table-ke-hoach-giang-day table tbody tr td#add-ke-hoach-giangday p {
+    background: #ffcc33;
+    width: 100%;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: #fff;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.ke-hoach-giang-day .table-ke-hoach-giang-day table tbody tr td#add-ke-hoach-giangday-thuchanh p {
+    background: #ffcc33;
+    width: 100%;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: #fff;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.ke-hoach-giang-day .table-ke-hoach-giang-day table tbody tr td textarea {
+    padding-left: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 7px;
+}
+
+.ke-hoach-giang-day .table-ke-hoach-giang-day .sm-khgd {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.ke-hoach-giang-day .table-ke-hoach-giang-day .sm-khgd input {
+    width: 260px;
+    height: 40px;
+    color: #fff;
+    background: #02BFFE;
+    border: none;
+    border: 1px solid #02BFFE;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+/* chuan dau ra chung */
+
+.chuan-dau-ra-chung {
+    width: 100%;
+    height: auto;
+    margin-top: 84px;
+}
+
+.chuan-dau-ra-chung .row {
+    margin-left: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.chuan-dau-ra-chung .row .nopadding {
+    margin: 0px;
+    padding: 0px;
+    margin-top: 10px;
+}
+
+.chuan-dau-ra-chung .table-chuan-dau-ra-chung h4 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.chuan-dau-ra-chung .table-chuan-dau-ra-chung {
+    margin-bottom: 100px;
+}
+
+.chuan-dau-ra-chung .table-chuan-dau-ra-chung table thead {
+    background: rgba(52,73,94,.94);
+    color: #ECF0F1;
+    
+}
+
+.chuan-dau-ra-chung .title {
+	width: 100%;
+	height: 52px;
+	border: 1px solid transparent;
+    border-radius: 4px;
+	margin-bottom: 20px;
+    margin-top: 20px;
+	color: #fff;
+    background-color: rgba(38,185,154,.88);
+    border-color: rgba(38,185,154,.88);
+}
+
+.chuan-dau-ra-chung .title p {
+	line-height: 47px;
+	padding-left: 7px;
+}
