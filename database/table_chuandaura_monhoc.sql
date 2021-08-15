@@ -3,15 +3,15 @@
 
  Source Server         : Mysql_DB
  Source Server Type    : MySQL
- Source Server Version : 100417
+ Source Server Version : 100138
  Source Host           : localhost:3306
  Source Schema         : demovku
 
  Target Server Type    : MySQL
- Target Server Version : 100417
+ Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 13/08/2021 21:14:35
+ Date: 15/08/2021 12:51:18
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `table_chuandaura_monhoc`  (
   `noi_dung` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `id_decuong` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 497 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 509 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_chuandaura_monhoc
@@ -262,5 +262,17 @@ INSERT INTO `table_chuandaura_monhoc` VALUES (493, 38, 'Hình thành và phát t
 INSERT INTO `table_chuandaura_monhoc` VALUES (494, 5, 'Hiểu được sự hình thành và phát triển của chủ nghĩa Mác-Lênin, các nội dung cơ bản của phép biện chứng duy vật, chủ nghĩa duy vật lịch sử.', 73);
 INSERT INTO `table_chuandaura_monhoc` VALUES (495, 6, 'Vận dụng được thế giới quan duy vật biện chứng vào trong quá trình nhận thức.', 73);
 INSERT INTO `table_chuandaura_monhoc` VALUES (496, 38, 'Phân tích được các nội dung của chủ nghĩa duy vật biện chứng, phép biện chứng duy vật và chủ nghĩa duy vật lịch sử', 73);
+INSERT INTO `table_chuandaura_monhoc` VALUES (497, 5, 'Nghe và hiểu những cụm từ và những từ liên quan đến lĩnh vực cá nhân được sử dụng thường xuyên (ví dụ: thông tin rất cơ bản về cá nhân và gia đình, khu vực địa phương, các quốc gia, các loại thực phẩm); nắm được ý chính trong các tin nhắn và thông báo ngắn, đơn giản, rõ ràng.', 74);
+INSERT INTO `table_chuandaura_monhoc` VALUES (498, 6, 'Đọc được những đoạn văn rất ngắn và đơn giản; tìm được thông tin cụ thể và có thể dự đoán được trong những mẩu tin hàng ngày như tin quảng cáo, thực đơn và thời gian biểu; hiểu được thư tín cá nhân viết ngắn gọn, đơn giản.', 74);
+INSERT INTO `table_chuandaura_monhoc` VALUES (499, 6, 'Giao tiếp được về những công việc đơn giản hàng ngày, trao đổi thông tin trực tiếp và đơn giản về các chủ đề thuộc như ẩm thực, nhà hàng, địa điểm, quốc gia, danh nhân và hoạt động quen thuộc; trao đổi rất ngắn gọn về những vấn đề xã hội, mặc dù bản thân chưa thể hiểu đầy đủ để tự mình có thể duy trì cuộc nói chuyện.', 74);
+INSERT INTO `table_chuandaura_monhoc` VALUES (500, 38, 'Viết được những ghi chú và tin nhắn đơn giản và ngắn; viết một bức thư cá nhân rất đơn giản, ví dụ như thư cảm ơn ai đó về việc gì.', 74);
+INSERT INTO `table_chuandaura_monhoc` VALUES (501, 4, 'Hiểu được các định nghĩa về dữ liệu và cơ sở dữ liệu.', 75);
+INSERT INTO `table_chuandaura_monhoc` VALUES (502, 4, 'Hiểu được quan hệ dữ liệu và các phép toán tương ứng.', 75);
+INSERT INTO `table_chuandaura_monhoc` VALUES (503, 5, 'Vận dụng kiến thức để thực hiện các phép toán quan hệ.', 75);
+INSERT INTO `table_chuandaura_monhoc` VALUES (504, 5, 'Phát triển ý thức làm việc trong môi trường chuyên nghiệp.', 75);
+INSERT INTO `table_chuandaura_monhoc` VALUES (505, 6, 'Áp dụng được kiến thức đã học để truy vấn dữ liệu từ đó giải quyết các bài toán liên quan.', 75);
+INSERT INTO `table_chuandaura_monhoc` VALUES (506, 5, 'Nắm vững được cách lập trình Server Side.', 76);
+INSERT INTO `table_chuandaura_monhoc` VALUES (507, 6, 'Vận dụng kiến thức đã học vào việc lập trình website động, thiết kế tương tác và cơ sở dữ liệu.', 76);
+INSERT INTO `table_chuandaura_monhoc` VALUES (508, 38, 'Sử dụng thuần thục Framework, mã nguồn mở phát triển ứng dụng Website động.', 76);
 
 SET FOREIGN_KEY_CHECKS = 1;

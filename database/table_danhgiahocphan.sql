@@ -3,15 +3,15 @@
 
  Source Server         : Mysql_DB
  Source Server Type    : MySQL
- Source Server Version : 100417
+ Source Server Version : 100138
  Source Host           : localhost:3306
  Source Schema         : demovku
 
  Target Server Type    : MySQL
- Target Server Version : 100417
+ Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 13/08/2021 21:15:01
+ Date: 15/08/2021 12:51:42
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `table_danhgiahocphan`  (
   `id_hocphan` int NULL DEFAULT NULL,
   `khungchuongtrinh` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 517 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 529 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_danhgiahocphan
@@ -194,5 +194,17 @@ INSERT INTO `table_danhgiahocphan` VALUES (513, 'Điểm danh', 100, '', 5, 1, 8
 INSERT INTO `table_danhgiahocphan` VALUES (514, 'Bài tập', 100, '', 6, 2, 81, 146);
 INSERT INTO `table_danhgiahocphan` VALUES (515, 'Nộp và chấm bài qua hệ thống Elearning', 100, '1_2', 8, 3, 81, 146);
 INSERT INTO `table_danhgiahocphan` VALUES (516, 'Theo kế hoạch của nhà trường', 100, '1_2_3', 9, 4, 81, 146);
+INSERT INTO `table_danhgiahocphan` VALUES (517, 'Chuyên cần', 100, '', 5, 1, 12, 146);
+INSERT INTO `table_danhgiahocphan` VALUES (518, 'Bài kiểm tra giữa kỳ (Trắc nghiệm + Tự luận (Nghe – Đọc – Viết – Chức năng giao tiếp) hoặc Nói)', 100, '1_2_3_4', 8, 3, 12, 146);
+INSERT INTO `table_danhgiahocphan` VALUES (519, 'Bài thi cuối kỳ  (Trắc nghiệm + Tự luận (Nghe – Đọc – Viết – Chức năng giao tiếp))', 100, '1_2_3_4', 9, 4, 12, 146);
+INSERT INTO `table_danhgiahocphan` VALUES (520, 'Đi học đầy đủ. Không được vắng không quá 20% tiết học.', 100, '3_4', 5, 1, 6, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (521, 'Làm đúng và nộp bài đầy đủ bài tập', 50, '1_2_3_4_5', 6, 2, 6, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (522, 'Làm đúng và nộp bài đầy đủ bài tập', 50, '1_2_3_4_5', 7, 2, 6, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (523, 'Đáp ứng yêu cầu của đáp án', 100, '1_2_3_4_5', 8, 3, 6, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (524, 'Đáp ứng yêu cầu của đáp án', 100, '3_4', 9, 4, 6, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (525, 'Chuyên cần', 100, '1', 5, 1, 31, 146);
+INSERT INTO `table_danhgiahocphan` VALUES (526, 'Bài tập lớn', 100, '1_2_3', 6, 2, 31, 146);
+INSERT INTO `table_danhgiahocphan` VALUES (527, 'Thi trên máy', 100, '1_2_3', 8, 3, 31, 146);
+INSERT INTO `table_danhgiahocphan` VALUES (528, 'Thi vấn đáp trên đồ án', 100, '1_2_3', 9, 4, 31, 146);
 
 SET FOREIGN_KEY_CHECKS = 1;
