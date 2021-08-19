@@ -144,7 +144,7 @@ class DeCuongAjax extends Controller
 
                 $output .= '<td class="stt-cdr">'.$stt_cdr_chung.'</td>';
                 $output .= '<td class="noi-cdr-chung">'.$value_cdr_chung->noidung_cdr_chung.'</td>';
-                $output .= '<td class="list-cdr-hoc-phan" style="width:400px" >';
+                $output .= '<td class="list-cdr-hoc-phan" id="ds-cdr" style="width:400px" >';
                 $output .= '<p id="add-cdr" data-value="'.$value_cdr_chung->id_cdr_chung.'">Thêm</p>';
                 $output .= '<div id="add-parent-cdr-'.$value_cdr_chung->id_cdr_chung.'">';   
                 $output .= '</div>';

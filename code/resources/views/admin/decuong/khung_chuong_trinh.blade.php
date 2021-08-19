@@ -115,7 +115,7 @@
 		var modal_1 = document.getElementById("myModal_1");
 		var span_1 = document.getElementsByClassName("close_1")[0];
 
-		$('#myBtn_1').live('click',function() {
+		$('#body-danh-sach-khung-chuong-trinh').on('click', 'tr td#myBtn_1',function() {
 			modal_1.style.display = "block";
 
 			var id_decuong = this.dataset.value;
@@ -123,7 +123,7 @@
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url: "{{URL::to('admin/decuong/de-cuong-khung-chuong-trinh')}}",
-                method: 'post',
+                method: 'GET',
                 data:{id_decuong:id_decuong,  _token:_token},
                 success: function(data) {
                     if (data != null) {
@@ -144,9 +144,9 @@
 		var modal_2 = document.getElementById("myModal_2");
 		var span_2 = document.getElementsByClassName("close_2")[0];
 
-		$('#myBtn_2').live('click',function() {
-			modal_2.style.display = "block";
-		});
+		// $('#myBtn_2').live('click',function() {
+		// 	modal_2.style.display = "block";
+		// });
 
 		span_2.onclick = function() {
 			modal_2.style.display = "none";
@@ -162,7 +162,8 @@
 			}
 		}
 
-		$('#myBtn_2').live('click',function() {
+		$('#body-danh-sach-khung-chuong-trinh').on('click', 'tr td#myBtn_2',function() {
+
 			modal_2.style.display = "block";
 
 			var id_hocphan = this.dataset.value;
@@ -170,7 +171,7 @@
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url: "{{URL::to('admin/decuong/nhan-ban-de-cuong-khung-chuong-trinh')}}",
-                method: 'post',
+                method: 'GET',
                 data:{id_hocphan:id_hocphan,  _token:_token},
                 success: function(data) {
                     if (data != null) {

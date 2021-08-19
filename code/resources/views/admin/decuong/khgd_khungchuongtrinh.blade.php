@@ -24,18 +24,20 @@
                             <td>STT</td>
                             <td>Mã học phần</td>
                             <td>Tên học phần</td>
+                            <td>Học kỳ</td>
                             <td>Khóa học</td>
                             <td>Kế hoạch giảng dạy</td>
                         </tr>
                     </thead> 
 
                     <tbody id="body-danh-sach-khung-chuong-trinh">
-
+                        <?php $stt=1; ?>
                         @foreach($all_kct_hocphan as $value_all_kct_hocphan)
                         <tr>
-                            <td>{{$value_all_kct_hocphan->stt}}</td>
+                            <td>{{$stt++}}</td>
                             <td>{{$value_all_kct_hocphan->mahocphan}}</td>
                             <td>{{$value_all_kct_hocphan->tenhocphan}}</td>
+                            <td>{{$value_all_kct_hocphan->hocky}}</td>
                             <td>{{$value_all_kct_hocphan->nambatdau.' - '.$value_all_kct_hocphan->namketthuc}}</td>
                             @if(isset($value_all_kct_hocphan->has_khgd))
                             <td>

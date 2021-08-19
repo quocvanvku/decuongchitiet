@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Admin</title>
-	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="{{ asset('./public/Js/dropzone/dropzone.css')}}" type="text/css">
 	<script src="https://cdn.tiny.cloud/1/gs0pa5cuczbr5b24pvedu0twwply9bryqr1lal4ncmjdtkfm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
@@ -18,6 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/themdecuong.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/khungchuongtrinh.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/dghp_khgd.css')}}">
+	
 </head>
 <body>
 	

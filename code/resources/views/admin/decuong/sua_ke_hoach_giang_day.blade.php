@@ -138,7 +138,7 @@
 		<?php $temp = 0; $temp_thuchanh = 0; ?>
 
 		<div class="row table-ke-hoach-giang-day">
-			<div class="col-md-12 nopadding">
+			<div class="col-md-12 nopadding" id="body-ke-hoach-giang-day">
 				<form action="{{URL::to('admin/decuong/edit-ke-hoach-giang-day/'.$id_decuong)}}" method="post">
 					{{ csrf_field() }}
 
@@ -349,7 +349,7 @@
 	var temp = <?php echo json_encode($temp); ?>;
 	var temp_thuchanh = <?php echo json_encode($temp_thuchanh); ?>;
 
-	$('#add-ke-hoach-giangday').live('click', function() {
+	$('#body-ke-hoach-giang-day').on('click', 'form table tr td#add-ke-hoach-giangday', function() {
 		
 		temp++;
 		var temp_ip = document.createElement("input");
@@ -440,19 +440,23 @@
 		}
 	});
 
-	$('#delete-ke-hoach-giang-day').live('click', function() {
+	$('#list-khgd').on('click', 'tr td#delete-ke-hoach-giang-day', function() {
 		$(this).parent('tr').remove();
 		var x = document.getElementsByClassName('stt-khgd');
 		for (var i = 0; i < x.length; i++) {
 			x[i].innerHTML = i+1;
 		}
+	});
+
+	$('#list-khgd-thuchanh').on('click', 'tr td#delete-ke-hoach-giang-day', function() {
+		$(this).parent('tr').remove();
 		var y = document.getElementsByClassName('stt-khgd-thuchanh');
 		for (var i = 0; i < x.length; i++) {
 			y[i].innerHTML = i+1;
 		}
 	});
 
-	$('#add-ke-hoach-giangday-thuchanh').live('click', function() {
+	$('#body-ke-hoach-giang-day').on('click', 'form table tr td#add-ke-hoach-giangday-thuchanh', function() {
 
 		temp_thuchanh++;
 		var temp_ip_thuchanh = document.createElement("input");

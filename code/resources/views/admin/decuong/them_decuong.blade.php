@@ -321,7 +321,7 @@
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/dc-ten-hoc-phan')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -337,7 +337,7 @@
 		});
 
 
-		$('#tenhocphanaj ul li').live('click', function() {
+		$('#tenhocphanaj').on('click', 'ul li', function() {
 			$('#ip-ten-hoc-phan').val($(this).text()); 
 			$('#tenhocphanaj').fadeOut();  
 			var idtenhocphan = this.dataset.value;
@@ -349,13 +349,11 @@
 
 			var id_gvdc1 = $('#list-gvdc-id').val();
 
-			//alert("id"+id_gvdc1);
-
 			if (query != '') {
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/dc-giang-vien-phu-trach')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -368,7 +366,7 @@
 				$('#giangvienphutrachaj').fadeOut();   
 			}
 
-		});
+		}); 
 
 		select_nganh(1);
 
@@ -381,7 +379,7 @@
 			var _token = $('input[name="_token"]').val();
 			$.ajax({
 				url: "{{URL::to('admin/decuong/select-nganh-aj')}}",
-				method: 'post',
+				method: 'GET',
 				data:{id_nganh:id_nganh, _token:_token},
 				success: function(data) {
 					if (data != null) { 
@@ -392,7 +390,7 @@
 		}
 
 
-		$('#giangvienphutrachaj ul li').live('click', function() {
+		$('#giangvienphutrachaj').on('click', 'ul li', function() {
 			$('#giang-vien-phu-trach').val($(this).text()); 
 			$('#giangvienphutrachaj').fadeOut();  
 			var idgvpt = this.dataset.value;
@@ -415,7 +413,7 @@
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/dc-giang-vien-day-cung')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, id_gvptc:id_gvptc, id_gvdc1:id_gvdc1, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -431,7 +429,7 @@
 		});
 
 
-		$('#giangviendaycungaj ul li').live('click', function() {
+		$('#giangviendaycungaj').on('click', 'ul li', function() {
 			$('#giang-vien-day-cung').val(""); 
 			$('#giangviendaycungaj').fadeOut(); 
 
@@ -470,13 +468,13 @@
 	    	$('#giangviendaycungaj').fadeOut();    
 		}); 
 
-		$('#delete-gvdc').live('click', function() {
+		$('#list-gvdc').on('click', 'li p', function() {
 			$(this).parent('li').remove();
 		});
 
 
 		//chuan dau ra
-		$('#add-cdr').live('click', function() {
+		$('#chuan-dau-ra').on('click', 'tr td p', function() {
 
 			p2 = document.createElement("input");
 
@@ -514,7 +512,7 @@
 
 		});
 
-		$('#delete-cdr').live('click', function() {
+		$('#chuan-dau-ra').on('click', 'tr td div div h5', function() {
 			$(this).parent('div').remove();
 			var x = document.getElementsByClassName('stt-cdr');
 			for (var i = 0; i < x.length; i++) {

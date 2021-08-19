@@ -49,7 +49,7 @@
 								<td>Trọng số thành phần(%)</td>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="body-danh-gia-hoc-phan">
 							@foreach($all_tpdg_child as $value_tpdg)
 							@if(isset($value_tpdg->has_child))
 							<tr>
@@ -118,11 +118,11 @@
 		</div>
 
 	</div>
-</div>
+</div> 
 
 <script>
 	
-	$('#add-phuong-phap-danh-gia').live('click', function() {
+	$('#body-danh-gia-hoc-phan').on('click', 'tr td div p#add-phuong-phap-danh-gia', function() {
 
 		var id_ppdg = $(this).attr('data-value');
 
@@ -175,8 +175,8 @@
 		document.getElementById("delete-line-ppdg-"+id_ppdg).style.display = "block";
 
 	});
-
-	$('#delete-phuong-phap-danh-gia').live('click', function() {
+	
+	$('#body-danh-gia-hoc-phan').on('click', 'tr td div p#delete-phuong-phap-danh-gia', function() {
 
 		var id_ppdg = $(this).attr('data-value');
 

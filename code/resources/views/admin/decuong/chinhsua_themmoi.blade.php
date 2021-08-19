@@ -340,7 +340,7 @@
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/dc-ten-hoc-phan')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -356,7 +356,7 @@
 		});
 
 
-		$('#tenhocphanaj ul li').live('click', function() {
+		$('#tenhocphanaj').on('click', 'ul li', function() {
 			$('#ip-ten-hoc-phan').val($(this).text()); 
 			$('#tenhocphanaj').fadeOut();  
 			var idtenhocphan = this.dataset.value;
@@ -370,7 +370,7 @@
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/dc-giang-vien-phu-trach')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -386,7 +386,7 @@
 		});
 
 
-		$('#giangvienphutrachaj ul li').live('click', function() {
+		$('#giangvienphutrachaj').on('click', 'ul li', function() {
 			$('#giang-vien-phu-trach').val($(this).text()); 
 			$('#giangvienphutrachaj').fadeOut();  
 			var idgvpt = this.dataset.value;
@@ -400,7 +400,7 @@
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/dc-giang-vien-day-cung')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -416,7 +416,7 @@
 		});
 
 
-		$('#giangviendaycungaj ul li').live('click', function() {
+		$('#giangviendaycungaj').on('click', 'ul li', function() {
 			$('#giang-vien-day-cung').val(""); 
 			$('#giangviendaycungaj').fadeOut(); 
 
@@ -454,7 +454,7 @@
 	    	$('#giangviendaycungaj').fadeOut();    
 		}); 
 
-		$('#delete-gvdc').live('click', function() {
+		$('#list-gvdc').on('click', 'li p', function() {
 			$(this).parent('li').remove();
 		});
 
@@ -469,7 +469,7 @@
 			var _token = $('input[name="_token"]').val();
 			$.ajax({
 				url: "{{URL::to('admin/decuong/select-nganh-aj')}}",
-				method: 'post',
+				method: 'GET',
 				data:{id_nganh:id_nganh, _token:_token},
 				success: function(data) {
 					if (data != null) { 
@@ -481,45 +481,43 @@
 
 
 		//chuan dau ra
-		$('#add-cdr').live('click', function() {
+		$('#chuan-dau-ra').on('click', 'tr td p', function() {
 
-		p2 = document.createElement("input");
+			p2 = document.createElement("input");
 
-		//var b = $(this).closest('div').attr('id');
+			var b = $(this).attr('data-value');
 
-		var b = $(this).attr('data-value');
+			p = document.createElement("div");
+			p.setAttribute("class", "line-add-cdr");
 
-		p = document.createElement("div");
-		p.setAttribute("class", "line-add-cdr");
+			p4 = document.createElement("input");
+			p4.setAttribute("type", "hidden");
+			p4.setAttribute("name", "list_cdr[]");
+			p4.setAttribute("value", b);
+			p.appendChild(p4);
 
-		p4 = document.createElement("input");
-		p4.setAttribute("type", "hidden");
-		p4.setAttribute("name", "list_cdr[]");
-		p4.setAttribute("value", b);
-		p.appendChild(p4);
+			p2 = document.createElement("textarea");
+			p2.setAttribute("name", "list_cdr[]");
+			p2.value = "";
+			p.appendChild(p2);
 
-		p2 = document.createElement("textarea");
-		p2.setAttribute("name", "list_cdr[]");
-		p2.value = "";
-		p.appendChild(p2);
+			p3 = document.createElement("h5");
+			var nodexoa = document.createTextNode("Xoá");
+			p3.appendChild(nodexoa);
+			p3.id = "delete-cdr";
+			p.appendChild(p3);
 
-		p3 = document.createElement("h5");
-		var nodexoa = document.createTextNode("Xoá");
-		p3.appendChild(nodexoa);
-		p3.id = "delete-cdr";
-		p.appendChild(p3);
+			var div = document.getElementById("add-parent-cdr-"+b);
+			div.appendChild(p);
 
-		var div = document.getElementById("add-parent-cdr-"+b);
-		div.appendChild(p);
-
-		// var x = document.getElementsByClassName('stt-cdr');
-		// for (var i = 0; i < x.length; i++) {
-		//     x[i].innerHTML = i+1;
-		// } 
+			// var x = document.getElementsByClassName('stt-cdr');
+			// for (var i = 0; i < x.length; i++) {
+			//     x[i].innerHTML = i+1;
+			// } 
 
 		});
 
-		$('#delete-cdr').live('click', function() {
+		$('#chuan-dau-ra').on('click', 'tr td div div h5', function() {
 			$(this).parent('div').remove();
 			var x = document.getElementsByClassName('stt-cdr');
 			for (var i = 0; i < x.length; i++) {

@@ -304,6 +304,7 @@ li {
     margin-left: 5px;
     margin-top: 5px;
     color: rgb(27, 97, 102);
+    cursor: pointer;
 }
 
 .them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td textarea {

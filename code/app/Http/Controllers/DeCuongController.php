@@ -1642,9 +1642,10 @@ class DeCuongController extends Controller
                             ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
                             ->join('table_khoahoc', 'table_khungchuongtrinh.id_khoahoc', 'table_khoahoc.id')
                             ->where('table_khungchuongtrinh_hocphan.id_khung', $id_khungchuongtrinh)
+                            ->orderBy('table_khungchuongtrinh_hocphan.hocky', "ASC")
                             ->orderBy('table_khungchuongtrinh_hocphan.stt', "ASC")
                             ->get();
-
+   
         $all_decuong = DB::table('table_decuongchitiet')->get();
 
         foreach($all_kct_hocphan as $value_kct_hocphan) {
@@ -2130,6 +2131,38 @@ class DeCuongController extends Controller
 
         return Redirect::to('admin/decuong/khung-chuong-trinh/'.$request->id_khung);
 
+    }
+
+    public function matran_chuandaura($id_nganh) {
+
+        $chuandaura = DB::table('table_chuandaura_chung')->where('id_nganh', $id_nganh)->get();
+
+        $all_decuong = DB::table('table_decuongchitiet')
+        ->join('table_hocphan', 'table_hocphan.id', 'table_decuongchitiet.id_hocphan')
+        ->join('table_giangvien', 'table_giangvien.id', 'table_decuongchitiet.giangvienphutrach_id')
+        ->where('table_decuongchitiet.id_nganh', $id_nganh)
+        ->get(); 
+
+        $nganh = DB::table('table_nganh')->where('id', $id_nganh)->first();
+
+        foreach($all_decuong as $vl_all_decuong) {
+
+            $all_cdr_child = DB::table('table_chuandaura_monhoc')
+            ->where('id_decuong', $vl_all_decuong->id_decuong)
+            ->select('id_cdr_chung', DB::raw('count(*) as tong'))
+            ->groupBy('id_cdr_chung')
+            ->get();
+
+            foreach($all_cdr_child as $vl) {
+                $vl_all_decuong->PLO[] = $vl->id_cdr_chung."_".$this->Tunhien2Lama($vl->tong);
+            }
+            
+        }
+
+        return view("matran_chuandaura")
+                ->with('chuandaura', $chuandaura)
+                ->with('all_decuong', $all_decuong)
+                ->with('nganh', $nganh);
     }
 
 
