@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 nopadding title">
-                <p>Danh sách khung chương trình học phần</p>
+                <p>Danh sách khung chương trình học phần   <a href="{{URL::to('admin/decuong/them-hoc-phan-khung-chuong-trinh/'.$id_khungchuongtrinh)}}">Thêm</a></p>
             </div>
         </div>
 
@@ -13,8 +13,12 @@
             <div class="col-md-12 nopadding">
 
                 <select multiple size="14" id="select-khungchuongtrinh-hocphan">
-                    @foreach($all_khungchuongtrinh as $value_all_khungchuongtrinh)
-                    <option value="{{$value_all_khungchuongtrinh->id}}" <?php if($value_all_khungchuongtrinh->id == $id_khungchuongtrinh) {echo "selected";} ?> >{{$value_all_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+                    @foreach($all_khungchuongtrinh as $value_all_khungchuongtrinh)                 
+                        @if($value_all_khungchuongtrinh->level == 1)
+                        <option value="{{$value_all_khungchuongtrinh->id}}" <?php if($value_all_khungchuongtrinh->id == $id_khungchuongtrinh) {echo "selected";} ?> >|____ {{$value_all_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+                        @else
+                        <option value="{{$value_all_khungchuongtrinh->id}}" <?php if($value_all_khungchuongtrinh->id == $id_khungchuongtrinh) {echo "selected";} ?> >{{$value_all_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+                        @endif
                     @endforeach
                 </select>
 
@@ -116,7 +120,7 @@
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
                     url: "{{URL::to('admin/decuong/sua-chuan-dau-ra-chung')}}",
-                    method: 'post',
+                    method: 'GET',
                     data:{id_cdr_chung:id_cdr_chung, noidung:noidung,  _token:_token},
                     success: function(data) {
                         if (data != null) {
@@ -135,7 +139,7 @@
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url: "{{URL::to('admin/decuong/xoa-chuan-dau-ra-chung')}}",
-                method: 'post',
+                method: 'GET',
                 data:{id_cdr_chung:id_cdr_chung, noidung:noidung,  _token:_token},
                 success: function(data) {
                     if (data != null) {
@@ -180,7 +184,7 @@
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url: "{{URL::to('admin/decuong/up-kct-hp')}}",
-                method: 'post',
+                method: 'GET',
                 data:{id_kct_hp:id_kct_hp, id_khung:id_khung, _token:_token},
                 success: function(data) {
                     if (data != null) {
@@ -203,7 +207,7 @@
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url: "{{URL::to('admin/decuong/down-kct-hp')}}",
-                method: 'post',
+                method: 'GET',
                 data:{id_kct_hp:id_kct_hp, id_khung:id_khung, _token:_token},
                 success: function(data) {
                     if (data != null) {

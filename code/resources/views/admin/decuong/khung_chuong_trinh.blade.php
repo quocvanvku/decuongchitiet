@@ -14,7 +14,11 @@
             <div class="col-md-12 nopadding body-khung-chuong-trinh">
                 <select name="" id="select_khungchuongtrinh">
                     @foreach($all_khungchuongtrinh as $value_all_khungchuongtrinh)
-                    <option value="{{$value_all_khungchuongtrinh->id}}" <?php if($id_khungchuongtrinh == $value_all_khungchuongtrinh->id) echo "selected" ?> >{{$value_all_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+                        @if($value_all_khungchuongtrinh->level == 1)
+                        <option value="{{$value_all_khungchuongtrinh->id}}" <?php if($id_khungchuongtrinh == $value_all_khungchuongtrinh->id) echo "selected" ?> >|____{{$value_all_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+                        @else
+                        <option value="{{$value_all_khungchuongtrinh->id}}" <?php if($id_khungchuongtrinh == $value_all_khungchuongtrinh->id) echo "selected" ?> >{{$value_all_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+                        @endif
                     @endforeach
                 </select>
 

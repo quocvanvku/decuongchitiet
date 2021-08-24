@@ -25,7 +25,7 @@
 									@endforeach
 								</select>
 							</td>
-						</tr>
+						</tr> 
 						<tr>
 							<td>
 								<p>2. Học kỳ</p>

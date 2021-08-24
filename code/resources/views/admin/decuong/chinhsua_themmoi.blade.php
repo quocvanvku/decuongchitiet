@@ -25,10 +25,6 @@
 <div class="containe-fluid">
     <div class="them-moi-de-cuong">
 
-		<!-- <div class="title">
-			<p>Thêm mới đề cương</p></p>
-		</div> -->
-
 		<div class="row">
 			<div class="col-md-12 title nopadding">
 				<p>Thêm mới đề cương</p>
@@ -63,7 +59,11 @@
 										<td>
 											<select name="khungchuongtrinh" id="select_khoa" required="" multiple>
 												@foreach($khungchuongtrinh as $value_khungchuongtrinh)
-                                                <option value="{{$value_khungchuongtrinh->id}}" >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													@if($value_khungchuongtrinh->level == 1)
+													<option value="{{$value_khungchuongtrinh->id}}" >|____{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													@else
+													<option value="{{$value_khungchuongtrinh->id}}" >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													@endif
 												@endforeach
 											</select> 
 										</td>

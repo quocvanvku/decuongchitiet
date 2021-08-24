@@ -16,6 +16,7 @@ use App\Models\khungchuongtrinhhocphan;
 use DB;
 use Redirect;
 use Session;
+use \stdClass;
  
 class DeCuongController extends Controller
 {
@@ -51,6 +52,7 @@ class DeCuongController extends Controller
         $khungchuongtrinhhientai = $all_decuong->khungchuongtrinh;
 
         $khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
+        $khungchuongtrinh = $this->data_khungchuongtrinh($khungchuongtrinh, 0);
 
         $all_nganh = DB::table('table_nganh')->get();
 
@@ -207,6 +209,7 @@ class DeCuongController extends Controller
         $all_nganh = DB::table('table_nganh')->get();
 
         $khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
+        $khungchuongtrinh = $this->data_khungchuongtrinh($khungchuongtrinh, 0);
 
     	return view('admin.decuong.them_decuong')
                 ->with('all_cdr_chung', $all_cdr_chung)
@@ -1559,6 +1562,8 @@ class DeCuongController extends Controller
 
         $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
 
+        $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
+
         $all_kct_hocphan = DB::table('table_khungchuongtrinh_hocphan')
                             ->join('table_khungchuongtrinh', 'table_khungchuongtrinh_hocphan.id_khung', 'table_khungchuongtrinh.id')
                             ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
@@ -1567,6 +1572,7 @@ class DeCuongController extends Controller
                             ->orderBy('table_khungchuongtrinh_hocphan.hocky', "ASC")
                             ->orderBy('table_khungchuongtrinh_hocphan.stt', "ASC")
                             ->get();
+
 
         $all_decuong = DB::table('table_decuongchitiet')->get();
 
@@ -1676,7 +1682,10 @@ class DeCuongController extends Controller
     }
 
     public function khungchuongtrinhhocphan($id_khungchuongtrinh) {
+
         $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
+
+        $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
 
         $all_kct_hocphan = DB::table('table_hocphan')
                             ->Join('table_khungchuongtrinh_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', '=', 'table_hocphan.id')
@@ -1750,11 +1759,37 @@ class DeCuongController extends Controller
 
     }
 
+    public function data_khungchuongtrinh($data, $parent_id = 0, $level = 0) {
+        $result = [];
+
+        foreach($data as $item) {
+            if($item->isKhungnangcao == $parent_id) {
+                $item->level = $level;
+                $result[] = $item;
+                $child = $this->data_khungchuongtrinh($data, $item->id, $level + 1);
+                $result = array_merge($result, $child);
+            }
+        }
+        return $result;
+    }
+
     public function themhocphankhungchuongtrinh() {
         $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
 
+        $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
+
         return view('admin.decuong.them_hocphan_khungchuongtrinh')
                 ->with('all_khungchuongtrinh', $all_khungchuongtrinh);
+    }
+
+    public function themhocphankhungchuongtrinh2($id_khung) {
+        $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
+
+        $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
+
+        return view('admin.decuong.them_hocphan_khungchuongtrinh')
+                ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
+                ->with('id_khung', $id_khung);
     }
 
     public function insert_themhocphankhungchuongtrinh(Request $request) {
@@ -1848,6 +1883,8 @@ class DeCuongController extends Controller
         ->first();
         
         $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
+
+        $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
 
         $list_hptt = [];
 
@@ -1968,9 +2005,10 @@ class DeCuongController extends Controller
 
     public function xoahocphankhungchuongtrinh($id_kct_hp) {
         $khungchuongtrinh_hocphan = khungchuongtrinhhocphan::find($id_kct_hp);
+        $id_khung = $khungchuongtrinh_hocphan->id_khung;
         $khungchuongtrinh_hocphan->delete();
 
-        return Redirect::to('/admin/decuong/danh-sach-khung-chuong-trinh-hoc-phan/142');
+        return Redirect::to('/admin/decuong/danh-sach-khung-chuong-trinh-hoc-phan/'.$id_khung);
     }
 
     public function them_kehoachgiangday_thugon($id_hocphan, $id_khung) {

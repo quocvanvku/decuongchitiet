@@ -3,15 +3,15 @@
 
  Source Server         : Mysql_DB
  Source Server Type    : MySQL
- Source Server Version : 100417
+ Source Server Version : 100138
  Source Host           : localhost:3306
  Source Schema         : demovku
 
  Target Server Type    : MySQL
- Target Server Version : 100417
+ Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 13/08/2021 21:16:08
+ Date: 25/08/2021 00:03:54
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `table_hocphan`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 169 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 238 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_hocphan
@@ -201,5 +201,74 @@ INSERT INTO `table_hocphan` VALUES (165, '', 'Công nghệ phần mềm (*)', 0,
 INSERT INTO `table_hocphan` VALUES (166, '', 'Sinh hoạt lớp', 0, 2, NULL, NULL, NULL);
 INSERT INTO `table_hocphan` VALUES (167, '', 'Seminar cấp Khoa', 0, 2, NULL, NULL, NULL);
 INSERT INTO `table_hocphan` VALUES (168, 'TACN_KT', 'Tiếng Anh chuyên ngành 2 (KT)', 2, 2, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (169, 'GT1', 'Giải tích 1', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (170, '', 'Khởi nghiệp và đổi mới sáng tạo', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (171, '', 'Công nghệ và lập trình web', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (172, 'GT2', 'Giải tích 2', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (173, '', 'Linux và phần mềm nguồn mở', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (174, '', 'Lập trình hệ thống', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (175, '', 'Học máy', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (176, '', 'Phân tích và thiết kế giải thuật', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (177, '', 'Tự chọn 1', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (178, '', 'Chương trình dịch', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (179, '', 'Điện toán đám mây', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (180, '', 'Phát triển ứng dụng di động đa nền tảng', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (181, '', 'Đảm bảo chất lượng và kiểm thử phần mềm', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (182, '', 'Tự chọn 2', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (183, '', 'Quản trị dự án phần mềm', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (184, '', 'Kiến trúc và thiết kế phần mềm', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (185, '', 'Đồ án chuyên ngành 3', 1, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (186, '', 'Tự chọn 3', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (187, '', 'Thiết kế web', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (188, '', 'Lập trình Python', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (189, '', 'Nhập môn khoa học dữ liệu', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (190, '', 'Khai phá dữ liệu ', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (191, '', 'Phân tích dữ liệu', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (192, '', 'Học sâu', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (193, '', 'Trực quan hóa dữ liệu', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (194, '', 'Xử lý ngôn ngữ tự nhiên', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (195, '', 'Chuyển mạch và định tuyến', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (196, '', 'Thiết kế và xây dựng hệ thống mạng', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (197, '', 'Giám sát hệ thống mạng', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (198, '', 'Mật mã học', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (199, '', 'An toàn ứng dụng Web và CSDL', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (200, '', 'Phân tích mã độc', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (201, '', 'Cấu kiện điện tử', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (202, '', 'Kỹ thuật mạch điện tử', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (203, '', 'Kiến trúc và giao thức IoT', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (204, '', 'Thiết kế mạch với sự trợ giúp của máy tính', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (205, '', 'Kỹ thuật Robot', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (206, '', 'Robot di động', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (207, '', 'Hệ thống thực tế ảo', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (208, '', 'Hình họa', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (209, '', 'Cơ sở tạo hình', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (210, '', 'Kỹ thuật chụp ảnh và quay phim', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (211, '', 'Kịch bản truyền thông', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (212, '', 'Lập trình web nâng cao', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (213, '', 'Nghệ thuật chữ', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (214, '', 'Thiết kế nhân vật 2 chiều', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (215, '', 'Xử lý ảnh cơ bản', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (216, '', 'Lập trình Game', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (217, '', 'Biên tập phim kỹ thuật số', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (218, '', 'Lập trình game nâng cao', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (219, '', 'Nguyên lý thiết kế đồ họa', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (220, '', 'Thiết kế Logo', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (221, '', 'Đồ họa 3D', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (222, '', 'Thiết kế bộ ấn phẩm văn phòng', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (223, '', 'Nguyên lý kế toán', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (224, '', 'Kinh doanh quốc tế', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (225, '', 'Digital Marketing', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (226, '', 'Mobile Commerce', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (227, '', 'Facebook Commerce', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (228, '', 'Khởi sự kinh doanh', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (229, '', 'Quản trị quan hệ khách hàng', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (230, '', 'An toàn và bảo mật trong TMĐT', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (231, '', 'Hoạch định nguồn lực doanh nghiệp', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (232, '', 'Nghiên cứu marketing', 3, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (233, '', 'Marketing truyền thông xã hội', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (234, '', 'Marketing công cụ tìm kiếm', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (235, '', 'Marketing nội dung', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (236, '', 'Quảng cáo hiển thị và video', 2, 0, NULL, NULL, NULL);
+INSERT INTO `table_hocphan` VALUES (237, '', 'Phân tích marketing số', 2, 0, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -21,7 +21,11 @@
 							<td>
 								<select multiple name="khungchuongtrinh" id="select_khoa" required="" style="margin-left:0px;">
 									@foreach($all_khungchuongtrinh as $value_khungchuongtrinh)
-									<option value="{{$value_khungchuongtrinh->id}}" >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+										@if($value_khungchuongtrinh->level == 1)
+										<option value="{{$value_khungchuongtrinh->id}}" <?php if($id_khung == $value_khungchuongtrinh->id) {echo "selected";} ?> >|____{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+										@else
+										<option value="{{$value_khungchuongtrinh->id}}" <?php if($id_khung == $value_khungchuongtrinh->id) {echo "selected";} ?> >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+										@endif
 									@endforeach
 								</select> 
 							</td>
@@ -134,7 +138,7 @@
 							</td>
 							<td>
 								<select name="tuchon" multiple id="select_hp_tuchon" required="" style="margin-left:0px;">
-									<option value="1">Yes</option>
+									<option value="1" selected>Yes</option>
 									<option value="0">No</option>
 								</select> 
 							</td>

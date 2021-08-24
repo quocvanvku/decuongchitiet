@@ -55,7 +55,11 @@
 										<td>
 											<select name="khungchuongtrinh" id="select_khoa" required="" multiple>
 												@foreach($khungchuongtrinh as $value_khungchuongtrinh)
-												<option value="{{$value_khungchuongtrinh->id}}" >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													@if($value_khungchuongtrinh->level == 1)
+													<option value="{{$value_khungchuongtrinh->id}}" >|____{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													@else
+													<option value="{{$value_khungchuongtrinh->id}}" >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													@endif
 												@endforeach
 											</select> 
 										</td>
