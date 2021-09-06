@@ -155,12 +155,31 @@
 
 						<tr>
 							<td>
-								<p class="">8. Học phần tự chọn</p>
+								<p>8. Thuộc khối kiến thức</p>
+							</td>
+							<td>
+								<select name="khoiluongkienthuc" multiple id="select_khoiluongkienthuc" required="">
+									@foreach($all_khoiluongkienthuc as $value_all_khoiluongkienthuc)
+										@if(isset($value_all_khoiluongkienthuc->hasChild))
+											<option disabled >{{$value_all_khoiluongkienthuc->tenkhoiluongkienthuc}}</option>
+										@elseif($value_all_khoiluongkienthuc->level == 0)
+											<option value="{{$value_all_khoiluongkienthuc->id}}" <?php if($value_all_khoiluongkienthuc->id == $all_kct->khoikienthuc) {echo "selected";} ?> >{{$value_all_khoiluongkienthuc->tenkhoiluongkienthuc}}</option>
+										@elseif($value_all_khoiluongkienthuc->level == 1)
+											<option value="{{$value_all_khoiluongkienthuc->id}}" <?php if($value_all_khoiluongkienthuc->id == $all_kct->khoikienthuc) {echo "selected";} ?> >|____{{$value_all_khoiluongkienthuc->tenkhoiluongkienthuc}}</option>			
+										@endif
+									@endforeach
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<p class="">9. Học phần tự chọn</p>
 							</td>
 							<td> 
 								<select name="tuchon" multiple id="select_hp_tuchon" required="" style="margin-left:0px;">
-									<option value="1" <?php if($all_kct->hocky == 1) {echo "selected";} ?> >Yes</option>
-									<option value="0" <?php if($all_kct->hocky == 0) {echo "selected";} ?> >No</option>
+									<option value="1" <?php if($all_kct->tuchon == 1) {echo "selected";} ?> >Yes</option>
+									<option value="0" <?php if($all_kct->tuchon == 0) {echo "selected";} ?> >No</option>
 								</select>
 							</td>
 						</tr>
@@ -187,25 +206,27 @@
 			var query = $(this).val();
 
 			if (query != '') {
+
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/dc-ten-hoc-phan')}}",
-					method: 'post',
+					type: 'GET',
 					data:{query:query, _token:_token},
-					success: function(data) {
-						if (data != null) {
-							$('#tenhocphanaj').fadeIn();  
-       						$('#tenhocphanaj').html(data);
-						}   
-					}
+				
+				}).done(function(data) {
+					if (data != null) {
+						$('#tenhocphanaj').fadeIn();  
+						$('#tenhocphanaj').html(data);
+					} 
 				});
+
 			} else {
 				$('#tenhocphanaj').fadeOut();   
 			}
  
 		});
 
-		$('#tenhocphanaj ul li').live('click', function() {
+		$('#tenhocphanaj').on('click', 'ul li', function() {
 			$('#ip-ten-hoc-phan').val($(this).text()); 
 			$('#tenhocphanaj').fadeOut();  
 			var idtenhocphan = this.dataset.value;
@@ -219,7 +240,7 @@
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/get-hoc-phan-kcthp')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -236,7 +257,7 @@
 		});
 
 
-		$('#hocphanthaythe ul li').live('click', function() {
+		$('#hocphanthaythe').on('click', ' ul li', function() {
 			$('#hoc-phan-thay-the').val(""); 
 			$('#hocphanthaythe').fadeOut(); 
 
@@ -275,7 +296,7 @@
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/get-hoc-phan-kcthp')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -289,10 +310,10 @@
 				$('#hocphantienquyet').fadeOut();   
 			}
 
-		});
+		});  
 
 
-		$('#hocphantienquyet ul li').live('click', function() {
+		$('#hocphantienquyet').on('click', 'ul li', function() {
 			$('#hoc-phan-tien-quyet').val(""); 
 			$('#hocphantienquyet').fadeOut(); 
 
@@ -331,7 +352,7 @@
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/get-hoc-phan-kcthp')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -348,7 +369,7 @@
 		});
 
 
-		$('#hocphanhoctruoc ul li').live('click', function() {
+		$('#hocphanhoctruoc').on('click', 'ul li', function() {
 			$('#hoc-phan-hoc-truoc').val(""); 
 			$('#hocphanhoctruoc').fadeOut(); 
 
@@ -387,7 +408,7 @@
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
 					url: "{{URL::to('admin/decuong/get-hoc-phan-kcthp')}}",
-					method: 'post',
+					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
@@ -404,7 +425,7 @@
 		});
 
 
-		$('#hocphansonghanh ul li').live('click', function() {
+		$('#hocphansonghanh').on('click', 'ul li', function() {
 			$('#hoc-phan-song-hanh').val(""); 
 			$('#hocphansonghanh').fadeOut(); 
 
@@ -438,7 +459,7 @@
 
 		
 
-		$('#delete-hp').live('click', function() {
+		$('.dsgvdc').on('click', 'ul li p', function() {
 			$(this).parent('li').remove();
 		});
 

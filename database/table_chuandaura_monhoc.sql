@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 15/08/2021 12:51:18
+ Date: 04/09/2021 22:57:15
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `table_chuandaura_monhoc`  (
   `noi_dung` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `id_decuong` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 509 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 517 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_chuandaura_monhoc
@@ -141,33 +141,8 @@ INSERT INTO `table_chuandaura_monhoc` VALUES (332, 14, 'Rèn luyện kỹ năng 
 INSERT INTO `table_chuandaura_monhoc` VALUES (333, 15, '- Xác định được các tiêu chuẩn xét ổn định, phân tích chất lượng hệ thống và tổng hợp thiết kế hệ thống điều khiển tự động.', 20);
 INSERT INTO `table_chuandaura_monhoc` VALUES (334, 17, 'Rèn luyện được tác phong làm việc tỉ mỉ, nghiêm túc, chủ động, tích cực, chăm chỉ, cẩn thận, chủ động trong học tập, hoàn thành nhiệm vụ học tập.', 20);
 INSERT INTO `table_chuandaura_monhoc` VALUES (335, 17, 'Có tính trung thực và có trách nhiệm trong quá trình làm bài tập cá nhân, làm bài tập nhóm và làm bài kiểm tra. Thực hiện các nhiệm vụ được giao đúng thời gian quy định..', 20);
-INSERT INTO `table_chuandaura_monhoc` VALUES (336, 12, 'Mô tả được sự giống nhau và khác nhau giữa những hệ thống phân bố chuẩn so với hệ thống di động và cảm biến', 40);
-INSERT INTO `table_chuandaura_monhoc` VALUES (337, 13, 'Diễn giải những vấn đề cơ bản để cân bằng sự hạn chế về năng lượng và nhu cầu giao tiếp trên các hệ thống di động và cảm biến', 40);
-INSERT INTO `table_chuandaura_monhoc` VALUES (338, 15, 'asdasdasa', 40);
-INSERT INTO `table_chuandaura_monhoc` VALUES (351, 4, 'Hiểu các khái niệm cơ bản, lịch sử phát triển của Công nghệ phần mềm', 44);
-INSERT INTO `table_chuandaura_monhoc` VALUES (352, 4, 'Hiểu được các mô hình phát triển phần mềm, cách lựa chọn mô hình phù hợp với dự án.', 44);
-INSERT INTO `table_chuandaura_monhoc` VALUES (353, 4, 'Hiểu về kiểm thử & các kỹ thuật kiểm thử', 44);
-INSERT INTO `table_chuandaura_monhoc` VALUES (354, 4, 'Hiểu về triển khai & bảo trì phần mềm', 44);
-INSERT INTO `table_chuandaura_monhoc` VALUES (355, 5, 'Hiểu về yêu cầu và phương pháp thu thập yêu cầu', 44);
-INSERT INTO `table_chuandaura_monhoc` VALUES (356, 5, 'Hiểu về các phương pháp phân tích & đặc tả yêu cầu', 44);
-INSERT INTO `table_chuandaura_monhoc` VALUES (357, 5, 'Hiểu về lập trình & các phương pháp lập trình', 44);
-INSERT INTO `table_chuandaura_monhoc` VALUES (358, 5, 'Hiểu về phương pháp quản lý dự án phần mềm', 44);
-INSERT INTO `table_chuandaura_monhoc` VALUES (366, 1, 'Nắm được các khái niệm cơ bản về hệ cơ sở dữ liệu phân tán; so sánh được những ưu và hạn chế giữa cơ sở dữ liệu tập trung và cơ sở dữ liệu phân tán.', 45);
-INSERT INTO `table_chuandaura_monhoc` VALUES (367, 1, 'Có kiến về các hướng thức tiếp cận và thiết kế một cơ sở dữ liệu phân tán: các phương pháp phân mãnh dữ liệu, nhân bản, điều khiển đồng thời; quản lý giao tác, kiểm soát dữ liệu ngữ nghĩa và truy vấn phân tán', 45);
-INSERT INTO `table_chuandaura_monhoc` VALUES (368, 2, 'Có kiến thức về ứng dụng của CSDL phân tán trong quản lý các tổ chức doanh nghiệp', 45);
-INSERT INTO `table_chuandaura_monhoc` VALUES (369, 4, 'Truy vấn và cập nhật đồng bộ dữ liệu trên các database server.', 45);
-INSERT INTO `table_chuandaura_monhoc` VALUES (370, 5, 'Cài đặt được cơ sở dữ liệu phân tán cho bài toán trên một hệ quản trị CSDL(SQL Server, DB2 IBM, Oracle…)', 45);
-INSERT INTO `table_chuandaura_monhoc` VALUES (371, 6, 'Có kỹ năng làm việc nhóm, kỹ năng thuyết trình một đề tài.', 45);
-INSERT INTO `table_chuandaura_monhoc` VALUES (372, 6, 'Biết tối ưu hóa truy vấn phân tán.', 45);
-INSERT INTO `table_chuandaura_monhoc` VALUES (377, 1, 'a', 47);
 INSERT INTO `table_chuandaura_monhoc` VALUES (386, 12, 'Mô tả được sự giống nhau và khác nhau giữa những hệ thống phân bố chuẩn so với hệ thống di động và cảm biến', 17);
 INSERT INTO `table_chuandaura_monhoc` VALUES (387, 13, 'Diễn giải những vấn đề cơ bản để cân bằng sự hạn chế về năng lượng và nhu cầu giao tiếp trên các hệ thống di động và cảm biến', 17);
-INSERT INTO `table_chuandaura_monhoc` VALUES (388, 20, 'Nắm bắt và hiểu rõ và trình bày được những kiến thức cơ bản trong hoạt động quản trị', 48);
-INSERT INTO `table_chuandaura_monhoc` VALUES (389, 21, 'Giái thích và tóm tắt được các nội dung liên quan đến hoạt động quản trị.', 48);
-INSERT INTO `table_chuandaura_monhoc` VALUES (390, 22, 'Áp dụng những kiến thức đã học để xây dựng một kế hoạch cho hoạt động quản trị, thiết kế bộ máy tổ chức, lãnh đạo và kiểm tra hoạt động của tổ chức', 48);
-INSERT INTO `table_chuandaura_monhoc` VALUES (391, 23, 'Vận dụng được các kỹ năng giao tiếp, kỹ năng tư duy, làm việc nhóm…', 48);
-INSERT INTO `table_chuandaura_monhoc` VALUES (392, 23, 'Có ý thức, trách nhiệm trong công việc và tác phong nghề nghiệp đúng chuẩn mực, chuyên nghiệp.', 48);
-INSERT INTO `table_chuandaura_monhoc` VALUES (393, 24, 'Phát triển được kỹ năng đọc, hiểu các tài liệu chuyên ngành bằng tiếng Anh', 48);
 INSERT INTO `table_chuandaura_monhoc` VALUES (395, 4, 'Hiểu được các khái niệm, cấu trúc, cú pháp của ngôn ngữ Ruby', 50);
 INSERT INTO `table_chuandaura_monhoc` VALUES (396, 4, 'Hiểu được các khái niệm, phương pháp, kỹ thuật lập trình với Ruby On Rails', 50);
 INSERT INTO `table_chuandaura_monhoc` VALUES (397, 5, 'Áp dụng được các phương pháp, cấu trúc và cú pháp của Ruby cũng như Ruby On Rails để phát triển được một phần mềm thực tế.', 50);
@@ -236,7 +211,6 @@ INSERT INTO `table_chuandaura_monhoc` VALUES (467, 2, 'Nắm vững kiến thứ
 INSERT INTO `table_chuandaura_monhoc` VALUES (468, 4, 'Áp dụng kiến thức để giải quyết các bài toán tin học', 66);
 INSERT INTO `table_chuandaura_monhoc` VALUES (469, 5, 'Rèn luyện các kỹ năng giải quyết vấn đề, tư duy, giao tiếp và tự học.', 66);
 INSERT INTO `table_chuandaura_monhoc` VALUES (470, 5, 'Rèn luyện thái độ và trách nhiệm trong học tập.', 66);
-INSERT INTO `table_chuandaura_monhoc` VALUES (471, 1, 'a', 67);
 INSERT INTO `table_chuandaura_monhoc` VALUES (472, 5, 'Phân tích những quan điểm cơ bản của chủ nghĩa Mác - Lênin về sứ mệnh lịch sử của giai cấp công nhân; cơ cấu xã hội - giai cấp trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam.', 68);
 INSERT INTO `table_chuandaura_monhoc` VALUES (473, 6, 'Giải quyết được các vấn đề về chủ nghĩa xã hội, thời kỳ quá độ lên chủ nghĩa xã hội; các vấn đề về dân chủ xã hội chủ nghĩa và nhà nước xã hội chủ nghĩa dựa trên quan điểm của chủ nghĩa Mác - Lênin.', 68);
 INSERT INTO `table_chuandaura_monhoc` VALUES (474, 38, 'Giải thích được quan điểm của chủ nghĩa Mác-Lênin về các vấn đề dân tộc, tôn giáo và gia đình trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam.', 68);
@@ -266,13 +240,12 @@ INSERT INTO `table_chuandaura_monhoc` VALUES (497, 5, 'Nghe và hiểu những
 INSERT INTO `table_chuandaura_monhoc` VALUES (498, 6, 'Đọc được những đoạn văn rất ngắn và đơn giản; tìm được thông tin cụ thể và có thể dự đoán được trong những mẩu tin hàng ngày như tin quảng cáo, thực đơn và thời gian biểu; hiểu được thư tín cá nhân viết ngắn gọn, đơn giản.', 74);
 INSERT INTO `table_chuandaura_monhoc` VALUES (499, 6, 'Giao tiếp được về những công việc đơn giản hàng ngày, trao đổi thông tin trực tiếp và đơn giản về các chủ đề thuộc như ẩm thực, nhà hàng, địa điểm, quốc gia, danh nhân và hoạt động quen thuộc; trao đổi rất ngắn gọn về những vấn đề xã hội, mặc dù bản thân chưa thể hiểu đầy đủ để tự mình có thể duy trì cuộc nói chuyện.', 74);
 INSERT INTO `table_chuandaura_monhoc` VALUES (500, 38, 'Viết được những ghi chú và tin nhắn đơn giản và ngắn; viết một bức thư cá nhân rất đơn giản, ví dụ như thư cảm ơn ai đó về việc gì.', 74);
-INSERT INTO `table_chuandaura_monhoc` VALUES (501, 4, 'Hiểu được các định nghĩa về dữ liệu và cơ sở dữ liệu.', 75);
-INSERT INTO `table_chuandaura_monhoc` VALUES (502, 4, 'Hiểu được quan hệ dữ liệu và các phép toán tương ứng.', 75);
-INSERT INTO `table_chuandaura_monhoc` VALUES (503, 5, 'Vận dụng kiến thức để thực hiện các phép toán quan hệ.', 75);
-INSERT INTO `table_chuandaura_monhoc` VALUES (504, 5, 'Phát triển ý thức làm việc trong môi trường chuyên nghiệp.', 75);
-INSERT INTO `table_chuandaura_monhoc` VALUES (505, 6, 'Áp dụng được kiến thức đã học để truy vấn dữ liệu từ đó giải quyết các bài toán liên quan.', 75);
 INSERT INTO `table_chuandaura_monhoc` VALUES (506, 5, 'Nắm vững được cách lập trình Server Side.', 76);
 INSERT INTO `table_chuandaura_monhoc` VALUES (507, 6, 'Vận dụng kiến thức đã học vào việc lập trình website động, thiết kế tương tác và cơ sở dữ liệu.', 76);
 INSERT INTO `table_chuandaura_monhoc` VALUES (508, 38, 'Sử dụng thuần thục Framework, mã nguồn mở phát triển ứng dụng Website động.', 76);
+INSERT INTO `table_chuandaura_monhoc` VALUES (513, 5, 'Nghe và hiểu những cụm từ và những từ liên quan đến lĩnh vực cá nhân được sử dụng thường xuyên (ví dụ: thông tin rất cơ bản về cá nhân và gia đình, khu vực địa phương, các quốc gia, các loại thực phẩm); nắm được ý chính trong các tin nhắn và thông báo ngắn, đơn giản, rõ ràng.', 78);
+INSERT INTO `table_chuandaura_monhoc` VALUES (514, 6, 'Đọc được những đoạn văn rất ngắn và đơn giản; tìm được thông tin cụ thể và có thể dự đoán được trong những mẩu tin hàng ngày như tin quảng cáo, thực đơn và thời gian biểu; hiểu được thư tín cá nhân viết ngắn gọn, đơn giản.', 78);
+INSERT INTO `table_chuandaura_monhoc` VALUES (515, 6, 'Giao tiếp được về những công việc đơn giản hàng ngày, trao đổi thông tin trực tiếp và đơn giản về các chủ đề thuộc như ẩm thực, nhà hàng, địa điểm, quốc gia, danh nhân và hoạt động quen thuộc; trao đổi rất ngắn gọn về những vấn đề xã hội, mặc dù bản thân chưa thể hiểu đầy đủ để tự mình có thể duy trì cuộc nói chuyện.', 78);
+INSERT INTO `table_chuandaura_monhoc` VALUES (516, 38, 'Viết được những ghi chú và tin nhắn đơn giản và ngắn; viết một bức thư cá nhân rất đơn giản, ví dụ như thư cảm ơn ai đó về việc gì.', 78);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -3,15 +3,15 @@
 
  Source Server         : Mysql_DB
  Source Server Type    : MySQL
- Source Server Version : 100417
+ Source Server Version : 100138
  Source Host           : localhost:3306
  Source Schema         : demovku
 
  Target Server Type    : MySQL
- Target Server Version : 100417
+ Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 13/08/2021 21:15:54
+ Date: 04/09/2021 22:57:33
 */
 
 SET NAMES utf8mb4;
@@ -39,12 +39,11 @@ CREATE TABLE `table_giangvien`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 223 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 224 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_giangvien
 -- ----------------------------
-INSERT INTO `table_giangvien` VALUES (0, '', 'Chuyên viên ', 'Đào tạo', 1, 1, 'todaotao', '', '0000-00-00 00:00:00', '', 'ThS', '', '', '', NULL, NULL);
 INSERT INTO `table_giangvien` VALUES (1, '', 'Lê Văn ', 'Minh', 1, 1, 'lvminh', '', '0000-00-00 00:00:00', '0983830604', 'TS', 'lvminh@vku.udn.vn', NULL, NULL, NULL, NULL);
 INSERT INTO `table_giangvien` VALUES (2, '', 'Văn Đỗ Cẩm', 'Vân', 1, 1, 'vdcvan', '', '0000-00-00 00:00:00', '', 'ThS', 'vdcvan@vku.udn.vn', NULL, NULL, NULL, NULL);
 INSERT INTO `table_giangvien` VALUES (3, '', 'Trần Thị ', 'Kiều', 1, 1, 'ttkieu', '', '0000-00-00 00:00:00', '', 'ThS', 'ttkieu@vku.udn.vn', NULL, NULL, NULL, NULL);
@@ -256,5 +255,6 @@ INSERT INTO `table_giangvien` VALUES (219, '', 'Hoàng Thị', 'Trang', 3, 1, 'h
 INSERT INTO `table_giangvien` VALUES (220, '', 'Phạm Thị Lệ', 'Diễm', 3, 1, 'ptldiem', '', '0000-00-00 00:00:00', '', 'CN', 'eunhedt@gmail.com', NULL, NULL, NULL, NULL);
 INSERT INTO `table_giangvien` VALUES (221, '', 'Bùi Thị Kim', 'Ngân', 3, 1, 'btkngan', '', '0000-00-00 00:00:00', '', 'CN', 'kina307@gmail.com', NULL, NULL, NULL, NULL);
 INSERT INTO `table_giangvien` VALUES (222, '', 'Văn Ngọc', 'Dương', 3, 1, 'vnduong', '', '0000-00-00 00:00:00', '', 'KS', 'vnduongit@gmail.com', NULL, NULL, NULL, NULL);
+INSERT INTO `table_giangvien` VALUES (223, '', 'Chuyên viên ', 'Đào tạo', 1, 1, 'todaotao', '', '0000-00-00 00:00:00', '', 'ThS', '', '', '', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

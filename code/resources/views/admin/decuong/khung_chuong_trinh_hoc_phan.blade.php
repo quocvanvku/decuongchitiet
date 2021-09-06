@@ -38,7 +38,7 @@
                         </tr>
                     </thead> 
 
-                    <tbody> 
+                    <tbody id="body-khung-chuong-trinh-hoc-phan"> 
                         <?php $cr_hocky = 0; ?>
                         @foreach($all_kct_hocphan as $value_kct_hocphan)
 
@@ -110,70 +110,7 @@
           return false;
         });
 
-        $('.cl-3 #edit-cdr').live('click',function() {
-            var id_cdr_chung = this.dataset.value;
-            var noidung = document.getElementById("noidung-cdr-"+id_cdr_chung).value;
-			
-            if (noidung.trim() == '') {
-                alert("Nội dung trống !!! Vui lòng nhập nội dung để tiếp tục");
-            } else {
-                var _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url: "{{URL::to('admin/decuong/sua-chuan-dau-ra-chung')}}",
-                    method: 'GET',
-                    data:{id_cdr_chung:id_cdr_chung, noidung:noidung,  _token:_token},
-                    success: function(data) {
-                        if (data != null) {
-                            location.reload();
-                        }   
-                    }
-                });
-            }
-
-        });
-
-        $('.cl-3 #delete-cdr').live('click',function() {
-            var id_cdr_chung = this.dataset.value;
-            var noidung = document.getElementById("noidung-cdr-"+id_cdr_chung).value;
-
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: "{{URL::to('admin/decuong/xoa-chuan-dau-ra-chung')}}",
-                method: 'GET',
-                data:{id_cdr_chung:id_cdr_chung, noidung:noidung,  _token:_token},
-                success: function(data) {
-                    if (data != null) {
-                        location.reload();
-                    }   
-                }
-            });
-
-        });
-
-        $('.cl-3 #add-cdr').live('click',function() {
-
-            var id_nganh = this.dataset.value;
-            var noidung = document.getElementById("noidung-cdr").value;
-
-            if (noidung.trim() == '') {
-                alert("Nội dung trống !!! Vui lòng nhập nội dung để tiếp tục");
-            } else {
-                var _token = $('input[name="_token"]').val();
-            
-                $.ajax({
-                    url: "{{URL::to('admin/decuong/them-chuan-dau-ra-chung')}}",
-                    method: 'post',
-                    data:{id_nganh:id_nganh, noidung:noidung,  _token:_token},
-                    success: function(data) {
-                        if (data != null) {
-                            location.reload();
-                        }   
-                    }
-                });
-            }
-        });
-
-        $('#up-stt').live('click',function() {
+        $('#body-khung-chuong-trinh-hoc-phan').on('click', 'tr td span#up-stt',function() {
 
             var vl_kct = this.dataset.value;
             var mang_kct = vl_kct.split("_");
@@ -196,7 +133,7 @@
 
         });
 
-        $('#down-stt').live('click',function() {
+        $('#body-khung-chuong-trinh-hoc-phan').on('click', 'tr td span#down-stt',function() {
             
             var vl_kct = this.dataset.value;
             var mang_kct = vl_kct.split("_");

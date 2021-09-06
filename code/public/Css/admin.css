@@ -93,6 +93,7 @@ html, body, input, select {
 	color: #a2a3b7;
 	margin: 0px;
 	padding: 12px 20px;
+	font-size: 15px;
 }
 
 .admin .aside-left .menu-ad-nav .menu-ad-item > ul {
@@ -104,12 +105,16 @@ html, body, input, select {
 
 .admin .aside-left .menu-ad-nav .menu-ad-item > ul > li {
 	list-style-type: square;
+	width: 100%;
 }
 
 .admin .aside-left .menu-ad-nav .menu-ad-item > ul > li > p {
-	padding: 9px 45px;
+	width: 100%;
+	padding: 9px 40px;
 	margin: 0px;
+	font-size: 14px;
 }
+
 
 .admin .aside-left .menu-ad-nav .menu-ad-item > ul li:hover {
 	background: #1a1a27;

@@ -43,6 +43,7 @@
 					<ul class="sub-menu-ad-item">
 						<li><p><a href="{{URL::to('admin/decuong/them-moi-de-cuong')}}">Thêm đề cương</a></p></li>
 						<li><p><a href="{{URL::to('admin/decuong/khung-chuong-trinh/142')}}">Khung chương trình</a></p></li>
+						<li><p><a href="{{URL::to('admin/decuong/khoi-kien-thuc/142')}}">Khối kiến thức</a></p></li>
 						<li><p><a href="{{URL::to('admin/decuong/khgd-khung-chuong-trinh/142')}}">Kế hoạch giảng dạy</a></p></li>
 						<!-- <li><p><a href="{{URL::to('admin/decuong/danh-sach-de-cuong/0/146')}}">Danh sách đề cương</a></p></li> -->
 						<!-- <li><p><a href="{{URL::to('admin/decuong/danh-sach-chuan-dau-ra-chung')}}">Chuẩn đầu ra chung</a></p></li> -->
@@ -55,6 +56,13 @@
 					<ul class="sub-menu-ad-item">
 						<li><p><a href="{{URL::to('admin/decuong/danh-sach-khung-chuong-trinh-hoc-phan/142')}}"> Danh sách khung chương trình học phần</a></p></li>
 						<li><p><a href="{{URL::to('admin/decuong/them-hoc-phan-khung-chuong-trinh')}}"> Thêm học phần cho khung chương trình</a></p></li>
+					</ul>
+				</li>
+				<li class="menu-ad-item">
+					<p>Thống kê</p>
+					<i class="icon-menu-ad-item fas fa-chevron-right"></i>
+					<ul class="sub-menu-ad-item">
+						<li><p><a href="{{URL::to('admin/decuong/thong-ke-khung')}}">Thống kê khung chương trình</a></p></li>
 					</ul>
 				</li>
 				<li class="menu-ad-item">

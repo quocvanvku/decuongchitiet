@@ -20,7 +20,11 @@
                         <option value="{{$value_all_khungchuongtrinh->id}}" <?php if($id_khungchuongtrinh == $value_all_khungchuongtrinh->id) echo "selected" ?> >{{$value_all_khungchuongtrinh->tenkhungchuongtrinh}}</option>
                         @endif
                     @endforeach
-                </select>
+                </select> 
+
+                <div class="title-table">
+                    <i class="fas fa-list"></i><span>Danh mục Khung chương trình</span>
+                </div>
 
                 <table class="table-danh-sach">
                     <thead> 
@@ -82,6 +86,44 @@
                         </div>
                     </div>
                         
+                </table>
+
+                <div class="title-table">
+                    <i class="fas fa-list"></i><span>Danh mục Học phần thay thế</span>
+                </div>
+
+                <table class="table-danh-sach">
+                    <thead> 
+                        <tr style="background: #4e667d;">
+                            <td>STT</td>
+                            <td>Học kỳ</td>
+                            <td>Mã học phần</td>
+                            <td>Tên học phần</td>
+                            <td>Số tín chỉ</td>
+                            <td>Thay thế cho học phần</td>
+                        </tr>
+                    </thead> 
+
+                    <tbody>
+                        @if(count($all_hocphan_thaythe) > 0)
+                            <?php $stt_tt = 1; ?>
+                            @foreach($all_hocphan_thaythe as $value_all_hocphan_thaythe)
+                            <tr>
+                                <td>{{$stt_tt++}}</td>
+                                <td>{{$value_all_hocphan_thaythe->hocky}}</td>
+                                <td>{{$value_all_hocphan_thaythe->mahocphan_thaythe}}</td>
+                                <td>{{$value_all_hocphan_thaythe->tenhocphan_thaythe}}</td>
+                                <td>{{$value_all_hocphan_thaythe->soTC_thaythe}}</td>
+                                <td>{{$value_all_hocphan_thaythe->tenhocphan}}</td>
+                            </tr>
+                            @endforeach
+                        @else
+                            <tr style="text-align: center;">
+                                <td colspan="6">Không có học phần thay thế nào trong CTĐT</td>
+                            </tr>
+                        @endif
+                    </tbody>
+
                 </table>
 
             </div>

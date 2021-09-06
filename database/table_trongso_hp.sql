@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 15/08/2021 12:52:50
+ Date: 04/09/2021 22:58:46
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `table_trongso_hp`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6355 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6363 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_trongso_hp
@@ -76,30 +76,14 @@ INSERT INTO `table_trongso_hp` VALUES (6191, 21, 1, 0.10, 0, 146, NULL, NULL, NU
 INSERT INTO `table_trongso_hp` VALUES (6192, 21, 2, 0.10, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6193, 21, 3, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6194, 21, 4, 0.50, 0, 146, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6215, 46, 1, 0.10, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6216, 46, 2, 0.20, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6217, 46, 3, 0.20, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6218, 46, 4, 0.50, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6219, 114, 1, 0.10, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6220, 114, 2, 0.20, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6221, 114, 3, 0.20, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6222, 114, 4, 0.50, 0, 149, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6223, 111, 1, 0.10, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6224, 111, 2, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6225, 111, 3, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6226, 111, 4, 0.50, 0, 146, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6227, 111, 1, 0.10, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6228, 111, 2, 0.20, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6229, 111, 3, 0.20, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6230, 111, 4, 0.50, 0, 149, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6231, 15, 1, 0.10, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6232, 15, 2, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6233, 15, 3, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6234, 15, 4, 0.50, 0, 146, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6235, 4, 1, 0.10, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6236, 4, 2, 0.20, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6237, 4, 3, 0.20, 0, 149, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6238, 4, 4, 0.50, 0, 149, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6239, 47, 1, 0.10, 0, 147, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6240, 47, 2, 0.10, 0, 147, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6241, 47, 3, 0.20, 0, 147, NULL, NULL, NULL);
@@ -160,10 +144,6 @@ INSERT INTO `table_trongso_hp` VALUES (6303, 3, 1, 0.10, 0, 146, NULL, NULL, NUL
 INSERT INTO `table_trongso_hp` VALUES (6304, 3, 2, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6305, 3, 3, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6306, 3, 4, 0.50, 0, 146, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6307, 7, 1, 0.10, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6308, 7, 2, 0.20, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6309, 7, 3, 0.20, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6310, 7, 4, 0.50, 0, 142, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6311, 91, 1, 0.10, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6312, 91, 2, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6313, 91, 3, 0.20, 0, 146, NULL, NULL, NULL);
@@ -200,13 +180,13 @@ INSERT INTO `table_trongso_hp` VALUES (6343, 12, 1, 0.20, 0, 146, NULL, NULL, NU
 INSERT INTO `table_trongso_hp` VALUES (6344, 12, 2, 0.00, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6345, 12, 3, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6346, 12, 4, 0.60, 0, 146, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6347, 6, 1, 0.10, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6348, 6, 2, 0.10, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6349, 6, 3, 0.30, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6350, 6, 4, 0.50, 0, 142, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6351, 31, 1, 0.10, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6352, 31, 2, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6353, 31, 3, 0.20, 0, 146, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6354, 31, 4, 0.50, 0, 146, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6359, 12, 1, 0.20, 0, 156, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6360, 12, 2, 0.00, 0, 156, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6361, 12, 3, 0.20, 0, 156, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6362, 12, 4, 0.60, 0, 156, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

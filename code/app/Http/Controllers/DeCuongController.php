@@ -1634,10 +1634,32 @@ class DeCuongController extends Controller
 
         }
 
+        $all_hocphan_thaythe = DB::table('table_khungchuongtrinh_hocphan')
+                                ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
+                                ->where('table_khungchuongtrinh_hocphan.id_khung', $id_khungchuongtrinh)
+                                ->where('table_khungchuongtrinh_hocphan.id_hocphan_thaythe', '!=', '')
+                                ->orderBy('table_khungchuongtrinh_hocphan.hocky', "ASC")
+                                ->get();
+
+        foreach($all_hocphan_thaythe as $value_all_hocphan_thaythe) {
+
+            $hocphanthaythe = DB::table('table_hocphan')
+                                ->where('id', $value_all_hocphan_thaythe->id_hocphan_thaythe)
+                                ->first();
+
+            if ($hocphanthaythe) {
+                $value_all_hocphan_thaythe->mahocphan_thaythe = $hocphanthaythe->mahocphan;
+                $value_all_hocphan_thaythe->tenhocphan_thaythe = $hocphanthaythe->tenhocphan;
+                $value_all_hocphan_thaythe->soTC_thaythe = $hocphanthaythe->soTC;
+            }
+
+        }
+
         return view('admin.decuong.khung_chuong_trinh')
                 ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
                 ->with('id_khungchuongtrinh', $id_khungchuongtrinh)
-                ->with('all_kct_hocphan', $all_kct_hocphan);
+                ->with('all_kct_hocphan', $all_kct_hocphan)
+                ->with('all_hocphan_thaythe', $all_hocphan_thaythe);
     }
 
     public function khgd_khungchuongtrinh($id_khungchuongtrinh) {
@@ -1775,8 +1797,13 @@ class DeCuongController extends Controller
 
     public function themhocphankhungchuongtrinh() {
         $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
-
         $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
+
+        $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc')->get();
+
+        echo "<pre>";
+        print_r($all_khoiluongkienthuc);
+        die();
 
         return view('admin.decuong.them_hocphan_khungchuongtrinh')
                 ->with('all_khungchuongtrinh', $all_khungchuongtrinh);
@@ -1784,13 +1811,33 @@ class DeCuongController extends Controller
 
     public function themhocphankhungchuongtrinh2($id_khung) {
         $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
-
         $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
+
+        $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc')->get();
+        $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
 
         return view('admin.decuong.them_hocphan_khungchuongtrinh')
                 ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
-                ->with('id_khung', $id_khung);
+                ->with('id_khung', $id_khung)
+                ->with('all_khoiluongkienthuc', $all_khoiluongkienthuc);
     }
+
+    public function data_khoiluongkienthuc($data, $parent_id = 0, $level = 0) {
+        $result = [];
+        foreach($data as $item) {
+            if($item->isKhoiluongkienthuc == $parent_id) {
+                $item->level = $level;
+                $result[] = $item;
+                $child = $this->data_khoiluongkienthuc($data, $item->id, $level + 1);                
+                if($child) {
+                    $item->hasChild = 1;
+                    $result = array_merge($result, $child);
+                }
+            }
+        }
+        return $result;
+    }
+
 
     public function insert_themhocphankhungchuongtrinh(Request $request) {
         $data = $request->all();
@@ -1862,6 +1909,7 @@ class DeCuongController extends Controller
             $khungchuongtrinh_hocphan->hoctruoc = $rs_list_hpht;
             $khungchuongtrinh_hocphan->songhanh = $rs_list_hpsh;
             $khungchuongtrinh_hocphan->tuchon = (int)$data['tuchon'];
+            $khungchuongtrinh_hocphan->khoikienthuc = $data['khoiluongkienthuc'];
 
             $khungchuongtrinh_hocphan->save();
 
@@ -1938,8 +1986,12 @@ class DeCuongController extends Controller
             }
         }
 
+        $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc')->get();
+        $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
+
         return view('admin.decuong.sua_hocphan_khungchuongtrinh')
                 ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
+                ->with('all_khoiluongkienthuc', $all_khoiluongkienthuc)
                 ->with('all_kct', $all_kct)
                 ->with('list_hptt', $list_hptt)
                 ->with('list_hptq', $list_hptq)
@@ -1995,12 +2047,12 @@ class DeCuongController extends Controller
         $khungchuongtrinh_hocphan->hoctruoc = $rs_list_hpht;
         $khungchuongtrinh_hocphan->songhanh = $rs_list_hpsh;
         $khungchuongtrinh_hocphan->tuchon = (int)$data['tuchon'];
+        $khungchuongtrinh_hocphan->khoikienthuc = $data['khoiluongkienthuc'];
 
         $khungchuongtrinh_hocphan->save();
 
         return Redirect::to('/admin/decuong/danh-sach-khung-chuong-trinh-hoc-phan/'.$data['khungchuongtrinh']);
 
-        
     }
 
     public function xoahocphankhungchuongtrinh($id_kct_hp) {
@@ -2201,6 +2253,50 @@ class DeCuongController extends Controller
                 ->with('chuandaura', $chuandaura)
                 ->with('all_decuong', $all_decuong)
                 ->with('nganh', $nganh);
+    }
+
+    public function khoikienthuc($id_khung) {
+
+        $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
+        $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
+
+        $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc')->get();
+        $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
+
+        
+
+        foreach($all_khoiluongkienthuc as $value_all_klkt) {
+
+            $all_hp_klkt = DB::table('table_khungchuongtrinh_hocphan')
+                            ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
+                            ->where('table_khungchuongtrinh_hocphan.id_khung', $id_khung)
+                            ->where('table_khungchuongtrinh_hocphan.khoikienthuc', $value_all_klkt->id)
+                            ->get();
+
+            //$hp_klkt = new stdClass;
+
+            foreach($all_hp_klkt as $value_all_hp_klkt) {
+                $hp_klkt = new stdClass;
+                $hp_klkt->id_hocphan = $value_all_hp_klkt->id_hocphan;
+                $hp_klkt->hocky = $value_all_hp_klkt->hocky;
+                $hp_klkt->tenhocphan = $value_all_hp_klkt->tenhocphan;
+                $hp_klkt->soTC = $value_all_hp_klkt->soTC;
+
+                $value_all_klkt->hp_klkt[] = $hp_klkt;
+            }
+
+            //$value_all_klkt->hp_klkt = $hp_klkt;
+
+        }
+
+        // echo "<pre>";
+        // print_r($all_khoiluongkienthuc);
+        // die();
+
+        return view('admin.decuong.khoikienthuc')
+                    ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
+                    ->with('id_khung', $id_khung)
+                    ->with('all_khoiluongkienthuc', $all_khoiluongkienthuc);
     }
 
 

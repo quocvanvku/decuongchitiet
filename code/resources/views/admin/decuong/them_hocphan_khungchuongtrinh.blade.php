@@ -134,7 +134,26 @@
 
 						<tr>
 							<td>
-								<p class="">8. Học phần tự chọn</p>
+								<p>8. Thuộc khối kiến thức</p>
+							</td>
+							<td>
+								<select name="khoiluongkienthuc" multiple id="select_khoiluongkienthuc" required="">
+									@foreach($all_khoiluongkienthuc as $value_all_khoiluongkienthuc)
+										@if(isset($value_all_khoiluongkienthuc->hasChild))
+											<option disabled >{{$value_all_khoiluongkienthuc->tenkhoiluongkienthuc}}</option>
+										@elseif($value_all_khoiluongkienthuc->level == 0)
+											<option value="{{$value_all_khoiluongkienthuc->id}}">{{$value_all_khoiluongkienthuc->tenkhoiluongkienthuc}}</option>
+										@elseif($value_all_khoiluongkienthuc->level == 1)
+											<option value="{{$value_all_khoiluongkienthuc->id}}">|____{{$value_all_khoiluongkienthuc->tenkhoiluongkienthuc}}</option>			
+										@endif
+									@endforeach
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<p class="">9. Học phần tự chọn</p>
 							</td>
 							<td>
 								<select name="tuchon" multiple id="select_hp_tuchon" required="" style="margin-left:0px;">

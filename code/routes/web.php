@@ -89,8 +89,16 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('up-kct-hp', 'DeCuongAjax@up_kct_hp');
         Route::get('down-kct-hp', 'DeCuongAjax@down_kct_hp'); 
 
+        //Khoi kien thuc
+        Route::get('khoi-kien-thuc/{id_khung}', 'DeCuongController@khoikienthuc');
+
         #ma tran chuan dau ra
         Route::get('/ma-tran-chuan-dau-ra/{id_nganh}', 'DeCuongController@matran_chuandaura');
+
+        Route::get('/thong-ke-khung', 'ThongKeKhung@thongkekhung');
+        Route::get('/thong-ke-khung-chi-tiet/{id_khung}', 'ThongKeKhung@thongkekhungchitiet');
+
+        Route::get('/test', 'ThongKeKhung@test');
 
         
     });
