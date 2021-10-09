@@ -13,6 +13,8 @@ use App\Models\thanhphandanhgia;
 use App\Models\kehoachgiangday;
 use App\Models\trongsohocphan;
 use App\Models\khungchuongtrinhhocphan;
+use App\Models\tailieuthamkhao;
+use App\Models\moilienhecloplo;
 use DB;
 use Redirect;
 use Session;
@@ -43,7 +45,7 @@ class DeCuongController extends Controller
             ->with('all_decuong', $all_decuong);
     }
 
-    public function chinhsuathemmoi($id_decuong) {
+    public function chinhsuathemmoi($id_decuong, $id_khung) {
         $all_decuong = DB::table('table_decuongchitiet')
         ->join('table_hocphan', 'table_hocphan.id', 'table_decuongchitiet.id_hocphan')
         ->join('table_giangvien', 'table_giangvien.id', 'table_decuongchitiet.giangvienphutrach_id')
@@ -56,35 +58,131 @@ class DeCuongController extends Controller
 
         $all_nganh = DB::table('table_nganh')->get();
 
-        $id_gvdc1 = explode("_", $all_decuong->gv_daycung);
-
         $list_gvdc = [];
 
-        foreach ($id_gvdc1 as $value) {
-            $gv = DB::table('table_giangvien')->where('id', $value)->first();
-            $child = [];
-            $child["id_gv"] = $gv->id;
-            $child["ten_gv"] = $gv->hodem." ".$gv->ten;
-            $list_gvdc[] = $child;
+        if(!empty($all_decuong->gv_daycung)) {
+
+            $id_gvdc1 = explode("_", $all_decuong->gv_daycung);
+
+            if(!empty($id_gvdc1)) {
+                foreach ($id_gvdc1 as $value) {
+                    $gv = DB::table('table_giangvien')->where('id', $value)->first();
+                    $child = [];
+                    $child["id_gv"] = $gv->id;
+                    $child["ten_gv"] = $gv->hodem." ".$gv->ten;
+                    $list_gvdc[] = $child;
+                }
+            }
         }
 
         $all_cdr_nganh = DB::table('table_chuandaura_chung')->where('id_nganh', $all_decuong->id_nganh)->get();
 
-        $all_chuandaura = DB::table('table_chuandaura_monhoc')->where('id_decuong', $id_decuong)
-        ->distinct()->get();
+        $all_clo = DB::table('table_chuandaura_monhoc')
+                    ->where('id_hocphan', $all_decuong->id_hocphan)
+                    ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
+                    ->get();
 
-        $all_cdr_chung = DB::table('table_chuandaura_chung')->get();
+        $all_clo_moi = DB::table('table_chuandaura_monhoc')
+                                ->where('id_hocphan', $all_decuong->id_hocphan)
+                                ->where('khungchuongtrinh', $id_khung)
+                                ->get();
+
+        if(!empty($all_clo)) {
+            foreach($all_clo as $value_all_clo) {
+
+                $check = 0;
+
+                if(!empty($all_clo_moi)) {
+                    foreach($all_clo_moi as $value_all_clo_moi) {
+                        if($value_all_clo->stt == $value_all_clo_moi->stt && $value_all_clo->noi_dung == $value_all_clo_moi->noi_dung) {
+                            $check = 1;
+                            break;
+                        } else {
+                            $check = 0;
+                        }
+                    }
+                }
+
+                if ($check == 0) {
+                    $save_clo = new chuandauramonhoc;
+                    $save_clo->stt = $value_all_clo->stt;
+                    $save_clo->noi_dung = $value_all_clo->noi_dung;
+                    $save_clo->id_hocphan = $value_all_clo->id_hocphan;
+                    $save_clo->khungchuongtrinh = $id_khung;
+                    $save_clo->save();
+                }
+
+            }
+        }
+
+        $all_moilienhe_cloplo = DB::table('table_moilienhe_clo_plo')
+                    ->where('id_hocphan', $all_decuong->id_hocphan)
+                    ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
+                    ->get();
+
+        $all_moilienhe_cloplo_moi = DB::table('table_moilienhe_clo_plo')
+                                    ->where('id_hocphan', $all_decuong->id_hocphan)
+                                    ->where('khungchuongtrinh', $id_khung)
+                                    ->get();
+
+        if(!empty($all_moilienhe_cloplo)) {
+            foreach($all_moilienhe_cloplo as $value_all_moilienhe_cloplo) {
+
+                $check = 0;
+
+                if(!empty($all_moilienhe_cloplo_moi)) {
+                    foreach($all_moilienhe_cloplo_moi as $value_all_moilienhe_cloplo_moi) {
+                        if($value_all_moilienhe_cloplo->id_chuandaura_chung == $value_all_moilienhe_cloplo_moi->id_chuandaura_chung 
+                        && $value_all_moilienhe_cloplo->id_chuandaura_monhoc == $value_all_moilienhe_cloplo_moi->id_chuandaura_monhoc
+                        && $value_all_moilienhe_cloplo->mucdo == $value_all_moilienhe_cloplo_moi->mucdo) {
+                            $check = 1;
+                            break;
+                        } else {
+                            $check = 0;
+                        }
+                    }
+                }
+
+                if ($check == 0) {
+                    $moilienhe = new moilienhecloplo;
+                    $moilienhe->id_chuandaura_chung = $value_all_moilienhe_cloplo->id_chuandaura_chung;
+                    $moilienhe->id_chuandaura_monhoc = $value_all_moilienhe_cloplo->id_chuandaura_monhoc;
+                    $moilienhe->mucdo = $value_all_moilienhe_cloplo->mucdo;
+                    $moilienhe->id_hocphan = $value_all_moilienhe_cloplo->id_hocphan;
+                    $moilienhe->khungchuongtrinh = $id_khung;
+                    $moilienhe->save();
+                }
+
+            }
+        }
+
+        $ten_hocphan = DB::table('table_hocphan')->where('id', $all_decuong->id_hocphan)->first()->tenhocphan;
+
+        $all_tltk_giaotrinh = DB::table('table_tailieuthamkhao')
+                ->where('loaitailieu', 0)
+                ->where('id_hocphan', $all_decuong->id_hocphan)
+                ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
+                ->get();
+
+        $all_tltk_sach = DB::table('table_tailieuthamkhao')
+                ->where('loaitailieu', 1)
+                ->where('id_hocphan', $all_decuong->id_hocphan)
+                ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
+                ->get();
 
         return view('admin.decuong.chinhsua_themmoi')
-            ->with('all_cdr_chung', $all_cdr_chung)
             ->with('all_decuong', $all_decuong)
             ->with('list_gvdc', $list_gvdc)
-            ->with('all_chuandaura', $all_chuandaura)
             ->with('all_nganh', $all_nganh)
             ->with('all_cdr_nganh', $all_cdr_nganh)
             ->with('khungchuongtrinh', $khungchuongtrinh)
             ->with('khungchuongtrinhhientai', $khungchuongtrinhhientai)
-            ->with('id_decuong_hientai', $id_decuong);
+            ->with('id_decuong_hientai', $id_decuong)
+            ->with('all_tltk_giaotrinh', $all_tltk_giaotrinh)
+            ->with('all_tltk_sach', $all_tltk_sach)
+            ->with('ten_hocphan', $ten_hocphan)
+            ->with('id_hocphan', $all_decuong->id_hocphan)
+            ->with('id_khung', $id_khung);
     }
 
     public function insert_chinhsuathemmoi(Request $request) {
@@ -128,28 +226,48 @@ class DeCuongController extends Controller
             $de_cuong->muctieu_kynang = $data['muctiey_kynang'];
             $de_cuong->muctieu_thaido = $data['muctieu_thaido'];
             $de_cuong->nhiemvu = $data['nhiemvu'];
-            $de_cuong->tailieuthamkhao_giaotrinh = $data['tltk_giaotrinh'];
-            $de_cuong->tailieuthamkhao_sach = $data['tltk_sach'];
+            //$de_cuong->tailieuthamkhao_giaotrinh = $data['tltk_giaotrinh'];
+            //$de_cuong->tailieuthamkhao_sach = $data['tltk_sach'];
             $de_cuong->ngaypheduyet = strtotime($data['ngay_phe_duyet']);
 
             $de_cuong->save();
 
-            $id_de_cuong = $de_cuong->id_decuong;
+            $tltk_giaotrinh = $this->array_2d($request->tai_lieu_tham_khao_giao_trinh, 6);
 
-            $cdr_monhoc = $this->array_2d($request->list_cdr, 2);
-
-            foreach($cdr_monhoc as $value_cdr_monhoc) {
-                if(isset($value_cdr_monhoc[1])) {
-                    if (trim($value_cdr_monhoc[1]) != '') {
-                        $chuandaura_monhoc = new chuandauramonhoc;
-                        $chuandaura_monhoc->id_cdr_chung = $value_cdr_monhoc[0];
-                        $chuandaura_monhoc->noi_dung = $value_cdr_monhoc[1];
-                        $chuandaura_monhoc->id_decuong = $id_de_cuong;
-                        $chuandaura_monhoc->save();
-                    }
+            if(!empty($tltk_giaotrinh)) {
+                foreach($tltk_giaotrinh as $value_tltk_giaotrinh) {
+                    $tailieuthamkhao_giaotrinh = new tailieuthamkhao;
+                    $tailieuthamkhao_giaotrinh->tentacgia = $value_tltk_giaotrinh[0];
+                    $tailieuthamkhao_giaotrinh->namxuatban = $value_tltk_giaotrinh[1];
+                    $tailieuthamkhao_giaotrinh->tensach = $value_tltk_giaotrinh[2];
+                    $tailieuthamkhao_giaotrinh->noixuatban = $value_tltk_giaotrinh[3];
+                    $tailieuthamkhao_giaotrinh->nhaxuatban = $value_tltk_giaotrinh[4];
+                    $tailieuthamkhao_giaotrinh->url = $value_tltk_giaotrinh[5];
+                    $tailieuthamkhao_giaotrinh->loaitailieu = 0;
+                    $tailieuthamkhao_giaotrinh->id_hocphan = $data['id_ten_hoc_phan'];
+                    $tailieuthamkhao_giaotrinh->khungchuongtrinh = $data['khungchuongtrinh'];
+                    $tailieuthamkhao_giaotrinh->save();
                 }
             }
 
+            $tltk_sach = $this->array_2d($request->tai_lieu_tham_khao_sach, 6);
+
+            if(!empty($tltk_sach)) {
+                foreach($tltk_sach as $value_tltk_sach) {
+                    $tailieuthamkhao_sach = new tailieuthamkhao;
+                    $tailieuthamkhao_sach->tentacgia = $value_tltk_sach[0];
+                    $tailieuthamkhao_sach->namxuatban = $value_tltk_sach[1];
+                    $tailieuthamkhao_sach->tensach = $value_tltk_sach[2];
+                    $tailieuthamkhao_sach->noixuatban = $value_tltk_sach[3];
+                    $tailieuthamkhao_sach->nhaxuatban = $value_tltk_sach[4];
+                    $tailieuthamkhao_sach->url = $value_tltk_sach[5];
+                    $tailieuthamkhao_sach->loaitailieu = 1;
+                    $tailieuthamkhao_sach->id_hocphan = $data['id_ten_hoc_phan'];
+                    $tailieuthamkhao_sach->khungchuongtrinh = $data['khungchuongtrinh'];
+                    $tailieuthamkhao_sach->save();
+                }
+            }
+            
             $khungchuongtrinh = $data['khungchuongtrinh'];
 
             $khungchuongtrinh_hientai = $data['khungchuongtrinh_hientai'];
@@ -202,7 +320,7 @@ class DeCuongController extends Controller
 
     }
 
-    public function themdecuong() {
+    public function themdecuongadmin() {
     	
     	$all_cdr_chung = DB::table('table_chuandaura_chung')->limit(3)->get();
 
@@ -211,10 +329,29 @@ class DeCuongController extends Controller
         $khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
         $khungchuongtrinh = $this->data_khungchuongtrinh($khungchuongtrinh, 0);
 
-    	return view('admin.decuong.them_decuong')
+    	return view('admin.decuong.them_decuong_admin')
                 ->with('all_cdr_chung', $all_cdr_chung)
                 ->with('all_nganh', $all_nganh)
                 ->with('khungchuongtrinh', $khungchuongtrinh);
+    }
+
+    public function themdecuong($id_hocphan, $id_khung) {
+        $all_cdr_chung = DB::table('table_chuandaura_chung')->limit(3)->get();
+
+        $all_nganh = DB::table('table_nganh')->get();
+
+        $khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
+        $khungchuongtrinh = $this->data_khungchuongtrinh($khungchuongtrinh, 0);
+
+        $ten_hocphan = DB::table('table_hocphan')->where('id', $id_hocphan)->first()->tenhocphan;
+
+    	return view('admin.decuong.them_decuong')
+                ->with('all_cdr_chung', $all_cdr_chung)
+                ->with('all_nganh', $all_nganh)
+                ->with('khungchuongtrinh', $khungchuongtrinh)
+                ->with('ten_hocphan', $ten_hocphan)
+                ->with('id_hocphan', $id_hocphan)
+                ->with('id_khung', $id_khung);
     }
 
     public function data_chuyen_nganh($data, $parent_id = 0) {
@@ -249,6 +386,7 @@ class DeCuongController extends Controller
         ->where('table_decuongchitiet.id_decuong', $id_decuong)->first();
 
         $khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
+        $khungchuongtrinh = $this->data_khungchuongtrinh($khungchuongtrinh, 0);
 
         $all_nganh = DB::table('table_nganh')->get();
 
@@ -266,18 +404,52 @@ class DeCuongController extends Controller
             }
         }
 
+        $id_hocphan = $all_decuong->id_hocphan;
+        $id_khung = $all_decuong->khungchuongtrinh;
+
+        $ten_hocphan = DB::table('table_hocphan')->where('id', $all_decuong->id_hocphan)->first()->tenhocphan;
+
         $all_cdr_nganh = DB::table('table_chuandaura_chung')->where('id_nganh', $all_decuong->id_nganh)->get();
 
-        $all_chuandaura = DB::table('table_chuandaura_monhoc')->where('id_decuong', $id_decuong)
-        ->distinct()->get();
+        // $all_chuandaura = DB::table('table_chuandaura_monhoc')->where('id_decuong', $id_decuong)
+        // ->distinct()->get();
 
         $all_cdr_chung = DB::table('table_chuandaura_chung')->get();
 
+        $all_moilienhe = DB::table('table_moilienhe_clo_plo')
+                        ->where('id_hocphan', $all_decuong->id_hocphan)
+                        ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
+                        ->get();
+
+        $all_chuandaura = DB::table('table_chuandaura_monhoc')
+                        ->where('id_hocphan', $all_decuong->id_hocphan)
+                        ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)  
+                        ->get();
+
+        $all_tltk_giaotrinh = DB::table('table_tailieuthamkhao')
+                                ->where('loaitailieu', 0)
+                                ->where('id_hocphan', $all_decuong->id_hocphan)
+                                ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
+                                ->get();
+
+        $all_tltk_sach = DB::table('table_tailieuthamkhao')
+                                ->where('loaitailieu', 1)
+                                ->where('id_hocphan', $all_decuong->id_hocphan)
+                                ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
+                                ->get();
+
         return view('admin.decuong.sua_decuong')->with('all_cdr_chung', $all_cdr_chung)
         ->with('all_decuong', $all_decuong)->with('list_gvdc', $list_gvdc)
-        ->with('all_chuandaura', $all_chuandaura)->with('all_nganh', $all_nganh)
+        ->with('ten_hocphan', $ten_hocphan)
+        ->with('all_nganh', $all_nganh)
         ->with('all_cdr_nganh', $all_cdr_nganh)
-        ->with('khungchuongtrinh', $khungchuongtrinh);
+        ->with('khungchuongtrinh', $khungchuongtrinh)
+        ->with('all_tltk_giaotrinh', $all_tltk_giaotrinh)
+        ->with('all_tltk_sach', $all_tltk_sach)
+        ->with('id_hocphan', $id_hocphan)
+        ->with('id_khung', $id_khung)
+        ->with('all_moilienhe', $all_moilienhe)
+        ->with('all_chuandaura', $all_chuandaura);
     }
 
     public function danhsachdecuong($id_khoa, $khungchuongtrinh) {
@@ -385,25 +557,45 @@ class DeCuongController extends Controller
             $de_cuong->muctieu_kynang = $data['muctiey_kynang'];
             $de_cuong->muctieu_thaido = $data['muctieu_thaido'];
             $de_cuong->nhiemvu = $data['nhiemvu'];
-            $de_cuong->tailieuthamkhao_giaotrinh = $data['tltk_giaotrinh'];
-            $de_cuong->tailieuthamkhao_sach = $data['tltk_sach'];
+            //$de_cuong->tailieuthamkhao_giaotrinh = $data['tltk_giaotrinh'];
+            //$de_cuong->tailieuthamkhao_sach = $data['tltk_sach'];
             $de_cuong->ngaypheduyet = strtotime($data['ngay_phe_duyet']);
 
             $de_cuong->save();
 
-            $id_de_cuong = $de_cuong->id_decuong;
+            $tltk_giaotrinh = $this->array_2d($request->tai_lieu_tham_khao_giao_trinh, 6);
 
-            $cdr_monhoc = $this->array_2d($request->list_cdr, 2);
+            if(!empty($tltk_giaotrinh)) {
+                foreach($tltk_giaotrinh as $value_tltk_giaotrinh) {
+                    $tailieuthamkhao_giaotrinh = new tailieuthamkhao;
+                    $tailieuthamkhao_giaotrinh->tentacgia = $value_tltk_giaotrinh[0];
+                    $tailieuthamkhao_giaotrinh->namxuatban = $value_tltk_giaotrinh[1];
+                    $tailieuthamkhao_giaotrinh->tensach = $value_tltk_giaotrinh[2];
+                    $tailieuthamkhao_giaotrinh->noixuatban = $value_tltk_giaotrinh[3];
+                    $tailieuthamkhao_giaotrinh->nhaxuatban = $value_tltk_giaotrinh[4];
+                    $tailieuthamkhao_giaotrinh->url = $value_tltk_giaotrinh[5];
+                    $tailieuthamkhao_giaotrinh->loaitailieu = 0;
+                    $tailieuthamkhao_giaotrinh->id_hocphan = $data['id_ten_hoc_phan'];
+                    $tailieuthamkhao_giaotrinh->khungchuongtrinh = $data['khungchuongtrinh'];
+                    $tailieuthamkhao_giaotrinh->save();
+                }
+            }
 
-            foreach($cdr_monhoc as $value_cdr_monhoc) {
-                if(isset($value_cdr_monhoc[1])) {
-                    if (trim($value_cdr_monhoc[1]) != '') {
-                        $chuandaura_monhoc = new chuandauramonhoc;
-                        $chuandaura_monhoc->id_cdr_chung = $value_cdr_monhoc[0];
-                        $chuandaura_monhoc->noi_dung = $value_cdr_monhoc[1];
-                        $chuandaura_monhoc->id_decuong = $id_de_cuong;
-                        $chuandaura_monhoc->save();
-                    }
+            $tltk_sach = $this->array_2d($request->tai_lieu_tham_khao_sach, 6);
+
+            if(!empty($tltk_sach)) {
+                foreach($tltk_sach as $value_tltk_sach) {
+                    $tailieuthamkhao_sach = new tailieuthamkhao;
+                    $tailieuthamkhao_sach->tentacgia = $value_tltk_sach[0];
+                    $tailieuthamkhao_sach->namxuatban = $value_tltk_sach[1];
+                    $tailieuthamkhao_sach->tensach = $value_tltk_sach[2];
+                    $tailieuthamkhao_sach->noixuatban = $value_tltk_sach[3];
+                    $tailieuthamkhao_sach->nhaxuatban = $value_tltk_sach[4];
+                    $tailieuthamkhao_sach->url = $value_tltk_sach[5];
+                    $tailieuthamkhao_sach->loaitailieu = 1;
+                    $tailieuthamkhao_sach->id_hocphan = $data['id_ten_hoc_phan'];
+                    $tailieuthamkhao_sach->khungchuongtrinh = $data['khungchuongtrinh'];
+                    $tailieuthamkhao_sach->save();
                 }
             }
 
@@ -464,30 +656,50 @@ class DeCuongController extends Controller
             $de_cuong->muctieu_kynang = $data['muctiey_kynang'];
             $de_cuong->muctieu_thaido = $data['muctieu_thaido'];
             $de_cuong->nhiemvu = $data['nhiemvu'];
-            $de_cuong->tailieuthamkhao_giaotrinh = $data['tltk_giaotrinh'];
-            $de_cuong->tailieuthamkhao_sach = $data['tltk_sach'];
+            //$de_cuong->tailieuthamkhao_giaotrinh = $data['tltk_giaotrinh'];
+            //$de_cuong->tailieuthamkhao_sach = $data['tltk_sach'];
             $de_cuong->ngaypheduyet = strtotime($data['ngay_phe_duyet']);
 
             $de_cuong->save();
 
-            $delecdr = chuandauramonhoc::find($id_decuong);
-
-            if (isset($delecdr)) {
-                $delecdr->delete();
+            $deletetltk = tailieuthamkhao::where('id_hocphan', $data['id_ten_hoc_phan'])->where('khungchuongtrinh', $data['khungchuongtrinh']);
+            if (isset($deletetltk)) {
+                $deletetltk->delete();
             }
 
-            $cdr_monhoc = $this->array_2d($request->list_cdr, 2);
+            $tltk_giaotrinh = $this->array_2d($request->tai_lieu_tham_khao_giao_trinh, 6);
 
-            foreach($cdr_monhoc as $value_cdr_monhoc) {
+            if(!empty($tltk_giaotrinh)) {
+                foreach($tltk_giaotrinh as $value_tltk_giaotrinh) {
+                    $tailieuthamkhao_giaotrinh = new tailieuthamkhao;
+                    $tailieuthamkhao_giaotrinh->tentacgia = $value_tltk_giaotrinh[0];
+                    $tailieuthamkhao_giaotrinh->namxuatban = $value_tltk_giaotrinh[1];
+                    $tailieuthamkhao_giaotrinh->tensach = $value_tltk_giaotrinh[2];
+                    $tailieuthamkhao_giaotrinh->noixuatban = $value_tltk_giaotrinh[3];
+                    $tailieuthamkhao_giaotrinh->nhaxuatban = $value_tltk_giaotrinh[4];
+                    $tailieuthamkhao_giaotrinh->url = $value_tltk_giaotrinh[5];
+                    $tailieuthamkhao_giaotrinh->loaitailieu = 0;
+                    $tailieuthamkhao_giaotrinh->id_hocphan = $data['id_ten_hoc_phan'];
+                    $tailieuthamkhao_giaotrinh->khungchuongtrinh = $data['khungchuongtrinh'];
+                    $tailieuthamkhao_giaotrinh->save();
+                }
+            }
 
-                if(isset($value_cdr_monhoc[1])) {
-                    if (trim($value_cdr_monhoc[1]) != '') {
-                        $chuandaura_monhoc = new chuandauramonhoc;
-                        $chuandaura_monhoc->id_cdr_chung = $value_cdr_monhoc[0];
-                        $chuandaura_monhoc->noi_dung = $value_cdr_monhoc[1];
-                        $chuandaura_monhoc->id_decuong = $id_decuong;
-                        $chuandaura_monhoc->save();
-                    }
+            $tltk_sach = $this->array_2d($request->tai_lieu_tham_khao_sach, 6);
+
+            if(!empty($tltk_sach)) {
+                foreach($tltk_sach as $value_tltk_sach) {
+                    $tailieuthamkhao_sach = new tailieuthamkhao;
+                    $tailieuthamkhao_sach->tentacgia = $value_tltk_sach[0];
+                    $tailieuthamkhao_sach->namxuatban = $value_tltk_sach[1];
+                    $tailieuthamkhao_sach->tensach = $value_tltk_sach[2];
+                    $tailieuthamkhao_sach->noixuatban = $value_tltk_sach[3];
+                    $tailieuthamkhao_sach->nhaxuatban = $value_tltk_sach[4];
+                    $tailieuthamkhao_sach->url = $value_tltk_sach[5];
+                    $tailieuthamkhao_sach->loaitailieu = 1;
+                    $tailieuthamkhao_sach->id_hocphan = $data['id_ten_hoc_phan'];
+                    $tailieuthamkhao_sach->khungchuongtrinh = $data['khungchuongtrinh'];
+                    $tailieuthamkhao_sach->save();
                 }
             }
 
@@ -538,13 +750,25 @@ class DeCuongController extends Controller
             $deletekhgd->delete();
         }
 
+        $deletecdrmh = chuandauramonhoc::where('id_hocphan', $id_hocphan)->where('khungchuongtrinh', $khungchuongtrinh);
+        if (isset($deletecdrmh)) {
+            $deletecdrmh->delete();
+        }
+
+        $deletemlh = moilienhecloplo::where('id_hocphan', $id_hocphan)->where('khungchuongtrinh', $khungchuongtrinh);
+        if (isset($deletemlh)) {
+            $deletemlh->delete();
+        }
+
+        $deletetltk = tailieuthamkhao::where('id_hocphan', $id_hocphan)->where('khungchuongtrinh', $khungchuongtrinh);
+        if (isset($deletetltk)) {
+            $deletetltk->delete();
+        }
+
         $delete_dc = decuongchitiet::find($id_decuong);
         $delete_dc->delete();
 
-        $dele_cdr = chuandauramonhoc::find($id_decuong);
-        $dele_cdr->delete();
-
-        return Redirect::to('admin/decuong/danh-sach-de-cuong/0');
+        return Redirect::to('/admin/decuong/khung-chuong-trinh/'.$khungchuongtrinh);
 
     }
 
@@ -567,9 +791,11 @@ class DeCuongController extends Controller
             }
         }
 
-        $all_cdr = DB::table('table_chuandaura_monhoc')
-                    ->where('id_decuong', $id_decuong)
-                    ->get();
+        $all_cdr = 0;
+
+        // $all_cdr = DB::table('table_chuandaura_monhoc')
+        //             ->where('id_decuong', $id_decuong)
+        //             ->get();
 
         $decuong_dghp = DB::table('table_decuongchitiet')->select('id_hocphan', 'khungchuongtrinh')->where('id_decuong', $id_decuong)->first();
         $id_hocphan = $decuong_dghp->id_hocphan;
@@ -594,7 +820,6 @@ class DeCuongController extends Controller
         }
 
         $dghp_parent = DB::table('table_thanhphandanhgia')->where('id_baidanhgia', 0)->get();
-
 
         foreach($all_dghp as $value_child) {
             foreach($dghp_parent as $value_parent) {
@@ -665,10 +890,23 @@ class DeCuongController extends Controller
             $vl_kehoachgiangday_th->baidanhgia = explode("_", $vl_kehoachgiangday_th->baidanhgia);
         }
 
+        $all_tailieuthamkhao_giaotrinh = DB::table('table_tailieuthamkhao')
+                                        ->where('id_hocphan', $all_decuong->id_hocphan)
+                                        ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
+                                        ->where('loaitailieu', 0)
+                                        ->get();
+
+        $all_tailieuthamkhao_sach = DB::table('table_tailieuthamkhao')
+                                    ->where('id_hocphan', $all_decuong->id_hocphan)
+                                    ->where('loaitailieu', 1)
+                                    ->get();
+
         return view('xem_de_cuong')->with('all_decuong', $all_decuong)->with('list_gvdc', $list_gvdc)
         ->with('all_cdr', $all_cdr)->with('all_dghp', $all_dghp)->with('baidanhgia', $baidanhgia)->with('id_decuong', $id_decuong)
         ->with('all_kehoachgiangday_lt', $all_kehoachgiangday_lt)->with('all_kehoachgiangday_th', $all_kehoachgiangday_th)
-        ->with('all_trongso', $all_trongso);
+        ->with('all_trongso', $all_trongso)
+        ->with('all_tailieuthamkhao_giaotrinh', $all_tailieuthamkhao_giaotrinh)
+        ->with('all_tailieuthamkhao_sach', $all_tailieuthamkhao_sach);
     }
 
     public function xem_decuong_khgd($string) {
@@ -2263,8 +2501,6 @@ class DeCuongController extends Controller
         $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc')->get();
         $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
 
-        
-
         foreach($all_khoiluongkienthuc as $value_all_klkt) {
 
             $all_hp_klkt = DB::table('table_khungchuongtrinh_hocphan')
@@ -2272,8 +2508,6 @@ class DeCuongController extends Controller
                             ->where('table_khungchuongtrinh_hocphan.id_khung', $id_khung)
                             ->where('table_khungchuongtrinh_hocphan.khoikienthuc', $value_all_klkt->id)
                             ->get();
-
-            //$hp_klkt = new stdClass;
 
             foreach($all_hp_klkt as $value_all_hp_klkt) {
                 $hp_klkt = new stdClass;
@@ -2285,13 +2519,7 @@ class DeCuongController extends Controller
                 $value_all_klkt->hp_klkt[] = $hp_klkt;
             }
 
-            //$value_all_klkt->hp_klkt = $hp_klkt;
-
         }
-
-        // echo "<pre>";
-        // print_r($all_khoiluongkienthuc);
-        // die();
 
         return view('admin.decuong.khoikienthuc')
                     ->with('all_khungchuongtrinh', $all_khungchuongtrinh)

@@ -184,13 +184,7 @@
 					</thead>
 					<tbody>
 						<?php $stt=1; ?>
-						@foreach($all_cdr as $value_cdr)
-						<tr>
-							<td class="row-stt"><?php echo $stt; ?></td>
-							<td class="row-cdr">{{$value_cdr->noi_dung}}</td>
-						</tr>
-						<?php $stt++; ?>
-						@endforeach
+						
 					</tbody>
 					</table>
 
@@ -327,7 +321,7 @@
 										<li>{{$value_all_khgd_lt->noidung[$i]}}</li>
 										@endfor
 									</ul>
-								</td>
+								</td> 
 								<td>
 									<ul>
 										@for($i = 0; $i < count($value_all_khgd_lt->hoatdongdayhoc); $i++ )
@@ -416,6 +410,7 @@
 
 					<p class="cate">14. Tài liệu học tập: </p>
 					<p class="cate">14.1 Sách, bài giảng, giáo trình chính: </p>
+					@if( ($all_decuong->tailieuthamkhao_giaotrinh != null) && ($all_decuong->tailieuthamkhao_sach == null) )
 					<p class="content" id="tailieuthamkhao-gt">
 
 					</p>
@@ -423,6 +418,51 @@
 					<p class="content" id="tailieuthamkhao-sach">
 
 					</p>
+					@else
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<td>STT</td>
+								<td>Tên tác giả</td>
+								<td>Năm XB</td>
+								<td>Tên sách, giáo trình, tên bài báo, văn bản</td>
+								<td>NXB, tên tạp chí/ nơi ban hành VB</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr style="background:#ccc;">
+								<td colspan="5">Sách, bài giảng, giáo trình chính</td>
+							</tr>
+							@if(isset($all_tailieuthamkhao_giaotrinh))
+								<?php $stt_tltk_gt = 1; ?>
+								@foreach($all_tailieuthamkhao_giaotrinh as $value_all_tailieuthamkhao_giaotrinh)
+								<tr>
+									<td>{{$stt_tltk_gt++}}</td>
+									<td>{{$value_all_tailieuthamkhao_giaotrinh->tentacgia}}</td>
+									<td>{{$value_all_tailieuthamkhao_giaotrinh->namxuatban}}</td>
+									<td>{{$value_all_tailieuthamkhao_giaotrinh->tentacgia}}</td>
+									<td>{{$value_all_tailieuthamkhao_giaotrinh->noixuatban .', '. $value_all_tailieuthamkhao_giaotrinh->nhaxuatban}}</td>
+								</tr>
+								@endforeach
+							@endif
+							<tr  style="background:#ccc;">
+								<td colspan="5">Sách, tài liệu tham khảo</td>
+							</tr>
+							@if(isset($all_tailieuthamkhao_sach))
+								<?php $stt_tltk_s = 1; ?>
+								@foreach($all_tailieuthamkhao_sach as $value_all_tailieuthamkhao_sach)
+								<tr>
+									<td>{{$stt_tltk_s++}}</td>
+									<td>{{$value_all_tailieuthamkhao_sach->tentacgia}}</td>
+									<td>{{$value_all_tailieuthamkhao_sach->namxuatban}}</td>
+									<td>{{$value_all_tailieuthamkhao_sach->tentacgia}}</td>
+									<td>{{$value_all_tailieuthamkhao_sach->noixuatban .', '. $value_all_tailieuthamkhao_sach->nhaxuatban}}</td>
+								</tr>
+								@endforeach
+							@endif
+						</tbody>
+					</table>
+					@endif
 					<p class="cate">15. Ngày phê duyệt: {{gmdate("d-m-Y", $all_decuong->ngaypheduyet)}}</p>
 				</div>
 			</div>

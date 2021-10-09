@@ -134,20 +134,23 @@
                                 <td class="ten-hoc-phan">{{$value_decuong->tenhocphan}}</td>
                                 <td class="center">{{$value_decuong->mahocphan}}</td>
                                 <td class="center">{{$value_decuong->soTC}}</td>
-                                @foreach($chuandaura as $value_chuandaura) 
-                                    <?php $check = 0; ?>
-                                    @foreach($value_decuong->PLO as $vl111)
-                                        <?php $vl111 = explode("_", $vl111); ?>
-                                        @if($vl111[0] == $value_chuandaura->id_cdr_chung)
-                                        <td class="center">{{$vl111[1]}}</td>
-                                        <?php $check = 1; ?>
+                                @if(!empty($chuandaura))
+                                    @foreach($chuandaura as $value_chuandaura) 
+                                        <?php $check = 0; ?>
+                                        @if(!empty($value_decuong->PLO))
+                                            @foreach($value_decuong->PLO as $vl111)
+                                                <?php $vl111 = explode("_", $vl111); ?>
+                                                @if($vl111[0] == $value_chuandaura->id_cdr_chung)
+                                                <td class="center">{{$vl111[1]}}</td>
+                                                <?php $check = 1; ?>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        @if($check == 0) 
+                                        <td></td>
                                         @endif
                                     @endforeach
-
-                                    @if($check == 0) 
-                                    <td></td>
-                                    @endif
-                                @endforeach
+                                @endif
                             </tr>
                             <?php $stt_decuong++; ?>
                             @endforeach

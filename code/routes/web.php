@@ -20,10 +20,11 @@ Route::group(['prefix' => 'admin'], function() {
     Route::group(['prefix' => 'decuong'], function() {
 
         //Route::get('them-de-cuong/{id_khungchuongtrinh}', 'DeCuongController@danhsachdecuongthem');
-        Route::get('chinh-sua-them-moi-de-cuong/{id_decuong}', 'DeCuongController@chinhsuathemmoi');
+        Route::get('chinh-sua-them-moi-de-cuong/{id_decuong}/{id_khung}', 'DeCuongController@chinhsuathemmoi');
         Route::post('insert-chinh-sua-them-moi-de-cuong', 'DeCuongController@insert_chinhsuathemmoi');
 
-        Route::get('them-moi-de-cuong', 'DeCuongController@themdecuong');
+        Route::get('them-moi-de-cuong-admin', 'DeCuongController@themdecuongadmin');
+        Route::get('them-moi-de-cuong/{id_hocphan}/{id_khung}', 'DeCuongController@themdecuong');
         //Route::get('danh-sach-de-cuong/{id_khoa}/{khungchuongtrinh}', 'DeCuongController@danhsachdecuong');
  
         //Ajax
@@ -33,6 +34,16 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('select-nganh-aj', 'DeCuongAjax@ajselectnganh');
         Route::get('tim-kiem-de-cuong', 'DeCuongAjax@timkiemdecuong');
         Route::get('tim-kiem-de-cuong-them-moi', 'DeCuongAjax@timkiemdecuongthemmoi');
+
+        //CLO
+        Route::get('add-clo', 'DeCuongAjax@addclo');
+        Route::get('edit-clo', 'DeCuongAjax@editclo');
+        Route::get('delete-clo', 'DeCuongAjax@deleteclo');
+        Route::get('load-clo', 'DeCuongAjax@loadclo');
+        Route::get('add-moilienhe-clo-plo', 'DeCuongAjax@add_moilienhecloplo');
+        Route::get('edit-moilienhe-clo-plo-cdr', 'DeCuongAjax@edit_moilienhecloplo_cdr');
+        Route::get('edit-moilienhe-clo-plo-mucdo', 'DeCuongAjax@edit_moilienhecloplo_mucdo');
+        Route::get('delete-moilienhe-clo-plo', 'DeCuongAjax@delete_moilienhecloplo');
 
         Route::post('them-moi-de-cuong', 'DeCuongController@tao_decuong');
 
@@ -99,7 +110,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/thong-ke-khung-chi-tiet/{id_khung}', 'ThongKeKhung@thongkekhungchitiet');
 
         Route::get('/test', 'ThongKeKhung@test');
-
+ 
         
     });
 

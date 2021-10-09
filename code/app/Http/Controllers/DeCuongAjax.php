@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\categoryModels;
 use App\Models\chuandaurachung;
 use App\Models\kehoachgiangday;
+use App\Models\chuandauramonhoc;
+use App\Models\moilienhecloplo;
 use Request;
 use DB;
 session_start();
@@ -107,13 +109,8 @@ class DeCuongAjax extends Controller
 		if(Request::ajax()) {
 
 			$id_nganh = (String)Request::get('id_nganh');
-
-			//$data = DB::table('table_chuandaura_chung')->where('id_nganh', $id_nganh)->get();
-
-			// $all_nganh = DB::table('table_nganh')
-            //             ->join('table_chuandaura_chung', 'table_nganh.id', 'table_chuandaura_chung.id_nganh')->get();
-
-			// $data = $this->data_chuyen_nganh($all_nganh, $id_nganh);
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $khungchuongtrinh = (String)Request::get('khungchuongtrinh');
 
             $data = [];
 
@@ -135,6 +132,16 @@ class DeCuongAjax extends Controller
                 
             }
 
+            $all_moilienhe = DB::table('table_moilienhe_clo_plo')
+                            ->where('id_hocphan', $id_hocphan)
+                            ->where('khungchuongtrinh', $khungchuongtrinh)
+                            ->get();
+
+            $all_chuandaura = DB::table('table_chuandaura_monhoc')
+                        ->where('id_hocphan', $id_hocphan)
+                        ->where('khungchuongtrinh', $khungchuongtrinh)  
+                        ->get();
+
             $output = '';
 
 			$stt_cdr_chung = 1; 
@@ -142,15 +149,73 @@ class DeCuongAjax extends Controller
 
                 $output .= '<tr>';
 
-                $output .= '<td class="stt-cdr">'.$stt_cdr_chung.'</td>';
+                $output .= '<td class="stt-cdr">'.$stt_cdr_chung++.'</td>';
                 $output .= '<td class="noi-cdr-chung">'.$value_cdr_chung->noidung_cdr_chung.'</td>';
-                $output .= '<td class="list-cdr-hoc-phan" id="ds-cdr" style="width:400px" >';
-                $output .= '<p id="add-cdr" data-value="'.$value_cdr_chung->id_cdr_chung.'">Thêm</p>';
+                $output .= '<td class="list-cdr-hoc-phan" id="ds-cdr" >';
+                //$output .= '<p id="add-cdr" data-value="'.$value_cdr_chung->id_cdr_chung.'">Thêm</p>';
                 $output .= '<div id="add-parent-cdr-'.$value_cdr_chung->id_cdr_chung.'">';   
+
+                foreach($all_moilienhe as $value_all_moilienhe) {
+                    if($value_all_moilienhe->id_chuandaura_chung == $value_cdr_chung->id_cdr_chung) {
+                        $output .= '<div class="line-add-cdr">';
+                        $output .= '<input type="hidden" name="list_cdr[]" value="'.$value_cdr_chung->id_cdr_chung.'">';
+                        $output .= '<select name="list_cdr[]" multiple="multiple" required size="4" id="select_chuandaura">';
+                            foreach($all_chuandaura as $value_all_chuandaura) {
+                                $output .= '<option value="'.$value_all_chuandaura->stt.'" ';
+                                if ($value_all_chuandaura->stt == $value_all_moilienhe->id_chuandaura_monhoc) {
+                                    $output .=  'selected';
+                                }
+                                $output .= '>'.$value_all_chuandaura->noi_dung.'</option>';
+                            }
+  
+                        $output .= '</select>';
+                        $output .= '<select name="list_cdr[]" multiple="multiple" required id="select_mucdo">';
+                        $output .= '<option value="0" '; 
+
+                        if($value_all_moilienhe->mucdo == 0) {
+                            $output .=  'selected'; 
+                        }
+                        $output .= '>I</option>';
+
+                        $output .= '<option value="1" '; 
+                        if($value_all_moilienhe->mucdo == 1) {
+                            $output .=  'selected'; 
+                        }
+                        $output .= '>R</option>';
+
+                        $output .= '<option value="2" '; 
+                        if($value_all_moilienhe->mucdo == 2) {
+                            $output .=  'selected'; 
+                        }
+                        $output .= '>M</option>';
+
+                        $output .=' </select>';
+                        //$output .= '<h5 id="edit-moilienhe" data-value="'.$value_all_moilienhe->id.'" >Sửa</h5>';
+                        $output .= '<span id="delete-moilienhe" data-value="'.$value_all_moilienhe->id.'" >Xóa</span>';
+                        $output .= '</div>';
+                    }
+                }
+
+                $output .= '<div class="line-add-cdr">';
+                $output .= '<input type="hidden" name="list_cdr[]" value="'.$value_cdr_chung->id_cdr_chung.'">';
+                $output .= '<select name="list_cdr[]" multiple="multiple" size="4" id="select_chuandaura">';
+
+                foreach($all_chuandaura as $value_all_chuandaura) {
+                    $output .= '<option value="'.$value_all_chuandaura->stt.'" >'.$value_all_chuandaura->noi_dung.'</option>';
+                }
+                    
+                $output .= '</select>';
+                $output .= '<select name="list_cdr[]" multiple="multiple" id="select_mucdo">';
+                $output .= '<option value="0" selected>I</option>';
+                $output .= '<option value="1">R</option>';
+                $output .= '<option value="2">M</option>';
+                $output .=' </select>';
+                $output .= '<h5 id="add-moilienhe" data-value="'.$value_cdr_chung->id_cdr_chung.'" >Thêm</h5>';
+                $output .= '</div>';
+                    
                 $output .= '</div>';
                 $output .= '</td>';
 
-			    $stt_cdr_chung++;
 			    $output .= '</tr>';
 			}
 
@@ -496,7 +561,7 @@ class DeCuongAjax extends Controller
                 $output .= '<td>'.$value_decuong->tennamhoc.'</td>';
 
                 $output .= '<td>';
-                $output .=  "<a href='". url("admin/decuong/chinh-sua-them-moi-de-cuong/{$value_decuong->id_decuong}") ."' style='color:#f64e60;' >";
+                $output .=  "<a href='". url("admin/decuong/chinh-sua-them-moi-de-cuong/{$value_decuong->id_decuong}."/".{$value_decuong->id_decuong}") ."' style='color:#f64e60;' >";
                 $output .= "Chỉnh sửa và nhân bản";
                 $output .= '</a>';
                 $output .= '</td>';
@@ -633,8 +698,6 @@ class DeCuongAjax extends Controller
 
             $id_khungchuongtrinh = $all_decuong->khungchuongtrinh;
 
-            
-
             $danhsach_danhgiahocphan = DB::table('table_danhgiahocphan')
                                         ->select('id_hocphan', 'khungchuongtrinh')
                                         ->where('khungchuongtrinh', $id_khungchuongtrinh)
@@ -645,8 +708,6 @@ class DeCuongAjax extends Controller
                                         ->where('khungchuongtrinh', $id_khungchuongtrinh)
                                         ->distinct()->get();
 
-            
-    
             $all_decuong->has_dghp = 0;
     
             foreach($danhsach_danhgiahocphan as $value_ds_dghp) {
@@ -659,8 +720,6 @@ class DeCuongAjax extends Controller
                 }
             }
 
-            
-    
             $all_decuong->has_khgd = 0;
 
             foreach($danhsach_kehoachgiangday as $value_ds_khgd) {
@@ -723,7 +782,7 @@ class DeCuongAjax extends Controller
             }
 
             $output .= '<td class="list-icon l-icon-views">';
-            $output .=  "<a href='". url("admin/decuong/xem-de-cuong/{$all_decuong->id_decuong}") ."'>";       
+            $output .=  "<a href='". url("admin/decuong/xem-de-cuong/{$all_decuong->id_decuong}") ."' target='_blank' >";       
             $output .= "<img src='". url("./public/Images/icons/views.png") ."' >";
             $output .= '</a>';
             $output .= '</td>';
@@ -754,6 +813,7 @@ class DeCuongAjax extends Controller
         if (Request::ajax()) {
             
             $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
 
             $decuong = DB::table('table_decuongchitiet')
                         ->join('table_hocphan', 'table_hocphan.id', 'table_decuongchitiet.id_hocphan')
@@ -764,6 +824,12 @@ class DeCuongAjax extends Controller
                         ->get();
 
             $output = "";
+
+            $output .= '<p style="text-align:center;">';
+            $output .= "<a href='". url("admin/decuong/them-moi-de-cuong/{$id_hocphan}/{$id_khung}") ."' style='color:#f64e60;' >";
+            $output .= "Thêm mới đề cương ";
+            $output .= '</a>';
+            $output .= 'hoặc chọn đề cương để nhân bản</p>';
 
             if($decuong->count()) {
                 
@@ -792,7 +858,7 @@ class DeCuongAjax extends Controller
                     $output .= '<td>'.$value_decuong->tenKhoa.'</td>';
                     $output .= '<td>'.$value_decuong->tenkhungchuongtrinh.'</td>';
                     $output .= '<td>';
-                    $output .=  "<a href='". url("admin/decuong/chinh-sua-them-moi-de-cuong/{$value_decuong->id_decuong}") ."' style='color:#f64e60;' >";
+                    $output .=  "<a href='". url("admin/decuong/chinh-sua-them-moi-de-cuong/{$value_decuong->id_decuong}/{$id_khung}") ."' style='color:#f64e60;' >";
                     $output .= "Chỉnh sửa và nhân bản";
                     $output .= '</a>';
                     $output .= '</td>';
@@ -803,14 +869,15 @@ class DeCuongAjax extends Controller
                         
                 $output .= '</table>';
 
-            } else {
-                $output .= "<p style='text-align:center;padding-top:15px' > Không có đề cương nào tồn tại </p>";
-                $output .= "<p style='text-align:center;padding-top:5px'>";
-                $output .= "<a href='". url("admin/decuong/them-moi-de-cuong") ."' style='color:#f64e60;' >";
-                $output .= "Thêm mới đề cương";
-                $output .= '</a>';
-                $output .= "</p>";
-            }
+            } 
+            // else {
+            //     $output .= "<p style='text-align:center;padding-top:15px' > Không có đề cương nào tồn tại </p>";
+            //     $output .= "<p style='text-align:center;padding-top:5px'>";
+            //     $output .= "<a href='". url("admin/decuong/them-moi-de-cuong") ."' style='color:#f64e60;' >";
+            //     $output .= "Thêm mới đề cương";
+            //     $output .= '</a>';
+            //     $output .= "</p>";
+            // }
 
             echo $output;
 
@@ -1006,6 +1073,203 @@ class DeCuongAjax extends Controller
 
         }
     }
+
+    public function addclo() {
+        
+        if (Request::ajax()) {
+
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+            $noidung_clo = (String)Request::get('noidung_clo');
+
+            $all_clo = DB::table('table_chuandaura_monhoc')
+                        ->where('id_hocphan', $id_hocphan)
+                        ->where('khungchuongtrinh', $id_khung)
+                        ->orderBy('stt', 'desc')
+                        ->first();
+
+            if($all_clo) {
+                $stt_clo = $all_clo->stt;
+            } else {
+                $stt_clo = 0;
+            }
+
+            $save_clo = new chuandauramonhoc;
+            $save_clo->stt = $stt_clo + 1;
+            $save_clo->noi_dung = $noidung_clo;
+            $save_clo->id_hocphan = $id_hocphan;
+            $save_clo->khungchuongtrinh = $id_khung;
+            $save_clo->save();
+
+            echo "Sucessfully";
+
+        }
+    }
+
+    public function loadclo() {
+        if (Request::ajax()) {
+
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+
+            $all_clo = DB::table('table_chuandaura_monhoc')
+                        ->where('id_hocphan', $id_hocphan)
+                        ->where('khungchuongtrinh', $id_khung)
+                        ->orderBy('stt', 'ASC')
+                        ->get();
+
+            $output = '';
+
+            foreach($all_clo as $value_all_clo) {
+                $output .= '<tr>';
+                $output .= '<td class="align-middle">'.$value_all_clo->stt.'</td>';
+                $output .= '<td class="align-middle">';
+                $output .= '<textarea name="" id="noidung_clo" cols="70" rows="2" placeholder="Nhập chuẩn đầu ra học phần">'.$value_all_clo->noi_dung.'</textarea>';
+                $output .= '</td>';
+                $output .= '<td class="align-middle">';
+                $output .= '<p id="edit-clo" data-value="'.$value_all_clo->id.'" >Sửa</p>';
+                $output .= '<p id="delete-clo" data-value="'.$value_all_clo->id.'" >Xóa</p>';
+                $output .= '</td>';
+                $output .= '</tr>';
+            }
+
+            echo $output;
+
+        }
+    }
+
+    public function editclo() {
+        if (Request::ajax()) {
+
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+            $noidung_clo = (String)Request::get('noidung_clo');
+            $id_clo = (String)Request::get('id_clo');
+
+            $all_clo = DB::table('table_chuandaura_monhoc')
+                        ->where('id_hocphan', $id_hocphan)
+                        ->where('khungchuongtrinh', $id_khung)
+                        ->where('id', $id_clo)
+                        ->update(['noi_dung' => $noidung_clo]);
+
+            echo "Sucessfully";
+
+        }
+    }
+
+    public function deleteclo() {
+        if (Request::ajax()) {
+
+            $id_clo = (String)Request::get('id_clo');
+
+            $current_clo = DB::table('table_chuandaura_monhoc')->where('id', $id_clo)->first();
+
+            $update_clo = DB::table('table_chuandaura_monhoc')
+                        ->where('id_hocphan', $current_clo->id_hocphan)
+                        ->where('khungchuongtrinh', $current_clo->khungchuongtrinh)
+                        ->where('stt', '>', $current_clo->stt)
+                        ->get();
+            
+            if (!empty($update_clo)) {
+                foreach($update_clo as $value_update_clo) {
+                    $ud_clo = DB::table('table_chuandaura_monhoc')
+                        ->where('id', $value_update_clo->id)
+                        ->update(['stt' => $value_update_clo->stt - 1]);
+                }
+            }
+
+            $delete_clo = DB::table('table_chuandaura_monhoc')
+                        ->where('id', $id_clo);
+
+            if (isset($delete_clo)) {
+                $delete_clo->delete();
+            }
+
+            echo "Sucessfully";
+
+        }
+    }
+
+    public function add_moilienhecloplo() {
+        if (Request::ajax()) {
+
+            $id_chuandaura_chung = (String)Request::get('id_chuandaura_chung');
+            $id_chuandaura = (String)Request::get('id_chuandaura');
+            $mucdo = (String)Request::get('mucdo');
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+            $id_nganh = (String)Request::get('id_nganh');
+
+            $moilienhe = new moilienhecloplo;
+            $moilienhe->id_chuandaura_chung = $id_chuandaura_chung;
+            $moilienhe->id_chuandaura_monhoc = $id_chuandaura;
+            $moilienhe->mucdo = $mucdo;
+            $moilienhe->id_hocphan = $id_hocphan;
+            $moilienhe->khungchuongtrinh = $id_khung;
+            $moilienhe->save();
+
+            echo "Successfull";
+
+        }
+    }
+
+    public function edit_moilienhecloplo_cdr() {
+        if (Request::ajax()) {
+
+            $id_moilienhe = (String)Request::get('id_moilienhe');
+            $id_chuandaura = (String)Request::get('id_chuandaura');
+            //$mucdo = (String)Request::get('mucdo');
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+            $id_nganh = (String)Request::get('id_nganh');
+
+            $edit_moilienhe = DB::table('table_moilienhe_clo_plo')
+                        ->where('id', $id_moilienhe)
+                        ->update(['id_chuandaura_monhoc' => $id_chuandaura]);
+
+            echo "Successfull";
+
+        }
+    }
+
+    public function edit_moilienhecloplo_mucdo() {
+        if (Request::ajax()) {
+
+            $id_moilienhe = (String)Request::get('id_moilienhe');
+            $mucdo = (String)Request::get('mucdo');
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+            $id_nganh = (String)Request::get('id_nganh');
+
+            $edit_moilienhe = DB::table('table_moilienhe_clo_plo')
+                        ->where('id', $id_moilienhe)
+                        ->update(['mucdo' => $mucdo]);
+
+            echo "Successfull";
+
+        }
+    }
+
+    public function delete_moilienhecloplo() {
+        if (Request::ajax()) {
+
+            $id_moilienhe = (String)Request::get('id_moilienhe');
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+            $id_nganh = (String)Request::get('id_nganh');
+
+            $delete_moilienhe = DB::table('table_moilienhe_clo_plo')
+                        ->where('id', $id_moilienhe);
+
+            if (isset($delete_moilienhe)) {
+                $delete_moilienhe->delete();
+            }
+
+            echo "Successfull";
+
+        }
+    }
+
     
 
     public function converto($string) {

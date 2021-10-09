@@ -56,9 +56,9 @@
 											<select name="khungchuongtrinh" id="select_khoa" required="" multiple>
 												@foreach($khungchuongtrinh as $value_khungchuongtrinh)
 													@if($value_khungchuongtrinh->level == 1)
-													<option value="{{$value_khungchuongtrinh->id}}" <?php if($value_khungchuongtrinh->id == $id_khung) {echo "selected";} else {echo "disabled";} ?> >|____{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													<option value="{{$value_khungchuongtrinh->id}}" >|____{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
 													@else
-													<option value="{{$value_khungchuongtrinh->id}}" <?php if($value_khungchuongtrinh->id == $id_khung) {echo "selected";} else {echo "disabled";} ?> >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													<option value="{{$value_khungchuongtrinh->id}}" >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
 													@endif
 												@endforeach
 											</select> 
@@ -70,8 +70,8 @@
 										</td>
 										<td>
 											<div>
-												<input type="text" name="ten_hoc_phan" id="ip-ten-hoc-phan" disabled value="{{$ten_hocphan}}" placeholder="Nhập tên học phần" required="">
-												<input type="hidden" name="id_ten_hoc_phan" id="id-ten-hoc-phan" value="{{$id_hocphan}}">
+												<input type="text" name="ten_hoc_phan" id="ip-ten-hoc-phan" placeholder="Nhập tên học phần" required="">
+												<input type="hidden" name="id_ten_hoc_phan" id="id-ten-hoc-phan">
 												<div id="tenhocphanaj" class="list-danh-sach">
 									
 												</div>
@@ -218,47 +218,6 @@
 						<div class="list-tab-body">
 							<div class="block">
 								<table>
-
-									<tr>
-										<td class="c1">Thêm chuẩn đầu ra:</td>
-										<td>Thêm các chuẩn đầu ra cho học phần {{$ten_hocphan}}</td>
-									</tr>
-
-									<tr>
-										<td></td>
-										<td class="danh-sach-clo">
-											<p>Danh sách chuẩn đầu ra của học phần {{$ten_hocphan}}</p>
-											<p style="color:red;" id="text-warning">Chưa có học CLO nào được thêm</p>
-										</td>
-									</tr>
-
-									<tr>
-										<td></td>
-										<td>
-											<table class="table table-bordered table-add-clo">
-												<thead>
-													<tr>
-														<td class="align-middle">#</td>
-														<td class="align-middle">CLO</td>
-														<td class="align-middle">Action</td>
-													</tr>
-												</thead>
-												<tbody id="body-clo">
-													
-												</tbody>
-												<tr id="tr-add-clo">
-													<td class="align-middle"></td>
-													<td class="align-middle">
-														<textarea name="" id="noidung_clo_add" cols="70" rows="2" placeholder="Nhập chuẩn đầu ra học phần" ></textarea>
-													</td>
-													<td class="align-middle">
-														<p id="add-clo">Thêm</p>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-
 									<tr>
 										<td class="c1">16.Chọn ngành</td>
 										<td>
@@ -280,13 +239,26 @@
 											<table class="table-chuan-dau-ra" border="1px">
 												<thead>
 													<tr>
-														<td style="width:15px;">#</td>
-														<td style="width:20%;">Chuẩn đầu ra chung (PLO) </td>
+														<td>#</td>
+														<td>Chuẩn đầu ra chung (PLO) </td>
 														<td>Chuẩn đầu ra học phần (CLO) </td>
 													</tr>
 												</thead>
 												<tbody id="chuan-dau-ra">
-													
+													<?php $stt_cdr_chung = 1; ?>
+													@foreach($all_cdr_chung as $value_cdr_chung)
+													<tr>
+														<td class="stt-cdr">{{$stt_cdr_chung}}</td>
+														<td class="noi-cdr-chung">{{$value_cdr_chung->noidung_cdr_chung}}</td>
+														<td class="list-cdr-hoc-phan" style="width:400px" >
+															<p id="add-cdr" data-value="{{$value_cdr_chung->id_cdr_chung}}">Thêm</p>
+															<div id="add-parent-cdr-{{$value_cdr_chung->id_cdr_chung}}">
+																
+															</div>
+														</td>
+													</tr>
+													<?php $stt_cdr_chung++; ?>
+													@endforeach
 												</tbody>
 																								
 											</table>
@@ -330,7 +302,6 @@
 														<td class="align-middle">Tên tài liệu</td>
 														<td class="align-middle">Nơi XB</td>
 														<td class="align-middle">Nhà XB</td>
-														<td class="align-middle">Url</td>
 														<td class="align-middle">Action</td>
 													</tr>
 												</thead>
@@ -379,7 +350,6 @@
 														<td class="align-middle">Tên tài liệu</td>
 														<td class="align-middle">Nơi XB</td>
 														<td class="align-middle">Nhà XB</td>
-														<td class="align-middle">Url</td>
 														<td class="align-middle">Action</td>
 													</tr>
 												</thead>
@@ -475,50 +445,27 @@
 
 		}); 
 
-		// select_nganh(1);
-
-		// $('#select-nganh').on('change', function() {
-		// 	var id_nganh = this.value;
-		// 	select_nganh(id_nganh);
-		// });
-
-		// function select_nganh(id_nganh) {
-		// 	var _token = $('input[name="_token"]').val();
-		// 	$.ajax({
-		// 		url: "{{URL::to('admin/decuong/select-nganh-aj')}}",
-		// 		method: 'GET',
-		// 		data:{id_nganh:id_nganh, _token:_token},
-		// 		success: function(data) {
-		// 			if (data != null) { 
-       	// 				$('#chuan-dau-ra').html(data);
-		// 			}   
-		// 		}
-		// 	});
-		// }
+		select_nganh(1);
 
 		$('#select-nganh').on('change', function() {
 			var id_nganh = this.value;
-			var id_hocphan = {{$id_hocphan}};
-			var id_khung = {{$id_khung}};
-
-			select_nganh(id_nganh, id_hocphan, id_khung);
-
+			select_nganh(id_nganh);
 		});
 
-		function select_nganh(id_nganh, id_hocphan, khungchuongtrinh) {
+		function select_nganh(id_nganh) {
 			var _token = $('input[name="_token"]').val();
 			$.ajax({
 				url: "{{URL::to('admin/decuong/select-nganh-aj')}}",
 				method: 'GET',
-				data:{id_nganh:id_nganh, id_hocphan:id_hocphan, khungchuongtrinh:khungchuongtrinh, _token:_token},
+				data:{id_nganh:id_nganh, _token:_token},
 				success: function(data) {
 					if (data != null) { 
-						//alert(data);
        					$('#chuan-dau-ra').html(data);
 					}   
 				}
 			});
 		}
+
 
 		$('#giangvienphutrachaj').on('click', 'ul li', function() {
 			$('#giang-vien-phu-trach').val($(this).text()); 
@@ -604,295 +551,50 @@
 
 
 		//chuan dau ra
-		// $('#chuan-dau-ra').on('click', 'tr td p', function() {
+		$('#chuan-dau-ra').on('click', 'tr td p', function() {
 
-		// 	var numberOfCLO = $('#body-clo').children('tr').length;
+			p2 = document.createElement("input");
 
-		// 	var b = $(this).attr('data-value');
+			//var b = $(this).closest('div').attr('id');
 
-		// 	p = document.createElement("div");
-		// 	p.setAttribute("class", "line-add-cdr");
+			var b = $(this).attr('data-value');
 
-		// 	p1 = document.createElement("input");
-		// 	p1.setAttribute("type", "hidden");
-		// 	p1.setAttribute("name", "list_cdr[]");
-		// 	p1.setAttribute("value", b);
+			p = document.createElement("div");
+			p.setAttribute("class", "line-add-cdr");
 
-		// 	p2 = document.createElement("select");
-		// 	p2.setAttribute("name", "list_cdr[]");
-		// 	p2.setAttribute("multiple", "multiple");
-		// 	p2.setAttribute("required", "required");
-		// 	p2.setAttribute("size", "4");
-		// 	p2.id = "select_chuandaura";
+			p4 = document.createElement("input");
+			p4.setAttribute("type", "hidden");
+			p4.setAttribute("name", "list_cdr[]");
+			p4.setAttribute("value", b);
+			p.appendChild(p4);
 
-		// 	for (var i = 0; i < numberOfCLO; i++) {
-		// 		p2_1 = document.createElement("option");
-		// 		p2_1.setAttribute("value", (i+1));
-		// 		p2_1.text = "CLO"+(i+1);
-		// 		p2.appendChild(p2_1);
-		// 	}
+			p2 = document.createElement("textarea");
+			p2.setAttribute("name", "list_cdr[]");
+			p.appendChild(p2);
 
-		// 	p3 = document.createElement("select");
-		// 	p3.setAttribute("name", "list_cdr[]");		
-		// 	p3.setAttribute("multiple", "multiple");
-		// 	p3.setAttribute("required", "required");
-		// 	p3.id = "select_mucdo";
+			p3 = document.createElement("h5");
+			var nodexoa = document.createTextNode("Xoá");
+			p3.appendChild(nodexoa);
+			p3.id = "delete-cdr";
+			p.appendChild(p3);
 
-		// 	p3_1 = document.createElement("option");
-		// 	p3_1.setAttribute("value", "0");
-		// 	p3_1.setAttribute("selected", "true");
-		// 	p3_1.text = "I";
-		// 	p3_2 = document.createElement("option");
-		// 	p3_2.setAttribute("value", "1");
-		// 	p3_2.text = "R";
-		// 	p3_3 = document.createElement("option");
-		// 	p3_3.setAttribute("value", "2");
-		// 	p3_3.text = "M";
+			var div = document.getElementById("add-parent-cdr-"+b);
+			div.appendChild(p);
 
-		// 	p3.appendChild(p3_1);
-		// 	p3.appendChild(p3_2);
-		// 	p3.appendChild(p3_3);
 
-		// 	p4 = document.createElement("h5");
-		// 	var nodexoa = document.createTextNode("Xóa");
-		// 	p4.appendChild(nodexoa);
-		// 	p4.id = "delete-cdr";
-
-		// 	p.appendChild(p1);
-		// 	p.appendChild(p2);
-		// 	p.appendChild(p3);
-		// 	p.appendChild(p4);
-
-		// 	var div = document.getElementById("add-parent-cdr-"+b);
-		// 	div.appendChild(p); 
-
-		// });
-
-		// $('#chuan-dau-ra').on('click', 'tr td div div h5', function() {
-		// 	$(this).parent('div').remove();
-		// 	var x = document.getElementsByClassName('stt-cdr');
-		// 	for (var i = 0; i < x.length; i++) {
-		// 	    x[i].innerHTML = i+1;
-		// 	}
-		// });
-
-		$('#chuan-dau-ra').on('click', 'tr td div div h5#add-moilienhe', function() {
-
-			var id_chuandaura_chung = $(this).attr('data-value');
-
-			var id_chuandaura = $(this).parent('div').children('#select_chuandaura').val().toString();
-			var mucdo = $(this).parent('div').children('#select_mucdo').val().toString();
-
-			var id_hocphan = {{$id_hocphan}};
-			var id_khung = {{$id_khung}};
-
-			var id_nganh = $('#select-nganh').val().toString();
-
-			if (!id_chuandaura.length) {
-				alert("Bạn vui lòng chọn Chuẩn đầu ra và tiếp tục");
-			} else {
-				$.ajax({
-					url: "{{URL::to('admin/decuong/add-moilienhe-clo-plo')}}",
-					method: 'GET',
-					data:{id_chuandaura_chung:id_chuandaura_chung, id_chuandaura:id_chuandaura, mucdo:mucdo, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
-					success: function(data) {
-						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
-							alert(data);
-						}   
-					}
-				});
-			}
+			// var x = document.getElementsByClassName('stt-cdr');
+			// for (var i = 0; i < x.length; i++) {
+			//     x[i].innerHTML = i+1;
+			// } 
 
 		});
 
-		$('#chuan-dau-ra').on('click', 'tr td div div select#select_chuandaura', function() {
-			var id_hocphan = {{$id_hocphan}};
-			var id_khung = {{$id_khung}};
-			var id_nganh = $('#select-nganh').val().toString();
-
-			var id_chuandaura = $(this).val().toString();
-			var id_moilienhe = $(this).parent('div').children('#delete-moilienhe').attr('data-value');
-
-			if(id_moilienhe) {
-				$.ajax({
-					url: "{{URL::to('admin/decuong/edit-moilienhe-clo-plo-cdr')}}",
-					method: 'GET',
-					data:{id_moilienhe:id_moilienhe, id_chuandaura:id_chuandaura, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
-					success: function(data) {
-						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
-							alert(data);
-						}   
-					}
-				});
+		$('#chuan-dau-ra').on('click', 'tr td div div h5', function() {
+			$(this).parent('div').remove();
+			var x = document.getElementsByClassName('stt-cdr');
+			for (var i = 0; i < x.length; i++) {
+			    x[i].innerHTML = i+1;
 			}
-
-		});
-
-		$('#chuan-dau-ra').on('click', 'tr td div div select#select_mucdo', function() {
-			var id_hocphan = {{$id_hocphan}};
-			var id_khung = {{$id_khung}};
-
-			var id_nganh = $('#select-nganh').val().toString();
-
-			var mucdo = $(this).val().toString();
-
-			var id_moilienhe = $(this).parent('div').children('#delete-moilienhe').attr('data-value');
-
-			if(id_moilienhe) {
-				$.ajax({
-					url: "{{URL::to('admin/decuong/edit-moilienhe-clo-plo-mucdo')}}",
-					method: 'GET',
-					data:{id_moilienhe:id_moilienhe, mucdo:mucdo, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
-					success: function(data) {
-						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
-							alert(data);
-						}   
-					}
-				});
-			}
-
-		});
-
-		$('#chuan-dau-ra').on('click', 'tr td div div span#delete-moilienhe', function() {
-
-			var answer = window.confirm("Bạn có chắc chắn muốn xóa không?");
-			if (answer) {
-				var id_hocphan = {{$id_hocphan}};
-				var id_khung = {{$id_khung}};
-
-				var id_nganh = $('#select-nganh').val().toString();
-
-				var id_moilienhe = $(this).attr('data-value');
-
-				$.ajax({
-					url: "{{URL::to('admin/decuong/delete-moilienhe-clo-plo')}}",
-					method: 'GET',
-					data:{id_moilienhe:id_moilienhe, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
-					success: function(data) {
-						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
-							alert(data);
-						}   
-					}
-				});
-			}
-			else {
-				
-			}
-
-		});
-
-		$('#tr-add-clo').on('click', 'td p#add-clo', function() {
-
-			var noidung_clo = $(this).parent('td').parent('tr').children('td').children('#noidung_clo_add').val();
-
-			var id_hocphan = {{$id_hocphan}};
-			var id_khung = {{$id_khung}};
-
-			if (!$.trim(noidung_clo)) {
-				alert('Nội dung CLO trống!!! Vui lòng điền thông tin CLO rồi tiếp tục');
-			} else {
-				$.ajax({
-					url: "{{URL::to('admin/decuong/add-clo')}}",
-					method: 'GET',
-					data:{id_hocphan:id_hocphan, id_khung:id_khung, noidung_clo:noidung_clo},
-					success: function(data) {
-						if (data != null) {
-							load_CLO();
-						}   
-					}
-				});
-			}			
-		});
-
-		load_CLO();
-
-		function load_CLO() {
-			var id_hocphan = {{$id_hocphan}};
-			var id_khung = {{$id_khung}};
-
-			$.ajax({
-				url: "{{URL::to('admin/decuong/load-clo')}}",
-				method: 'GET',
-				data:{id_hocphan:id_hocphan, id_khung:id_khung},
-				success: function(data) {
-					if (data != null) {
-						$('#noidung_clo_add').val(null);
-						$('#body-clo').html(data);
-
-						var numberOfSpans = $('#body-clo').children('tr').length;
-
-						if (numberOfSpans < 1) {
-							$('#text-warning').html("Chưa có học CLO nào được thêm");
-						} else if ( numberOfSpans >= 3 && numberOfSpans <= 4 ) {
-							$('#text-warning').html("");
-						} else {
-							$('#text-warning').html("Học phần đang có: "+numberOfSpans+" CLO, số CLO nên có là từ 3 -> 4 CLO");
-						}
-
-						var id_nganh = $('#select-nganh').val().toString();
-
-						select_nganh(id_nganh, id_hocphan, id_khung);
-
-					}   
-				}
-			});
-
-		}
-
-		$('#body-clo').on('click', 'td p#edit-clo', function() {
-
-			var noidung_clo = $(this).parent('td').parent('tr').children('td').children('#noidung_clo').val();
-
-			var id_hocphan = {{$id_hocphan}};
-			var id_khung = {{$id_khung}};
-
-			var id_clo = $(this).attr('data-value');
-
-			if (!$.trim($("#noidung_clo").val())) {
-				alert('Nội dung CLO trống!!! Vui lòng điền thông tin CLO rồi tiếp tục');
-			} else {
-				$.ajax({
-					url: "{{URL::to('admin/decuong/edit-clo')}}",
-					method: 'GET',
-					data:{id_hocphan:id_hocphan, id_khung:id_khung, noidung_clo:noidung_clo, id_clo:id_clo},
-					success: function(data) {
-						if (data != null) {
-							load_CLO();
-						}   
-					}
-				});
-			}
-
-		});
-
-		
-		$('#body-clo').on('click', 'td p#delete-clo', function() {
-
-			var answer = window.confirm("Bạn có chắc chắn muốn xóa không?");
-
-			if (answer) {
-				var id_clo = $(this).attr('data-value');
-
-				$.ajax({
-					url: "{{URL::to('admin/decuong/delete-clo')}}",
-					method: 'GET',
-					data:{id_clo:id_clo},
-					success: function(data) {
-						if (data != null) {
-							alert(data);
-							load_CLO();
-						}   
-					}
-				});
-
-			} else {
-
-			}
-
 		});
 
 		$('#table-tltk-giaotrinh').on('click', 'tr td#add-tltk-giaotrinh', function() {
@@ -951,20 +653,11 @@
 
 			var p7 = document.createElement("td");
 			p7.setAttribute("class", "align-middle");
-			var node7 = document.createElement("textarea");
-			node7.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
-			node7.setAttribute('required',true);
-			node7.rows = 5;
-			node7.cols = 15;
+			p7.id = "delete-tltk-giaotrinh";
+			var node7 = document.createElement("p");
+			var node7_1 = document.createTextNode("Xóa");
+			node7.appendChild(node7_1);
 			p7.appendChild(node7);
-
-			var p8 = document.createElement("td");
-			p8.setAttribute("class", "align-middle");
-			p8.id = "delete-tltk-giaotrinh";
-			var node8 = document.createElement("p");
-			var node8_1 = document.createTextNode("Xóa");
-			node8.appendChild(node8_1);
-			p8.appendChild(node8);
 
 			p.appendChild(p1);
 			p.appendChild(p2);
@@ -973,7 +666,6 @@
 			p.appendChild(p5);
 			p.appendChild(p6);
 			p.appendChild(p7);
-			p.appendChild(p8);
 
 			var div = document.getElementById("list-tltk-giaotrinh");
 			div.appendChild(p);
@@ -1049,20 +741,11 @@
 
 			var p7 = document.createElement("td");
 			p7.setAttribute("class", "align-middle");
-			var node7 = document.createElement("textarea");
-			node7.setAttribute("name", "tai_lieu_tham_khao_sach[]");
-			node7.setAttribute('required',true);
-			node7.rows = 5;
-			node7.cols = 15;
+			p7.id = "delete-tltk-sach";
+			var node7 = document.createElement("p");
+			var node7_1 = document.createTextNode("Xóa");
+			node7.appendChild(node7_1);
 			p7.appendChild(node7);
-
-			var p8 = document.createElement("td");
-			p8.setAttribute("class", "align-middle");
-			p8.id = "delete-tltk-sach";
-			var node8 = document.createElement("p");
-			var node8_1 = document.createTextNode("Xóa");
-			node8.appendChild(node8_1);
-			p8.appendChild(node8);
 
 			p.appendChild(p1);
 			p.appendChild(p2);
@@ -1071,7 +754,6 @@
 			p.appendChild(p5);
 			p.appendChild(p6);
 			p.appendChild(p7);
-			p.appendChild(p8);
 
 			var div = document.getElementById("list-tltk-sach");
 			div.appendChild(p);

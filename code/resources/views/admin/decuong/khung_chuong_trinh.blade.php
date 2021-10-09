@@ -81,7 +81,7 @@
                     <div id="myModal_2" class="modal_2">
                         <div class="modal-content">
                             <span class="close_2">&times;</span>
-                            <p style="text-align:center;" >Danh sách đề cương </p>
+                            <!-- <p style="text-align:center;" >Danh sách đề cương </p> -->
                             <div id="nhanban_decuong_kct"></div>
                         </div>
                     </div>
@@ -213,12 +213,13 @@
 			modal_2.style.display = "block";
 
 			var id_hocphan = this.dataset.value;
+            var id_khung = $('#select_khungchuongtrinh').val();
 
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url: "{{URL::to('admin/decuong/nhan-ban-de-cuong-khung-chuong-trinh')}}",
                 method: 'GET',
-                data:{id_hocphan:id_hocphan,  _token:_token},
+                data:{id_hocphan:id_hocphan, id_khung:id_khung,  _token:_token},
                 success: function(data) {
                     if (data != null) {
                         //location.reload();

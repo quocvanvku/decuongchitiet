@@ -60,9 +60,9 @@
 											<select name="khungchuongtrinh" id="select_khoa" required="" multiple>
 												@foreach($khungchuongtrinh as $value_khungchuongtrinh)
 													@if($value_khungchuongtrinh->level == 1)
-													<option value="{{$value_khungchuongtrinh->id}}" >|____{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													<option value="{{$value_khungchuongtrinh->id}}" <?php if($value_khungchuongtrinh->id == $id_khung) {echo "selected";} else {echo "disabled";} ?> >|____{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
 													@else
-													<option value="{{$value_khungchuongtrinh->id}}" >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+													<option value="{{$value_khungchuongtrinh->id}}" <?php if($value_khungchuongtrinh->id == $id_khung) {echo "selected";} else {echo "disabled";} ?> >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
 													@endif
 												@endforeach
 											</select> 
@@ -201,25 +201,25 @@
 									<tr>
 										<td>12. Mô tả tóm tắt học phần</td>
 										<td>
-											<textarea name="mota_tomtat" required="" placeholder="Mô tả tóm tắt học phần">{{$all_decuong->mota_tomtat}}</textarea>
+											<textarea class="list-textarea-chung" name="mota_tomtat" required="" placeholder="Mô tả tóm tắt học phần">{{$all_decuong->mota_tomtat}}</textarea>
 										</td>
 									</tr>
 									<tr>
 										<td>13. Mục tiêu kiến thức của học phần</td>
 										<td>
-											<textarea name="muctieu_kienthuc" required="" placeholder="Mục tiêu kiến thức của học phần">{{$all_decuong->muctieu_kienthuc}}</textarea>
+											<textarea class="list-textarea-chung" name="muctieu_kienthuc" required="" placeholder="Mục tiêu kiến thức của học phần">{{$all_decuong->muctieu_kienthuc}}</textarea>
 										</td>
 									</tr>
 									<tr>
 										<td>14. Mục tiêu kỹ năng của học phần</td>
 										<td>
-											<textarea name="muctiey_kynang" required="" placeholder="Mục tiêu kỹ năng của học phần">{{$all_decuong->muctieu_kynang}}</textarea>
+											<textarea class="list-textarea-chung" name="muctiey_kynang" required="" placeholder="Mục tiêu kỹ năng của học phần">{{$all_decuong->muctieu_kynang}}</textarea>
 										</td>
 									</tr>
 									<tr>
 										<td>15. Mục tiêu thái độ của học phần</td>
 										<td>
-											<textarea name="muctieu_thaido" required="" placeholder="Mục tiêu thái độ của học phần">{{$all_decuong->muctieu_thaido}}</textarea>
+											<textarea class="list-textarea-chung" name="muctieu_thaido" required="" placeholder="Mục tiêu thái độ của học phần">{{$all_decuong->muctieu_thaido}}</textarea>
 										</td>
 									</tr>
 								</table>
@@ -228,6 +228,47 @@
 						<div class="list-tab-body">
 							<div class="block">
 								<table>
+
+									<tr>
+										<td class="c1">Thêm chuẩn đầu ra:</td>
+										<td>Thêm các chuẩn đầu ra cho học phần {{$ten_hocphan}}</td>
+									</tr>
+
+									<tr>
+										<td></td>
+										<td class="danh-sach-clo">
+											<p>Danh sách chuẩn đầu ra của học phần {{$ten_hocphan}}</p>
+											<p style="color:red;" id="text-warning">Chưa có học CLO nào được thêm</p>
+										</td>
+									</tr>
+
+									<tr>
+										<td></td>
+										<td>
+											<table class="table table-bordered table-add-clo">
+												<thead>
+													<tr>
+														<td class="align-middle">#</td>
+														<td class="align-middle">CLO</td>
+														<td class="align-middle">Action</td>
+													</tr>
+												</thead>
+												<tbody id="body-clo">
+													
+												</tbody>
+												<tr id="tr-add-clo">
+													<td class="align-middle"></td>
+													<td class="align-middle">
+														<textarea name="" id="noidung_clo_add" cols="70" rows="2" placeholder="Nhập chuẩn đầu ra học phần" ></textarea>
+													</td>
+													<td class="align-middle">
+														<p id="add-clo">Thêm</p>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+
 									<tr>
 										<td class="c1">16.Chọn ngành</td>
 										<td>
@@ -245,41 +286,20 @@
 											<table class="table-chuan-dau-ra" border="1px">
 												<thead>
 													<tr>
-														<td>#</td>
-														<td>Chuẩn đầu ra chung (PLO) </td>
+														<td style="width:15px;">#</td>
+														<td style="width:20%;">Chuẩn đầu ra chung (PLO) </td>
 														<td>Chuẩn đầu ra học phần (CLO) </td>
 													</tr>
 												</thead>
 												<tbody id="chuan-dau-ra">
-													<?php $stt_cdr_chung = 1; ?>
-													@foreach($all_cdr_nganh as $value_cdr_chung)
-													<tr>
-														<td class="stt-cdr">{{$stt_cdr_chung}}</td>
-														<td class="noi-cdr-chung">{{$value_cdr_chung->noidung_cdr_chung}}</td>
-														<td class="list-cdr-hoc-phan" style="width:400px" >
-															<p id="add-cdr" data-value="{{$value_cdr_chung->id_cdr_chung}}">Thêm</p>
-															<div id="add-parent-cdr-{{$value_cdr_chung->id_cdr_chung}}">
-                                                            @foreach($all_chuandaura as $value_chuandaura)
-                                                                @if($value_chuandaura->id_cdr_chung == $value_cdr_chung->id_cdr_chung)
-                                                                <div class="line-add-cdr">
-                                                                    <input type="hidden" name="list_cdr[]" value="{{$value_cdr_chung->id_cdr_chung}}">
-                                                                    <textarea name="list_cdr[]">{{$value_chuandaura->noi_dung}}</textarea>
-                                                                    <h5 id="delete-cdr">Xoá</h5>
-                                                                </div>
-                                                                @endif
-                                                            @endforeach
-															</div>
-														</td>
-													</tr>
-													<?php $stt_cdr_chung++; ?>
-													@endforeach
+													
 												</tbody>
 																								
 											</table>
 										</td>
 
 									</tr>
-
+									
 								</table>
 							</div>
 						</div>
@@ -289,20 +309,117 @@
 									<tr>
 										<td>17. Nhiệm vụ của học viên</td>
 										<td>
-											<textarea name="nhiemvu" required="" placeholder="Nhiệm vụ của học viên">{{$all_decuong->nhiemvu}}</textarea>
+											<textarea class="list-textarea-chung" name="nhiemvu" required="" placeholder="Nhiệm vụ của học viên">{{$all_decuong->nhiemvu}}</textarea>
 										</td>
-									</tr>
-									
+									</tr>	
 									<tr>
 										<td>18. Tài liệu tham khảo - Giáo trình</td>
-										<td>
-											<textarea name="tltk_giaotrinh" required="" placeholder="Tài liệu tham khảo - Giáo trình">{{$all_decuong->tailieuthamkhao_giaotrinh}}</textarea>
+										<td style="width:80%;">
+											<table class="table table-bordered" id="table-tltk-giaotrinh">
+												<thead>
+													<tr>
+														<td class="align-middle">STT</td>
+														<td class="align-middle">Tên tác giả</td>
+														<td class="align-middle">Năm XB</td>
+														<td class="align-middle">Tên tài liệu</td>
+														<td class="align-middle">Nơi XB</td>
+														<td class="align-middle">Nhà XB</td>
+														<td class="align-middle">Url</td>
+														<td class="align-middle">Action</td>
+													</tr>
+												</thead>
+												<tbody id="list-tltk-giaotrinh">
+													<?php $stt_tltk_giaotrinh=1; ?>
+													@foreach($all_tltk_giaotrinh as $value_all_tltk_giaotrinh)
+													<tr>
+														<td class="stt-tltk-giaotrinh align-middle">
+															<p>{{$stt_tltk_giaotrinh++}}</p>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->tentacgia}}</textarea>
+														</td>
+														<td class="align-middle">
+															<input type="number" name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" style="width:80px" value="{{$value_all_tltk_giaotrinh->namxuatban}}">
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->tensach}}</textarea>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->noixuatban}}</textarea>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->nhaxuatban}}</textarea>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->url}}</textarea>
+														</td>
+														<td class="align-middle" id="delete-tltk-giaotrinh">
+															<p>Xóa</p>
+														</td>
+													</tr>
+													@endforeach
+												</tbody>
+												<tr>
+													<td class="align-middle" colspan="7" id="add-tltk-giaotrinh">
+														<p style="tex-algin:center;">Thêm</p>
+													</td>
+												</tr>
+											</table>
 										</td>
 									</tr>
 									<tr>
 										<td>19. Tài liệu tham khảo - Sách</td>
-										<td>
-											<textarea name="tltk_sach" required="" placeholder="Tài liệu tham khảo - Sách">{{$all_decuong->tailieuthamkhao_sach}}</textarea>
+										<td style="width:80%;">
+											<table class="table table-bordered" id="table-tltk-sach">
+												<thead>
+													<tr>
+														<td class="align-middle">STT</td>
+														<td class="align-middle">Tên tác giả</td>
+														<td class="align-middle">Năm XB</td>
+														<td class="align-middle">Tên tài liệu</td>
+														<td class="align-middle">Nơi XB</td>
+														<td class="align-middle">Nhà XB</td>
+														<td class="align-middle">Url</td>
+														<td class="align-middle">Action</td>
+													</tr>
+												</thead>
+												<tbody id="list-tltk-sach">
+													<?php $stt_tltk_sach=1; ?>
+													@foreach($all_tltk_sach as $value_all_tltk_sach)
+													<tr>
+														<td class="stt-tltk-sach align-middle">
+															<p>{{$stt_tltk_sach++}}</p>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->tentacgia}}</textarea>
+														</td>
+														<td class="align-middle">
+															<input type="number" name="tai_lieu_tham_khao_sach[]" id="" required="" style="width:80px" value="{{$value_all_tltk_sach->namxuatban}}">
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->tensach}}</textarea>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->noixuatban}}</textarea>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->nhaxuatban}}</textarea>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->url}}</textarea>
+														</td>
+														<td class="align-middle" id="delete-tltk-sach">
+															<p>Xóa</p>
+														</td>
+													</tr>
+													@endforeach
+												</tbody>
+												<tr>
+													<td class="align-middle" colspan="7" id="add-tltk-sach">
+														<p style="tex-algin:center;">Thêm</p>
+													</td>
+												</tr>
+											</table>
 										</td>
 									</tr>
 									<tr>
@@ -460,68 +577,444 @@
 
 		$('#select-nganh').on('change', function() {
 			var id_nganh = this.value;
+			var id_hocphan = {{$id_hocphan}};
+			var id_khung = {{$id_khung}};
 
-			select_nganh(id_nganh);
+			select_nganh(id_nganh, id_hocphan, id_khung);
 
 		});
 
-		function select_nganh(id_nganh) {
+		function select_nganh(id_nganh, id_hocphan, khungchuongtrinh) {
 			var _token = $('input[name="_token"]').val();
 			$.ajax({
 				url: "{{URL::to('admin/decuong/select-nganh-aj')}}",
 				method: 'GET',
-				data:{id_nganh:id_nganh, _token:_token},
+				data:{id_nganh:id_nganh, id_hocphan:id_hocphan, khungchuongtrinh:khungchuongtrinh, _token:_token},
 				success: function(data) {
 					if (data != null) { 
+						//alert(data);
        					$('#chuan-dau-ra').html(data);
 					}   
 				}
 			});
 		}
 
+		$('#chuan-dau-ra').on('click', 'tr td div div h5#add-moilienhe', function() {
 
-		//chuan dau ra
-		$('#chuan-dau-ra').on('click', 'tr td p', function() {
+			var id_chuandaura_chung = $(this).attr('data-value');
 
-			p2 = document.createElement("input");
+			var id_chuandaura = $(this).parent('div').children('#select_chuandaura').val().toString();
+			var mucdo = $(this).parent('div').children('#select_mucdo').val().toString();
 
-			var b = $(this).attr('data-value');
+			var id_hocphan = {{$id_hocphan}};
+			var id_khung = {{$id_khung}};
 
-			p = document.createElement("div");
-			p.setAttribute("class", "line-add-cdr");
+			var id_nganh = $('#select-nganh').val().toString();
 
-			p4 = document.createElement("input");
-			p4.setAttribute("type", "hidden");
-			p4.setAttribute("name", "list_cdr[]");
-			p4.setAttribute("value", b);
-			p.appendChild(p4);
-
-			p2 = document.createElement("textarea");
-			p2.setAttribute("name", "list_cdr[]");
-			p2.value = "";
-			p.appendChild(p2);
-
-			p3 = document.createElement("h5");
-			var nodexoa = document.createTextNode("Xoá");
-			p3.appendChild(nodexoa);
-			p3.id = "delete-cdr";
-			p.appendChild(p3);
-
-			var div = document.getElementById("add-parent-cdr-"+b);
-			div.appendChild(p);
-
-			// var x = document.getElementsByClassName('stt-cdr');
-			// for (var i = 0; i < x.length; i++) {
-			//     x[i].innerHTML = i+1;
-			// } 
+			if (!id_chuandaura.length) {
+				alert("Bạn vui lòng chọn Chuẩn đầu ra và tiếp tục");
+			} else {
+				$.ajax({
+					url: "{{URL::to('admin/decuong/add-moilienhe-clo-plo')}}",
+					method: 'GET',
+					data:{id_chuandaura_chung:id_chuandaura_chung, id_chuandaura:id_chuandaura, mucdo:mucdo, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					success: function(data) {
+						if (data != null) {
+							select_nganh(id_nganh, id_hocphan, id_khung);
+							alert(data);
+						}   
+					}
+				});
+			}
 
 		});
 
-		$('#chuan-dau-ra').on('click', 'tr td div div h5', function() {
-			$(this).parent('div').remove();
-			var x = document.getElementsByClassName('stt-cdr');
+		$('#chuan-dau-ra').on('click', 'tr td div div select#select_chuandaura', function() {
+			var id_hocphan = {{$id_hocphan}};
+			var id_khung = {{$id_khung}};
+			var id_nganh = $('#select-nganh').val().toString();
+
+			var id_chuandaura = $(this).val().toString();
+			var id_moilienhe = $(this).parent('div').children('#delete-moilienhe').attr('data-value');
+
+			if(id_moilienhe) {
+				$.ajax({
+					url: "{{URL::to('admin/decuong/edit-moilienhe-clo-plo-cdr')}}",
+					method: 'GET',
+					data:{id_moilienhe:id_moilienhe, id_chuandaura:id_chuandaura, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					success: function(data) {
+						if (data != null) {
+							select_nganh(id_nganh, id_hocphan, id_khung);
+							alert(data);
+						}   
+					}
+				});
+			}
+
+		});
+
+		$('#chuan-dau-ra').on('click', 'tr td div div select#select_mucdo', function() {
+			var id_hocphan = {{$id_hocphan}};
+			var id_khung = {{$id_khung}};
+
+			var id_nganh = $('#select-nganh').val().toString();
+
+			var mucdo = $(this).val().toString();
+
+			var id_moilienhe = $(this).parent('div').children('#delete-moilienhe').attr('data-value');
+
+			if(id_moilienhe) {
+				$.ajax({
+					url: "{{URL::to('admin/decuong/edit-moilienhe-clo-plo-mucdo')}}",
+					method: 'GET',
+					data:{id_moilienhe:id_moilienhe, mucdo:mucdo, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					success: function(data) {
+						if (data != null) {
+							select_nganh(id_nganh, id_hocphan, id_khung);
+							alert(data);
+						}   
+					}
+				});
+			}
+
+		});
+
+		$('#chuan-dau-ra').on('click', 'tr td div div span#delete-moilienhe', function() {
+
+			var answer = window.confirm("Bạn có chắc chắn muốn xóa không?");
+			if (answer) {
+				var id_hocphan = {{$id_hocphan}};
+				var id_khung = {{$id_khung}};
+
+				var id_nganh = $('#select-nganh').val().toString();
+
+				var id_moilienhe = $(this).attr('data-value');
+
+				$.ajax({
+					url: "{{URL::to('admin/decuong/delete-moilienhe-clo-plo')}}",
+					method: 'GET',
+					data:{id_moilienhe:id_moilienhe, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					success: function(data) {
+						if (data != null) {
+							select_nganh(id_nganh, id_hocphan, id_khung);
+							alert(data);
+						}   
+					}
+				});
+			}
+			else {
+				
+			}
+
+		});
+
+
+		$('#tr-add-clo').on('click', 'td p#add-clo', function() {
+
+			var noidung_clo = $(this).parent('td').parent('tr').children('td').children('#noidung_clo_add').val();
+
+			var id_hocphan = {{$id_hocphan}};
+			var id_khung = {{$id_khung}};
+
+			if (!$.trim(noidung_clo)) {
+				alert('Nội dung CLO trống!!! Vui lòng điền thông tin CLO rồi tiếp tục');
+			} else {
+				$.ajax({
+					url: "{{URL::to('admin/decuong/add-clo')}}",
+					method: 'GET',
+					data:{id_hocphan:id_hocphan, id_khung:id_khung, noidung_clo:noidung_clo},
+					success: function(data) {
+						if (data != null) {
+							load_CLO();
+						}   
+					}
+				});
+			}			
+		});
+
+			load_CLO();
+
+		function load_CLO() {
+			var id_hocphan = {{$id_hocphan}};
+			var id_khung = {{$id_khung}};
+
+			$.ajax({
+				url: "{{URL::to('admin/decuong/load-clo')}}",
+				method: 'GET',
+				data:{id_hocphan:id_hocphan, id_khung:id_khung},
+				success: function(data) {
+					if (data != null) {
+						$('#noidung_clo_add').val(null);
+						$('#body-clo').html(data);
+
+						var numberOfSpans = $('#body-clo').children('tr').length;
+
+						if (numberOfSpans < 1) {
+							$('#text-warning').html("Chưa có học CLO nào được thêm");
+						} else if ( numberOfSpans >= 3 && numberOfSpans <= 4 ) {
+							$('#text-warning').html("");
+						} else {
+							$('#text-warning').html("Học phần đang có: "+numberOfSpans+" CLO, số CLO nên có là từ 3 -> 4 CLO");
+						}
+
+						var id_nganh = $('#select-nganh').val().toString();
+
+						select_nganh(id_nganh, id_hocphan, id_khung);
+
+					}   
+				}
+			});
+
+		}
+
+		$('#body-clo').on('click', 'td p#edit-clo', function() {
+
+			var noidung_clo = $(this).parent('td').parent('tr').children('td').children('#noidung_clo').val();
+
+			var id_hocphan = {{$id_hocphan}};
+			var id_khung = {{$id_khung}};
+
+			var id_clo = $(this).attr('data-value');
+
+			if (!$.trim($("#noidung_clo").val())) {
+				alert('Nội dung CLO trống!!! Vui lòng điền thông tin CLO rồi tiếp tục');
+			} else {
+				$.ajax({
+					url: "{{URL::to('admin/decuong/edit-clo')}}",
+					method: 'GET',
+					data:{id_hocphan:id_hocphan, id_khung:id_khung, noidung_clo:noidung_clo, id_clo:id_clo},
+					success: function(data) {
+						if (data != null) {
+							load_CLO();
+						}   
+					}
+				});
+			}
+
+		});
+
+
+		$('#body-clo').on('click', 'td p#delete-clo', function() {
+
+			var answer = window.confirm("Bạn có chắc chắn muốn xóa không?");
+
+			if (answer) {
+
+				var id_clo = $(this).attr('data-value');
+
+				$.ajax({
+					url: "{{URL::to('admin/decuong/delete-clo')}}",
+					method: 'GET',
+					data:{id_clo:id_clo},
+					success: function(data) {
+						if (data != null) {
+							alert(data);
+							load_CLO();
+						}   
+					}
+				});
+				
+			} else {
+
+			}
+
+		});
+
+
+
+		$('#table-tltk-giaotrinh').on('click', 'tr td#add-tltk-giaotrinh', function() {
+
+			var p = document.createElement("tr");
+
+			var p1 = document.createElement("td");
+			p1.setAttribute("class", "stt-tltk-giaotrinh align-middle");
+			var node1 = document.createTextNode("1");
+			p1.appendChild(node1);
+
+			var p2 = document.createElement("td");
+			p2.setAttribute("class", "align-middle");
+			var node2 = document.createElement("textarea");
+			node2.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+			node2.setAttribute('required',true);
+			node2.rows = 5;
+			node2.cols = 15;
+			p2.appendChild(node2);
+
+			var p3 = document.createElement("td");
+			p3.setAttribute("class", "align-middle");
+			var node3 = document.createElement("input");
+			node3.type = "number";
+			node3.style = "width:80px";
+			node3.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+			node3.setAttribute('required',true);
+			p3.appendChild(node3);
+
+			var p4 = document.createElement("td");
+			p4.setAttribute("class", "align-middle");
+			var node4 = document.createElement("textarea");
+			node4.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+			node4.setAttribute('required',true);
+			node4.rows = 5;
+			node4.cols = 15;
+			p4.appendChild(node4);
+
+			var p5 = document.createElement("td");
+			p5.setAttribute("class", "align-middle");
+			var node5 = document.createElement("textarea");
+			node5.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+			node5.setAttribute('required',true);
+			node5.rows = 5;
+			node5.cols = 15;
+			p5.appendChild(node5);
+
+			var p6 = document.createElement("td");
+			p6.setAttribute("class", "align-middle");
+			var node6 = document.createElement("textarea");
+			node6.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+			node6.setAttribute('required',true);
+			node6.rows = 5;
+			node6.cols = 15;
+			p6.appendChild(node6);
+
+			var p7 = document.createElement("td");
+			p7.setAttribute("class", "align-middle");
+			var node7 = document.createElement("textarea");
+			node7.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+			node7.setAttribute('required',true);
+			node7.rows = 5;
+			node7.cols = 15;
+			p7.appendChild(node7);
+
+			var p8 = document.createElement("td");
+			p8.setAttribute("class", "align-middle");
+			p8.id = "delete-tltk-giaotrinh";
+			var node8 = document.createElement("p");
+			var node8_1 = document.createTextNode("Xóa");
+			node8.appendChild(node8_1);
+			p8.appendChild(node8);
+
+			p.appendChild(p1);
+			p.appendChild(p2);
+			p.appendChild(p3);
+			p.appendChild(p4);
+			p.appendChild(p5);
+			p.appendChild(p6);
+			p.appendChild(p7);
+			p.appendChild(p8);
+
+			var div = document.getElementById("list-tltk-giaotrinh");
+			div.appendChild(p);
+
+			var x = document.getElementsByClassName('stt-tltk-giaotrinh');
 			for (var i = 0; i < x.length; i++) {
-			    x[i].innerHTML = i+1;
+				x[i].innerHTML = i+1;
+			}
+
+		});
+
+		$('#list-tltk-giaotrinh').on('click', 'tr td#delete-tltk-giaotrinh', function() {
+			$(this).parent('tr').remove();
+			var x = document.getElementsByClassName('stt-tltk-giaotrinh');
+			for (var i = 0; i < x.length; i++) {
+				x[i].innerHTML = i+1;
+			}
+		});
+
+		$('#table-tltk-sach').on('click', 'tr td#add-tltk-sach', function() {
+
+			var p = document.createElement("tr");
+
+			var p1 = document.createElement("td");
+			p1.setAttribute("class", "stt-tltk-sach align-middle");
+			var node1 = document.createTextNode("1");
+			p1.appendChild(node1);
+
+			var p2 = document.createElement("td");
+			p2.setAttribute("class", "align-middle");
+			var node2 = document.createElement("textarea");
+			node2.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+			node2.setAttribute('required',true);
+			node2.rows = 5;
+			node2.cols = 15;
+			p2.appendChild(node2);
+
+			var p3 = document.createElement("td");
+			p3.setAttribute("class", "align-middle");
+			var node3 = document.createElement("input");
+			node3.type = "number";
+			node3.style = "width:80px";
+			node3.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+			node3.setAttribute('required',true);
+			p3.appendChild(node3);
+
+			var p4 = document.createElement("td");
+			p4.setAttribute("class", "align-middle");
+			var node4 = document.createElement("textarea");
+			node4.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+			node4.setAttribute('required',true);
+			node4.rows = 5;
+			node4.cols = 15;
+			p4.appendChild(node4);
+
+			var p5 = document.createElement("td");
+			p5.setAttribute("class", "align-middle");
+			var node5 = document.createElement("textarea");
+			node5.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+			node5.setAttribute('required',true);
+			node5.rows = 5;
+			node5.cols = 15;
+			p5.appendChild(node5);
+
+			var p6 = document.createElement("td");
+			p6.setAttribute("class", "align-middle");
+			var node6 = document.createElement("textarea");
+			node6.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+			node6.setAttribute('required',true);
+			node6.rows = 5;
+			node6.cols = 15;
+			p6.appendChild(node6);
+
+			var p7 = document.createElement("td");
+			p7.setAttribute("class", "align-middle");
+			var node7 = document.createElement("textarea");
+			node7.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+			node7.setAttribute('required',true);
+			node7.rows = 5;
+			node7.cols = 15;
+			p7.appendChild(node7);
+
+			var p8 = document.createElement("td");
+			p8.setAttribute("class", "align-middle");
+			p8.id = "delete-tltk-sach";
+			var node8 = document.createElement("p");
+			var node8_1 = document.createTextNode("Xóa");
+			node8.appendChild(node8_1);
+			p8.appendChild(node8);
+
+			p.appendChild(p1);
+			p.appendChild(p2);
+			p.appendChild(p3);
+			p.appendChild(p4);
+			p.appendChild(p5);
+			p.appendChild(p6);
+			p.appendChild(p7);
+			p.appendChild(p8);
+
+			var div = document.getElementById("list-tltk-sach");
+			div.appendChild(p);
+
+			var x = document.getElementsByClassName('stt-tltk-sach');
+			for (var i = 0; i < x.length; i++) {
+				x[i].innerHTML = i+1;
+			}
+
+		});
+
+		$('#list-tltk-sach').on('click', 'tr td#delete-tltk-sach', function() {
+			$(this).parent('tr').remove();
+			var x = document.getElementsByClassName('stt-tltk-sach');
+			for (var i = 0; i < x.length; i++) {
+				x[i].innerHTML = i+1;
 			}
 		});
 

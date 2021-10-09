@@ -184,7 +184,7 @@
 							</td>
 						</tr>
 					</table>
-
+ 
 					<div class="sm-khgd">
 						<input type="submit" value="Thêm kế hoạch giảng dạy" class="submit-ke-hoach-giang-day">
 					</div>

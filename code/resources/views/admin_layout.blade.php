@@ -41,7 +41,7 @@
 					<p>Đề cương</p>
 					<i class="icon-menu-ad-item fas fa-chevron-right"></i>
 					<ul class="sub-menu-ad-item">
-						<li><p><a href="{{URL::to('admin/decuong/them-moi-de-cuong')}}">Thêm đề cương</a></p></li>
+						<li><p><a href="{{URL::to('admin/decuong/them-moi-de-cuong-admin')}}">Thêm đề cương Admin</a></p></li>
 						<li><p><a href="{{URL::to('admin/decuong/khung-chuong-trinh/142')}}">Khung chương trình</a></p></li>
 						<li><p><a href="{{URL::to('admin/decuong/khoi-kien-thuc/142')}}">Khối kiến thức</a></p></li>
 						<li><p><a href="{{URL::to('admin/decuong/khgd-khung-chuong-trinh/142')}}">Kế hoạch giảng dạy</a></p></li>

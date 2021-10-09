@@ -123,7 +123,7 @@ li {
 }
 
 .them-moi-de-cuong .tab-body .block {
-    margin-left: 100px;
+    margin-left: 30px;
 }
 
 .them-moi-de-cuong .tab-body .list-tab-body {
@@ -256,7 +256,7 @@ li {
     padding-bottom: 5px;
 }
 
-.them-moi-de-cuong .tab-body .block table tr td textarea {
+.them-moi-de-cuong .tab-body .block table tr td .list-textarea-chung {
     width: 500px;
     height: 120px;
     font-size: 15px;
@@ -283,6 +283,19 @@ li {
     border: 1px solid #222;
 } */
 
+.them-moi-de-cuong .tab-body .block table tr td #edit-clo {
+    padding-top: 15px;
+    color: #f1bc31;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td #delete-clo {
+    color:#f0134d;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td #add-clo {
+    color:#64c4ed;
+}
+
 .them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td {
     padding: 0;
 }
@@ -296,12 +309,13 @@ li {
 }
 
 .them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td #add-cdr {
-    width: 390px;
+   
     border-radius: 5px;
     height: 30px;
     background: #ffcc33;
     line-height: 30px;
     margin-left: 5px;
+    margin-right: 5px;
     margin-top: 5px;
     color: rgb(27, 97, 102);
     cursor: pointer;
@@ -317,6 +331,69 @@ li {
     margin-top: 100px;
 }
 
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td .line-add-cdr {
+    border-top: 1px solid #333;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td .line-add-cdr textarea {
+    margin-top: 10px;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td #select_mucdo {
+    padding: 2px 10px;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td #select_chuandaura {
+    height: 100%;
+    padding: 2px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td #add-moilienhe {
+    color: #64c4ed;
+    border: 1px solid #64c4ed;
+    padding: 5px 0px;
+    font-size: 19px;
+    border-radius: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td #edit-moilienhe {
+    color: #94aa2a;
+    border: 1px solid #94aa2a;
+    padding: 5px 0px;
+    font-size: 19px;
+    border-radius: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td #delete-moilienhe {
+    color: #f0134d;
+    border: 1px solid #f0134d;
+    font-size: 19px;
+    border-radius: 3px;
+    cursor: pointer;
+    float: right;
+    margin-top: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td.noi-cdr-chung {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: justify;
+}
+
 .them-moi-de-cuong .tab-body .list-tab-body #sm-decuong {
     height: 40px;
     color: #fff;
@@ -325,3 +402,77 @@ li {
     border: 1px solid #02BFFE;
     text-align: center;
 }
+
+.them-moi-de-cuong .tab-body .block #list-tltk-giaotrinh textarea {
+    border-radius: 5px;
+}
+
+.them-moi-de-cuong .tab-body .block #add-tltk-giaotrinh {
+    padding-bottom: 0px;
+}
+
+.them-moi-de-cuong .tab-body .block #add-tltk-giaotrinh p {
+    background: #ffcc33;
+    width: 100%;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: #fff;
+    border-radius: 7px;
+    cursor: pointer;
+} 
+
+.them-moi-de-cuong .tab-body .block #list-tltk-sach textarea {
+    border-radius: 5px;
+}
+
+.them-moi-de-cuong .tab-body .block #add-tltk-sach {
+    padding-bottom: 0px;
+}
+
+.them-moi-de-cuong .tab-body .block #add-tltk-sach p {
+    background: #ffcc33;
+    width: 100%;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: #fff;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-add-clo {
+    width: 100%;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-add-clo tr td {
+    padding: 0;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td.danh-sach-clo p {
+    text-align: center;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-add-clo thead {
+    background: rgba(52,73,94,.94);
+    color: #ECF0F1;
+    text-align: center;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-add-clo thead tr td {
+    padding: 7px 5px;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-add-clo tbody tr td textarea {
+    border-radius: 5px;
+    margin: 5px 5px;
+    width: 98.2%;
+    padding: 5px;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-add-clo tbody tr td {
+    text-align: center;
+}
+
+
+
