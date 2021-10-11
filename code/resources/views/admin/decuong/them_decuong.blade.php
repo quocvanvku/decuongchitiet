@@ -404,17 +404,18 @@
 									<tr>
 										<td></td>
 										<td>
-											<input type="submit" name="sm_decuong" id="sm-decuong" value="Tạo đề cương">
+											
 										</td>
 									</tr>
  
 								</table>
 							</div>
 						</div>
-					</div>
-				</form>		
+					</div>		
             </div>
         </div>
+		<center><input style="margin-bottom:100px;" class="btn btn-success" type="submit" name="sm_decuong" id="sm-decuong" value="Tạo đề cương"></center>
+		</form>
     </div>
 </div>
 
@@ -474,27 +475,6 @@
 			}
 
 		}); 
-
-		// select_nganh(1);
-
-		// $('#select-nganh').on('change', function() {
-		// 	var id_nganh = this.value;
-		// 	select_nganh(id_nganh);
-		// });
-
-		// function select_nganh(id_nganh) {
-		// 	var _token = $('input[name="_token"]').val();
-		// 	$.ajax({
-		// 		url: "{{URL::to('admin/decuong/select-nganh-aj')}}",
-		// 		method: 'GET',
-		// 		data:{id_nganh:id_nganh, _token:_token},
-		// 		success: function(data) {
-		// 			if (data != null) { 
-       	// 				$('#chuan-dau-ra').html(data);
-		// 			}   
-		// 		}
-		// 	});
-		// }
 
 		$('#select-nganh').on('change', function() {
 			var id_nganh = this.value;

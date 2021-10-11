@@ -572,12 +572,7 @@ class DeCuongAjax extends Controller
 
             echo $output;
 
-
-        }
-
-
-
-        
+        } 
     }
 
     public function sua_chuan_dau_ra_chung() {
@@ -955,122 +950,6 @@ class DeCuongAjax extends Controller
             $ed_kct = DB::table('table_khungchuongtrinh_hocphan')->where('id', $allkct_sua->id)->update(['stt' => $stt_2]);
 
             echo "Successfull";
-        }
-    }
-
-    public function timkiem_hocphan_khungchuongtrinh() {
-        if (Request::ajax()) {
-
-            $query = (String)Request::get('query');
-            $kct = (String)Request::get('kct');
-
-            $output = "";
-
-            if($query == "") {
-
-                $all_kct_hocphan = DB::table('table_khungchuongtrinh_hocphan')
-                                    ->join('table_khungchuongtrinh', 'table_khungchuongtrinh_hocphan.id_khung', 'table_khungchuongtrinh.id')
-                                    ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
-                                    //->rightjoin('table_namhoc_hocky', 'table_khungchuongtrinh.id_namapdung', 'table_namhoc_hocky.id')
-                                    ->where('table_khungchuongtrinh_hocphan.id_khung', $kct)
-                                    ->distinct()
-                                    ->orderBy('table_khungchuongtrinh_hocphan.stt', "ASC")
-                                    ->get();
-
-            } else {
-                $all_kct_hocphan = DB::table('table_khungchuongtrinh_hocphan')
-                                    ->join('table_khungchuongtrinh', 'table_khungchuongtrinh_hocphan.id_khung', 'table_khungchuongtrinh.id')
-                                    ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
-                                    //->rightjoin('table_namhoc_hocky', 'table_khungchuongtrinh.id_namapdung', 'table_namhoc_hocky.id')
-                                    ->where('table_khungchuongtrinh_hocphan.id_khung', $kct)
-                                    ->where('table_hocphan.tenhocphan', 'LIKE', "%{$query}%")
-                                    ->distinct()
-                                    ->orderBy('table_khungchuongtrinh_hocphan.stt', "ASC")
-                                    ->get();
-            }
-
-            $all_decuong = DB::table('table_decuongchitiet')->get();
-
-            foreach($all_kct_hocphan as $value_kct_hocphan) {
-                foreach($all_decuong as $value_decuong) {
-                    if($value_kct_hocphan->id_khung == $value_decuong->khungchuongtrinh 
-                        && $value_kct_hocphan->id_hocphan == $value_decuong->id_hocphan) {
-                        $value_kct_hocphan->has_decuong = 1; 
-                        $value_kct_hocphan->id_decuong = $value_decuong->id_decuong; 
-                        }
-                }
-            }
-
-            foreach($all_kct_hocphan as $value_all_kct_hocphan) {
-
-                $value_all_kct_hocphan->ds_hptt = "";
-                $value_all_kct_hocphan->ds_hptq = "";
-                $value_all_kct_hocphan->ds_hpht = "";
-                $value_all_kct_hocphan->ds_hpsh = "";
-
-                if($value_all_kct_hocphan->id_hocphan_thaythe != null) {
-                    $id_hptt = explode("_", $value_all_kct_hocphan->id_hocphan_thaythe); 
-                    foreach ($id_hptt as $value) {
-                        $hp = DB::table('table_hocphan')->where('id', $value)->first();
-                        $value_all_kct_hocphan->ds_hptt .= $hp->tenhocphan.', ';
-                    }
-                }
-
-                if($value_all_kct_hocphan->tienquyet != null) {
-                    $id_hptq = explode("_", $value_all_kct_hocphan->tienquyet); 
-                    foreach ($id_hptq as $value) {
-                        $hp = DB::table('table_hocphan')->where('id', $value)->first();
-                        $value_all_kct_hocphan->ds_hptq .= $hp->tenhocphan.', ';
-                    }
-                }
-
-                if($value_all_kct_hocphan->hoctruoc != null) {
-                    $id_hpht = explode("_", $value_all_kct_hocphan->hoctruoc); 
-                    foreach ($id_hpht as $value) {
-                        $hp = DB::table('table_hocphan')->where('id', $value)->first();
-                        $value_all_kct_hocphan->ds_hpht .= $hp->tenhocphan.', ';
-                    }
-                }
-
-                if($value_all_kct_hocphan->songhanh != null) {
-                    $id_hpsh = explode("_", $value_all_kct_hocphan->songhanh); 
-                    foreach ($id_hpsh as $value) {
-                        $hp = DB::table('table_hocphan')->where('id', $value)->first();
-                        $value_all_kct_hocphan->ds_hpsh .= $hp->tenhocphan.', ';
-                    }
-                }
-            }
-
-            foreach($all_kct_hocphan as $value_all_kct_hocphan) {
-
-                $output .= '<tr>';
-                $output .= '<td>'.$value_all_kct_hocphan->stt.'</td>';
-                $output .= '<td>'.$value_all_kct_hocphan->mahocphan.'</td>';
-                $output .= '<td>'.$value_all_kct_hocphan->tenhocphan.'</td>';
-                $output .= '<td>'.$value_all_kct_hocphan->ds_hptq.'</td>';
-                $output .= '<td>'.$value_all_kct_hocphan->ds_hpht.'</td>';
-                $output .= '<td>'.$value_all_kct_hocphan->ds_hpsh.'</td>';
-                $output .= '<td>'.$value_all_kct_hocphan->tuchon.'</td>';
-                $output .= '<td>'.$value_all_kct_hocphan->stt.'</td>';
-
-                if(isset($value_all_kct_hocphan->has_decuong)) {
-                    $output .= '<td style="text-align: center;">';
-                    $output .= "<img src='". url("./public/Images/icons/check-yes.png") ."' style='width:24px;height:24px;' >";  
-                    $output .= '</td>';
-                    $output .= '<td style="color: #4169e1;cursor: pointer;" id="myBtn_1" data-value="'.$value_all_kct_hocphan->id_decuong.'">Sửa đề cương</td>';
-                } else {
-                    $output .= '<td style="text-align: center;">';
-                    $output .= "<img src='". url("./public/Images/icons/check-no.png") ."' style='width:24px;height:24px;' >";
-                    $output .= '</td>';
-                    $output .= '<td style="color: #f64e60;cursor: pointer;" id="myBtn_2" data-value="'.$value_all_kct_hocphan->id_hocphan.'" >Nhân bản đề cương</td>';
-                }
-
-                $output .= '</tr>';
-
-            }
-
-            echo $output;
-
         }
     }
 

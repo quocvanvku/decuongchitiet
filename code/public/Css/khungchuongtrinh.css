@@ -167,6 +167,10 @@
     background-color: #f3f3f3;
 }
 
+.table-danh-sach tbody tr:hover {
+	background: #ccc;
+}
+
 .table-danh-sach tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
 }

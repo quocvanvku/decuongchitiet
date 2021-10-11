@@ -22,9 +22,9 @@
 								<select multiple name="khungchuongtrinh" id="select_khoa" required="" style="margin-left:0px;">
 									@foreach($all_khungchuongtrinh as $value_khungchuongtrinh)
 										@if($value_khungchuongtrinh->level == 1)
-										<option value="{{$value_khungchuongtrinh->id}}" <?php if($id_khung == $value_khungchuongtrinh->id) {echo "selected";} ?> >|____{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+										<option value="{{$value_khungchuongtrinh->id}}" >|____{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
 										@else
-										<option value="{{$value_khungchuongtrinh->id}}" <?php if($id_khung == $value_khungchuongtrinh->id) {echo "selected";} ?> >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
+										<option value="{{$value_khungchuongtrinh->id}}" >{{$value_khungchuongtrinh->tenkhungchuongtrinh}}</option>
 										@endif
 									@endforeach
 								</select> 

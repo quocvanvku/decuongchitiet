@@ -2038,25 +2038,10 @@ class DeCuongController extends Controller
         $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
 
         $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc')->get();
-
-        echo "<pre>";
-        print_r($all_khoiluongkienthuc);
-        die();
-
-        return view('admin.decuong.them_hocphan_khungchuongtrinh')
-                ->with('all_khungchuongtrinh', $all_khungchuongtrinh);
-    }
-
-    public function themhocphankhungchuongtrinh2($id_khung) {
-        $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
-        $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
-
-        $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc')->get();
         $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
 
         return view('admin.decuong.them_hocphan_khungchuongtrinh')
                 ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
-                ->with('id_khung', $id_khung)
                 ->with('all_khoiluongkienthuc', $all_khoiluongkienthuc);
     }
 
@@ -2150,11 +2135,6 @@ class DeCuongController extends Controller
             $khungchuongtrinh_hocphan->khoikienthuc = $data['khoiluongkienthuc'];
 
             $khungchuongtrinh_hocphan->save();
-
-
-            // echo "<pre>";
-            // print_r($data);
-            // die();
 
             return Redirect::to('/admin/decuong/danh-sach-khung-chuong-trinh-hoc-phan/'.$data['khungchuongtrinh']);
 

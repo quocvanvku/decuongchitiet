@@ -23,7 +23,7 @@
                 </select> 
 
                 <div class="title-table">
-                    <i class="fas fa-list"></i><span>Danh mục Khung chương trình</span>
+                    <i class="fas fa-list"></i><span>Danh mục học phần Khung chương trình</span>
                 </div>
 
                 <table class="table-danh-sach">

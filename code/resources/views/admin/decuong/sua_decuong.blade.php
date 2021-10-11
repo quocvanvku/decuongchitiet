@@ -443,21 +443,14 @@
 											<input type="date" name="ngay_phe_duyet" required="" value="{{gmdate("Y-m-d", $all_decuong->ngaypheduyet)}}">
 										</td>
 									</tr>
-
-									<tr>
-										<td></td>
-										<td>
-											<input type="submit" name="sm_decuong" id="sm-decuong" value="Cập nhật đề cương">
-										</td>
-									</tr>
-
 								</table>
 							</div>
 						</div>
-					</div>
-				</form>		
+					</div>		
             </div>
         </div>
+		<center><input style="margin-bottom:100px;" class="btn btn-success" type="submit" name="sm_decuong" id="sm-decuong" value="Cập nhật đề cương"></center>
+		</form>	
     </div>
 </div>
 

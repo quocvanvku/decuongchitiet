@@ -89,9 +89,6 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('danh-sach-khung-chuong-trinh-hoc-phan/{id_khungchuongtrinh}', 'DeCuongController@khungchuongtrinhhocphan');
         Route::get('them-hoc-phan-khung-chuong-trinh', 'DeCuongController@themhocphankhungchuongtrinh');
 
-        Route::get('them-hoc-phan-khung-chuong-trinh/{id_khung}', 'DeCuongController@themhocphankhungchuongtrinh2');
-
-
         Route::post('them-hoc-phan-khung-chuong-trinh', 'DeCuongController@insert_themhocphankhungchuongtrinh');
         Route::get('get-hoc-phan-kcthp', 'DeCuongAjax@get_hocphan_kcthp');
         Route::get('sua-hoc-phan-khung-chuong-trinh/{id_kct_hp}', 'DeCuongController@suahocphankhungchuongtrinh');

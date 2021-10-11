@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 nopadding title">
-                <p>Danh sách khung chương trình học phần   <a href="{{URL::to('admin/decuong/them-hoc-phan-khung-chuong-trinh/'.$id_khungchuongtrinh)}}">Thêm</a></p>
+                <p>Danh sách khung chương trình học phần</p>
             </div>
         </div>
 
