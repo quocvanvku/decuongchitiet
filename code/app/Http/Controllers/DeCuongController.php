@@ -115,12 +115,12 @@ class DeCuongController extends Controller
             }
         }
 
-        $all_moilienhe_cloplo = DB::table('table_moilienhe_clo_plo')
+        $all_moilienhe_cloplo = DB::table('table_decuongchitiet_moilienhe_clo_plo')
                     ->where('id_hocphan', $all_decuong->id_hocphan)
                     ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
                     ->get();
 
-        $all_moilienhe_cloplo_moi = DB::table('table_moilienhe_clo_plo')
+        $all_moilienhe_cloplo_moi = DB::table('table_decuongchitiet_moilienhe_clo_plo')
                                     ->where('id_hocphan', $all_decuong->id_hocphan)
                                     ->where('khungchuongtrinh', $id_khung)
                                     ->get();
@@ -416,7 +416,7 @@ class DeCuongController extends Controller
 
         $all_cdr_chung = DB::table('table_chuandaura_chung')->get();
 
-        $all_moilienhe = DB::table('table_moilienhe_clo_plo')
+        $all_moilienhe = DB::table('table_decuongchitiet_moilienhe_clo_plo')
                         ->where('id_hocphan', $all_decuong->id_hocphan)
                         ->where('khungchuongtrinh', $all_decuong->khungchuongtrinh)
                         ->get();

@@ -132,7 +132,7 @@ class DeCuongAjax extends Controller
                 
             }
 
-            $all_moilienhe = DB::table('table_moilienhe_clo_plo')
+            $all_moilienhe = DB::table('table_decuongchitiet_moilienhe_clo_plo')
                             ->where('id_hocphan', $id_hocphan)
                             ->where('khungchuongtrinh', $khungchuongtrinh)
                             ->get();
@@ -1102,7 +1102,7 @@ class DeCuongAjax extends Controller
             $id_khung = (String)Request::get('id_khung');
             $id_nganh = (String)Request::get('id_nganh');
 
-            $edit_moilienhe = DB::table('table_moilienhe_clo_plo')
+            $edit_moilienhe = DB::table('table_decuongchitiet_moilienhe_clo_plo')
                         ->where('id', $id_moilienhe)
                         ->update(['id_chuandaura_monhoc' => $id_chuandaura]);
 
@@ -1120,7 +1120,7 @@ class DeCuongAjax extends Controller
             $id_khung = (String)Request::get('id_khung');
             $id_nganh = (String)Request::get('id_nganh');
 
-            $edit_moilienhe = DB::table('table_moilienhe_clo_plo')
+            $edit_moilienhe = DB::table('table_decuongchitiet_moilienhe_clo_plo')
                         ->where('id', $id_moilienhe)
                         ->update(['mucdo' => $mucdo]);
 
@@ -1137,7 +1137,7 @@ class DeCuongAjax extends Controller
             $id_khung = (String)Request::get('id_khung');
             $id_nganh = (String)Request::get('id_nganh');
 
-            $delete_moilienhe = DB::table('table_moilienhe_clo_plo')
+            $delete_moilienhe = DB::table('table_decuongchitiet_moilienhe_clo_plo')
                         ->where('id', $id_moilienhe);
 
             if (isset($delete_moilienhe)) {
