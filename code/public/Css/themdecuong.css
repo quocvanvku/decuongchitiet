@@ -279,9 +279,14 @@ li {
     margin-bottom: 50px;
 }
 
-/* .them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra tr td {
-    border: 1px solid #222;
-} */
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra thead tr {
+    background: rgba(52,73,94,.94);
+    color: #fff;
+}
+
+.them-moi-de-cuong .tab-body .block table tr td .table-chuan-dau-ra thead tr td {
+    padding: 2px;
+}
 
 .them-moi-de-cuong .tab-body .block table tr td #edit-clo {
     padding-top: 15px;
