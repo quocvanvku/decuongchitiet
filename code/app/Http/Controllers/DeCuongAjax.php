@@ -10,9 +10,10 @@ use App\Models\chuandaurachung;
 use App\Models\kehoachgiangday;
 use App\Models\chuandauramonhoc;
 use App\Models\moilienhecloplo;
+use App\Models\khungchuongtrinh_khoiluongkienthuc_chitiet;
 use Request;
 use DB;
-session_start();
+use \stdClass;
 
 class DeCuongAjax extends Controller
 {
@@ -1146,6 +1147,1158 @@ class DeCuongAjax extends Controller
 
             echo "Successfull";
 
+        }
+    }
+
+    public function add_moiquanhe_hocphan() {
+        if (Request::ajax()) {
+            
+            $tenmoiquanhe = (String)Request::get('tenmoiquanhe');
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+            $id_hocphan_add = (String)Request::get('id_hocphan_add');
+
+           
+            if($tenmoiquanhe == "tienquyet") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->tienquyet;
+
+                $check_tienquyet = explode("_", $currenthp);
+
+                foreach($check_tienquyet as $value_check_tienquyet) {
+                    if($value_check_tienquyet == $id_hocphan_add) {
+                        echo "Thêm mối quan hệ thất bại!!! Mối quan hệ với học phần này đã tồn tại";
+                        die();
+                    }
+                }
+
+                $tienquyet = "";
+
+                if ($currenthp == null) {
+                    $tienquyet = $id_hocphan_add;
+                } else {
+                    $tienquyet = $currenthp."_".$id_hocphan_add;
+                }
+                
+                $add_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['tienquyet' => $tienquyet]);
+            }
+
+            if($tenmoiquanhe == "hoctruoc") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->hoctruoc;
+
+                $check_hoctruoc = explode("_", $currenthp);
+
+                foreach($check_hoctruoc as $value_check_hoctruoc) {
+                    if($value_check_hoctruoc == $id_hocphan_add) {
+                        echo "Thêm mối quan hệ thất bại!!! Mối quan hệ với học phần này đã tồn tại";
+                        die();
+                    }
+                }
+
+                $hoctruoc = "";
+
+                if ($currenthp == null) {
+                    $hoctruoc = $id_hocphan_add;
+                } else {
+                    $hoctruoc = $currenthp."_".$id_hocphan_add;
+                }
+                
+                $add_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['hoctruoc' => $hoctruoc]);
+            }
+
+            if($tenmoiquanhe == "tuongduong") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->tuongduong;
+
+                $check_tuongduong = explode("_", $currenthp);
+
+                foreach($check_tuongduong as $value_check_tuongduong) {
+                    if($value_check_tuongduong == $id_hocphan_add) {
+                        echo "Thêm mối quan hệ thất bại!!! Mối quan hệ với học phần này đã tồn tại";
+                        die();
+                    }
+                }
+
+                $tuongduong = "";
+
+                if ($currenthp == null) {
+                    $tuongduong = $id_hocphan_add;
+                } else {
+                    $tuongduong = $currenthp."_".$id_hocphan_add;
+                }
+                
+                $add_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['tuongduong' => $tuongduong]);
+            }
+
+            if($tenmoiquanhe == "songhanh") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->songhanh;
+
+                $check_songhanh = explode("_", $currenthp);
+
+                foreach($check_songhanh as $value_check_songhanh) {
+                    if($value_check_songhanh == $id_hocphan_add) {
+                        echo "Thêm mối quan hệ thất bại!!! Mối quan hệ với học phần này đã tồn tại";
+                        die();
+                    }
+                }
+
+                $songhanh = "";
+
+                if ($currenthp == null) {
+                    $songhanh = $id_hocphan_add;
+                } else {
+                    $songhanh = $currenthp."_".$id_hocphan_add;
+                }
+                
+                $add_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['songhanh' => $songhanh]);
+            }
+
+            if($tenmoiquanhe == "thaythe") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->id_hocphan_thaythe;
+
+                $check_thaythe = explode("_", $currenthp);
+
+                foreach($check_thaythe as $value_check_thaythe) {
+                    if($value_check_thaythe == $id_hocphan_add) {
+                        echo "Thêm mối quan hệ thất bại!!! Mối quan hệ với học phần này đã tồn tại";
+                        die();
+                    }
+                }
+
+                $thaythe = "";
+
+                if ($currenthp == null) {
+                    $thaythe = $id_hocphan_add;
+                } else {
+                    $thaythe = $currenthp."_".$id_hocphan_add;
+                }
+                
+                $add_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['id_hocphan_thaythe' => $thaythe]);
+            }
+
+            if($tenmoiquanhe == "hocghep") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->hocghep;
+
+                $check_hocghep = explode("_", $currenthp);
+
+                foreach($check_hocghep as $value_check_hocghep) {
+                    if($value_check_hocghep == $id_hocphan_add) {
+                        echo "Thêm mối quan hệ thất bại!!! Mối quan hệ với học phần này đã tồn tại";
+                        die();
+                    }
+                }
+
+                $hocghep = "";
+
+                if ($currenthp == null) {
+                    $hocghep = $id_hocphan_add;
+                } else {
+                    $hocghep = $currenthp."_".$id_hocphan_add;
+                }
+                
+                $add_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['hocghep' => $hocghep]);
+            }
+
+            
+
+            echo "Thêm mối quan hệ thành công !!!";
+
+        }
+    }
+
+    public function load_moiquanhe_hocphan() {
+        if (Request::ajax()) {
+            
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+
+            $listquanhe =  DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first();
+
+            $output = '';
+
+            if(!empty($listquanhe->tienquyet)) {
+
+                $moiquanhe_tienquyet = explode("_", $listquanhe->tienquyet);
+                $listquanhe_tienquyet = [];
+
+                foreach($moiquanhe_tienquyet as $value_moiquanhe_tienquyet) {
+                    $hp_tq = DB::table('table_hocphan')->where('id', $value_moiquanhe_tienquyet)->first();
+                    $listquanhe_tienquyet[] = $hp_tq;
+                }
+
+                foreach($listquanhe_tienquyet as $value_listquanhe_tienquyet) {
+                    $output .= '<tr class="clicked-remove" data-value="tienquyet_'.$value_listquanhe_tienquyet->id.'" >';
+
+                    $output .= "<td>".$value_listquanhe_tienquyet->mahocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_tienquyet->tenhocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_tienquyet->soTC."</td>";
+                    $output .= '<td> <i class="fas fa-check-circle"></i> </td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+
+                    $output .= "</tr>";
+                }
+            }
+
+            if(!empty($listquanhe->hoctruoc)) {
+
+                $moiquanhe_hoctruoc = explode("_", $listquanhe->hoctruoc);
+                $listquanhe_hoctruoc = [];
+
+                foreach($moiquanhe_hoctruoc as $value_moiquanhe_hoctruoc) {
+                    $hp_ht = DB::table('table_hocphan')->where('id', $value_moiquanhe_hoctruoc)->first();
+                    $listquanhe_hoctruoc[] = $hp_ht;
+                }
+
+                foreach($listquanhe_hoctruoc as $value_listquanhe_hoctruoc) {
+                    $output .= '<tr class="clicked-remove" data-value="hoctruoc_'.$value_listquanhe_hoctruoc->id.'" >';
+
+                    $output .= "<td>".$value_listquanhe_hoctruoc->mahocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_hoctruoc->tenhocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_hoctruoc->soTC."</td>";
+                    $output .= '<td></td>';
+                    $output .= '<td> <i class="fas fa-check-circle"></i> </td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+
+                    $output .= "</tr>";
+                }
+            }
+
+            if(!empty($listquanhe->tuongduong)) {
+
+                $moiquanhe_tuongduong = explode("_", $listquanhe->tuongduong);
+                $listquanhe_tuongduong = [];
+
+                foreach($moiquanhe_tuongduong as $value_moiquanhe_tuongduong) {
+                    $hp_td = DB::table('table_hocphan')->where('id', $value_moiquanhe_tuongduong)->first();
+                    $listquanhe_tuongduong[] = $hp_td;
+                }
+
+                foreach($listquanhe_tuongduong as $value_listquanhe_tuongduong) {
+                    $output .= '<tr class="clicked-remove" data-value="tuongduong_'.$value_listquanhe_tuongduong->id.'" >';
+
+                    $output .= "<td>".$value_listquanhe_tuongduong->mahocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_tuongduong->tenhocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_tuongduong->soTC."</td>";
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td> <i class="fas fa-check-circle"></i> </td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+
+                    $output .= "</tr>";
+                }
+            }
+
+            if(!empty($listquanhe->songhanh)) {
+
+                $moiquanhe_songhanh = explode("_", $listquanhe->songhanh);
+                $listquanhe_songhanh = [];
+
+                foreach($moiquanhe_songhanh as $value_moiquanhe_songhanh) {
+                    $hp_sh = DB::table('table_hocphan')->where('id', $value_moiquanhe_songhanh)->first();
+                    $listquanhe_songhanh[] = $hp_sh;
+                }
+
+                foreach($listquanhe_songhanh as $value_listquanhe_songhanh) {
+                    $output .= '<tr class="clicked-remove" data-value="songhanh_'.$value_listquanhe_songhanh->id.'" >';
+
+                    $output .= "<td>".$value_listquanhe_songhanh->mahocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_songhanh->tenhocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_songhanh->soTC."</td>";
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td> <i class="fas fa-check-circle"></i> </td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+
+                    $output .= "</tr>";
+                }
+            }
+
+            if(!empty($listquanhe->id_hocphan_thaythe)) {
+
+                $moiquanhe_thaythe = explode("_", $listquanhe->id_hocphan_thaythe);
+                $listquanhe_thaythe = [];
+
+                foreach($moiquanhe_thaythe as $value_moiquanhe_thaythe) {
+                    $hp_tt = DB::table('table_hocphan')->where('id', $value_moiquanhe_thaythe)->first();
+                    $listquanhe_thaythe[] = $hp_tt;
+                }
+
+                foreach($listquanhe_thaythe as $value_listquanhe_thaythe) {
+                    $output .= '<tr class="clicked-remove" data-value="thaythe_'.$value_listquanhe_thaythe->id.'" >';
+
+                    $output .= "<td>".$value_listquanhe_thaythe->mahocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_thaythe->tenhocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_thaythe->soTC."</td>";
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td> <i class="fas fa-check-circle"></i> </td>';
+                    $output .= '<td></td>';
+
+                    $output .= "</tr>";
+                }
+            }
+
+            if(!empty($listquanhe->hocghep)) {
+
+                $moiquanhe_hocghep = explode("_", $listquanhe->hocghep);
+                $listquanhe_hocghep = [];
+
+                foreach($moiquanhe_hocghep as $value_moiquanhe_hocghep) {
+                    $hp_hg = DB::table('table_hocphan')->where('id', $value_moiquanhe_hocghep)->first();
+                    $listquanhe_hocghep[] = $hp_hg;
+                }
+
+                foreach($listquanhe_hocghep as $value_listquanhe_hocghep) {
+                    $output .= '<tr class="clicked-remove" data-value="hocghep_'.$value_listquanhe_hocghep->id.'" >';
+
+                    $output .= "<td>".$value_listquanhe_hocghep->mahocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_hocghep->tenhocphan."</td>";
+                    $output .= "<td>".$value_listquanhe_hocghep->soTC."</td>";
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td></td>';
+                    $output .= '<td> <i class="fas fa-check-circle"></i> </td>';
+
+                    $output .= "</tr>";
+                }
+            }
+
+            
+
+            echo $output;
+
+        }
+    }
+
+    public function delete_moiquanhe_hocphan() {
+        if (Request::ajax()) {
+            
+            $tenmoiquanhe = (String)Request::get('tenmoiquanhe');
+            $id_hocphan = (String)Request::get('id_hocphan');
+            $id_khung = (String)Request::get('id_khung');
+            $id_hocphan_delete = (String)Request::get('id_hocphan_delete');
+
+            if($tenmoiquanhe == "tienquyet") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->tienquyet;
+
+                $delete_hp_tienquyet = explode("_", $currenthp);
+
+                $new_tienquyet = '';
+
+                foreach($delete_hp_tienquyet as $value_delete_hp_tienquyet) {
+                    if($value_delete_hp_tienquyet != $id_hocphan_delete) {
+                        $new_tienquyet .= $value_delete_hp_tienquyet.'_';
+                    }   
+                }
+
+                $new_tienquyet = rtrim($new_tienquyet, '_');
+
+                $delete_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['tienquyet' => $new_tienquyet]);
+
+            }
+
+            if($tenmoiquanhe == "hoctruoc") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->hoctruoc;
+
+                $delete_hp_hoctruoc = explode("_", $currenthp);
+
+                $new_hoctruoc = '';
+
+                foreach($delete_hp_hoctruoc as $value_delete_hp_hoctruoc) {
+                    if($value_delete_hp_hoctruoc != $id_hocphan_delete) {
+                        $new_hoctruoc .= $value_delete_hp_hoctruoc.'_';
+                    }   
+                }
+
+                $new_hoctruoc = rtrim($new_hoctruoc, '_');
+
+                $delete_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['hoctruoc' => $new_hoctruoc]);
+
+            }
+
+            if($tenmoiquanhe == "tuongduong") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->tuongduong;
+
+                $delete_hp_tuongduong = explode("_", $currenthp);
+
+                $new_tuongduong = '';
+
+                foreach($delete_hp_tuongduong as $value_delete_hp_tuongduong) {
+                    if($value_delete_hp_tuongduong != $id_hocphan_delete) {
+                        $new_tuongduong .= $value_delete_hp_tuongduong.'_';
+                    }   
+                }
+
+                $new_tuongduong = rtrim($new_tuongduong, '_');
+
+                $delete_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['tuongduong' => $new_tuongduong]);
+
+            }
+
+            if($tenmoiquanhe == "songhanh") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->songhanh;
+
+                $delete_hp_songhanh = explode("_", $currenthp);
+
+                $new_songhanh = '';
+
+                foreach($delete_hp_songhanh as $value_delete_hp_songhanh) {
+                    if($value_delete_hp_songhanh != $id_hocphan_delete) {
+                        $new_songhanh .= $value_delete_hp_songhanh.'_';
+                    }   
+                }
+
+                $new_songhanh = rtrim($new_songhanh, '_');
+
+                $delete_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['songhanh' => $new_songhanh]);
+
+            }
+
+            if($tenmoiquanhe == "thaythe") {
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->id_hocphan_thaythe;
+
+                $delete_hp_thaythe = explode("_", $currenthp);
+
+                $new_thaythe = '';
+
+                foreach($delete_hp_thaythe as $value_delete_hp_thaythe) {
+                    if($value_delete_hp_thaythe != $id_hocphan_delete) {
+                        $new_thaythe .= $value_delete_hp_thaythe.'_';
+                    }   
+                }
+
+                $new_thaythe = rtrim($new_thaythe, '_');
+
+                $delete_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['id_hocphan_thaythe' => $new_thaythe]);
+
+            }
+
+            if($tenmoiquanhe == "hocghep") {
+
+                
+                $currenthp = DB::table('table_khungchuongtrinh_hocphan')
+                            ->where('id_khung', $id_khung)
+                            ->where('id_hocphan', $id_hocphan)
+                            ->first()
+                            ->hocghep;
+
+                $delete_hp_hocghep = explode("_", $currenthp);
+
+                $new_hocghep = '';
+
+                foreach($delete_hp_hocghep as $value_delete_hp_hocghep) {
+                    if($value_delete_hp_hocghep != $id_hocphan_delete) {
+                        $new_hocghep .= $value_delete_hp_hocghep.'_';
+                    }   
+                }
+
+                $new_hocghep = rtrim($new_hocghep, '_');
+
+                $delete_moiquanhehocphan = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung)
+                                        ->where('id_hocphan', $id_hocphan)
+                                        ->update(['hocghep' => $new_hocghep]);
+
+            }
+
+            echo "Xóa mối quan hệ thành công!!!";
+
+        }
+    }
+
+    public function load_hocphan_khungchuongtrinh() {
+        if (Request::ajax()) {
+
+            $hocky = (String)Request::get('hocky');
+            $id_khung = (String)Request::get('id_khung');
+
+            $all_hocphan_khungchuongtrinh = '';
+
+            $output = '';
+
+            if($hocky == 0) {
+                $all_hocphan_khungchuongtrinh = DB::table('table_khungchuongtrinh_hocphan')
+                                                ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
+                                                ->where('id_khung', $id_khung)
+                                                ->get();
+            } else {
+                $all_hocphan_khungchuongtrinh = DB::table('table_khungchuongtrinh_hocphan')
+                                                ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
+                                                ->where('hocky', $hocky)
+                                                ->where('id_khung', $id_khung)
+                                                ->get();
+            }
+
+            $stt = 1;
+
+            foreach($all_hocphan_khungchuongtrinh as $value_all_hocphan_khungchuongtrinh) {
+                $output .= '<tr class="click-hocphan" data-value="'.$value_all_hocphan_khungchuongtrinh->id_hocphan.'">';
+                $output .= '<td>'.$stt++.'</td>';
+                $output .= '<td style="text-align: left;" >'.$value_all_hocphan_khungchuongtrinh->mahocphan.'</td>';
+                $output .= '<td style="text-align: left;" >'.$value_all_hocphan_khungchuongtrinh->tenhocphan.'</td>';
+                $output .= '<td>'.$value_all_hocphan_khungchuongtrinh->soTC.'</td>';
+                $output .= '<td>'.$value_all_hocphan_khungchuongtrinh->hocky.'</td>';
+                $output .= '<td> <input type="checkbox" name="" id=""> </td>';
+                $output .= '<td> <input type="checkbox" name="" id=""> </td>';
+                $output .= '</tr>';
+            }
+
+            echo $output;
+        }
+    }
+
+    public function load_hocphan_khungchuongtrinh_theonhomhocphan() {
+        if (Request::ajax()) {
+
+            $id_khung = (String)Request::get('id_khung');
+
+            $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc_chitiet')
+                                    ->join('table_khungchuongtrinh_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc.id')
+                                    ->where('table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khung', $id_khung)
+                                    ->get();
+
+            foreach($all_khoiluongkienthuc as $value_all_khoiluongkienthuc) {
+                if($value_all_khoiluongkienthuc->isKhoiluongkienthuc != 0) {
+                    $khkt_parent = DB::table('table_khungchuongtrinh_khoiluongkienthuc')
+                            ->where('id', $value_all_khoiluongkienthuc->isKhoiluongkienthuc)
+                            ->first();
+    
+                    $check = true;
+    
+                    foreach($all_khoiluongkienthuc as $value) {
+                        if($value->id == $khkt_parent->id) {
+                            $check = false;
+                            break;
+                        }
+                    }
+    
+                    if($check == true) {
+                        $all_khoiluongkienthuc[] = $khkt_parent;
+                    }
+                    
+                }
+            }
+
+            $all_khoiluongkienthuc = collect($all_khoiluongkienthuc);
+            $all_khoiluongkienthuc = $all_khoiluongkienthuc->sortBy('id');
+            $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
+
+            foreach($all_khoiluongkienthuc as $value_all_klkt) {
+
+                $all_hp_klkt = DB::table('table_khungchuongtrinh_hocphan')
+                                ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
+                                ->where('table_khungchuongtrinh_hocphan.id_khung', $id_khung)
+                                ->where('table_khungchuongtrinh_hocphan.khoikienthuc', $value_all_klkt->id)
+                                ->get();
+
+                foreach($all_hp_klkt as $value_all_hp_klkt) {
+                    $value_all_klkt->hp_klkt[] = $value_all_hp_klkt;
+                }
+
+            }
+
+            $output = '';
+
+            $stt_parent = 0; $array = array('I', 'II', 'III', 'IV', 'V'); 
+            $stt = 1; 
+            foreach($all_khoiluongkienthuc as $value_all_klkt) {
+                if(isset($value_all_klkt->hasChild)) {
+                    $l2=1;
+                    $output .= '<tr style="background:#f6caad; font-weight: 600;">';
+                    $output .= '<td>'.$stt_l2 = $array[$stt_parent++].'</td>';
+                    $output .= '<td colspan="6" style="text-align: left;" >'.$value_all_klkt->tenkhoiluongkienthuc.'</td>';
+                    $output .= '</tr>';
+                } else if($value_all_klkt->level == 0) {
+                    $output .= '<tr style="background:#f6caad; font-weight: 600;">';
+                    $output .= '<td>'.$array[$stt_parent++].'</td>';
+                    $output .= '<td colspan="6" style="text-align: left;" >'.$value_all_klkt->tenkhoiluongkienthuc.'</td>';
+                    $output .= '</tr>';
+                    if(isset($value_all_klkt->hp_klkt)) {
+                        foreach($value_all_klkt->hp_klkt as $value_hp_klkt) {
+                            $output .= '<tr class="click-hocphan" data-value="'.$value_hp_klkt->id_hocphan.'" >';
+                            $output .= '<td>'.$stt++.'</td>';
+                            $output .= '<td style="text-align: left;">'.$value_hp_klkt->mahocphan.'</td>';
+                            $output .= '<td style="text-align: left;">'.$value_hp_klkt->tenhocphan.'</td>';
+                            $output .= '<td>'.$value_hp_klkt->soTC.'</td>';
+                            $output .= '<td>'.$value_hp_klkt->hocky.'</td>';
+                            $output .= '<td> <input type="checkbox" name="" id=""> </td>';
+                            $output .= '<td> <input type="checkbox" name="" id=""> </td>';
+                            $output .= '</tr>';
+                        }
+                    }
+
+                } else if($value_all_klkt->level == 1) {
+                    $output .= '<tr style="background:#f6caad; font-weight: 600;">';
+                    $output .= '<td>'.$stt_l2.'.'.$l2++.'</td>';
+                    $output .= '<td colspan="6" style="text-align: left;" >|____'.$value_all_klkt->tenkhoiluongkienthuc.'</td>';
+                    $output .= '</tr>';
+                    if(isset($value_all_klkt->hp_klkt)) {
+                        foreach($value_all_klkt->hp_klkt as $value_hp_klkt) {
+                            $output .= '<tr class="click-hocphan" data-value="'.$value_hp_klkt->id_hocphan.'" >';
+                            $output .= '<td>'.$stt++.'</td>';
+                            $output .= '<td style="text-align: left;">'.$value_hp_klkt->mahocphan.'</td>';
+                            $output .= '<td style="text-align: left;">'.$value_hp_klkt->tenhocphan.'</td>';
+                            $output .= '<td>'.$value_hp_klkt->soTC.'</td>';
+                            $output .= '<td>'.$value_hp_klkt->hocky.'</td>';
+                            $output .= '<td> <input type="checkbox" name="" id=""> </td>';
+                            $output .= '<td> <input type="checkbox" name="" id=""> </td>';
+                            $output .= '</tr>';
+                        }
+                    }
+                }
+
+            }
+
+            echo $output;
+
+        }
+    }
+
+    public function data_khoiluongkienthuc($data, $parent_id = 0, $level = 0) {
+        $result = [];
+        foreach($data as $item) {
+            if($item->isKhoiluongkienthuc == $parent_id) {
+                $item->level = $level;
+                $result[] = $item;
+                $child = $this->data_khoiluongkienthuc($data, $item->id, $level + 1);                
+                if($child) {
+                    $item->hasChild = 1;
+                    $result = array_merge($result, $child);
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function load_list_khoiluongkienthuc() {
+        if (Request::ajax()) {
+
+            $id_khung = (String)Request::get('id_khung');
+
+            $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc')->get();
+            $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
+
+            $all_kct_klkt_chitiet = DB::table('table_khungchuongtrinh_khoiluongkienthuc_chitiet')
+                                    ->join('table_khungchuongtrinh_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc.id')
+                                    ->where('table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khung', $id_khung)
+                                    ->get();
+
+            foreach($all_khoiluongkienthuc as $value) {
+                $value->show = 1;
+                foreach($all_kct_klkt_chitiet as $value_chitiet) {
+                    if($value->id == $value_chitiet->id) {
+                        $value->show = 0;
+                    }
+                }
+            }
+
+            $output = '';
+
+            foreach($all_khoiluongkienthuc as $value_all_khoiluongkienthuc) {
+                $output .= '<tr>';
+                if(isset($value_all_khoiluongkienthuc->hasChild)) {
+                    $output .= '<td><i class="fas fa-stream"></i>'.$value_all_khoiluongkienthuc->tenkhoiluongkienthuc.'</td>';
+                }
+                else if($value_all_khoiluongkienthuc->level == 0) {
+                    $output .=  '<td><i class="fas fa-stream"></i>'.$value_all_khoiluongkienthuc->tenkhoiluongkienthuc;
+                    if($value_all_khoiluongkienthuc->show == 1) {
+                        $output .= '<span data-value="'.$value_all_khoiluongkienthuc->id.'" >Thêm</span>';
+                    }       
+                    $output .= '</td>';
+                }
+                else if($value_all_khoiluongkienthuc->level == 1) {
+                    $output .= '<td><i class="fas fa-stream"></i>|____'.$value_all_khoiluongkienthuc->tenkhoiluongkienthuc;
+                    if($value_all_khoiluongkienthuc->show == 1) {
+                        $output .= '<span data-value="'.$value_all_khoiluongkienthuc->id.'" >Thêm</span>';
+                    }      
+                    $output .= '</td>';			
+                } 
+                $output .= '</tr>';
+            }
+
+            echo $output;
+                
+        }
+    }
+
+    public function load_khoiluongkienthuc_cuakhung() {
+        if (Request::ajax()) {
+
+            $id_khung = (String)Request::get('id_khung');
+
+            $all_kct_klkt_chitiet = DB::table('table_khungchuongtrinh_khoiluongkienthuc_chitiet')
+                                    ->join('table_khungchuongtrinh_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc.id')
+                                    ->where('table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khung', $id_khung)
+                                    ->get();
+
+            foreach($all_kct_klkt_chitiet as $value_kct_ct) {
+                if($value_kct_ct->isKhoiluongkienthuc != 0) {
+                    $khkt_parent = DB::table('table_khungchuongtrinh_khoiluongkienthuc')
+                            ->where('id', $value_kct_ct->isKhoiluongkienthuc)
+                            ->first();
+    
+                    $check = true;
+    
+                    foreach($all_kct_klkt_chitiet as $value) {
+                        if($value->id == $khkt_parent->id) {
+                            $check = false;
+                            break;
+                        }
+                    }
+    
+                    if($check == true) {
+                        $all_kct_klkt_chitiet[] = $khkt_parent;
+                    }
+                    
+                }
+            }
+
+            $all_kct_klkt_chitiet = collect($all_kct_klkt_chitiet);
+            $all_kct_klkt_chitiet = $all_kct_klkt_chitiet->sortBy('id');
+            $all_kct_klkt_chitiet = $this->data_khoiluongkienthuc($all_kct_klkt_chitiet, 0);
+
+            $output = '';
+
+            foreach($all_kct_klkt_chitiet as $value_all_kct_klkt_chitiet) {
+                $output .= '<tr>';
+                if(isset($value_all_kct_klkt_chitiet->hasChild)) {
+                    $output .= '<td><i class="fas fa-stream"></i>'.$value_all_kct_klkt_chitiet->tenkhoiluongkienthuc.'</td>';
+                }
+                else if($value_all_kct_klkt_chitiet->level == 0) {
+                    $output .=  '<td><i class="fas fa-stream"></i>'.$value_all_kct_klkt_chitiet->tenkhoiluongkienthuc.' <span data-value="'.$value_all_kct_klkt_chitiet->id.'" >Xóa</span></td>';
+                }
+                else if($value_all_kct_klkt_chitiet->level == 1) {
+                    $output .= '<td><i class="fas fa-stream"></i>|____'.$value_all_kct_klkt_chitiet->tenkhoiluongkienthuc.' <span data-value="'.$value_all_kct_klkt_chitiet->id.'" >Xóa</span></td>';			
+                } 
+                $output .= '</tr>';
+            }
+
+            echo $output;
+
+        }
+    }
+
+    public function add_khoiluongkienthuc_cuakhung() {
+
+        if (Request::ajax()) {
+
+            $id_khung = (String)Request::get('id_khung');
+            $id_klkt_kct_chitiet = (String)Request::get('id_klkt_kct_chitiet');
+
+            $add_klkt_chitiet = new khungchuongtrinh_khoiluongkienthuc_chitiet; 
+            $add_klkt_chitiet->id_khoiluongkienthuc = $id_klkt_kct_chitiet;
+            $add_klkt_chitiet->id_khung = $id_khung;
+            $add_klkt_chitiet->save();
+
+            echo "Successfull";
+
+        }
+
+    }
+
+    public function delete_khoiluongkienthuc_cuakhung() {
+        if (Request::ajax()) {
+
+            $id_khung = (String)Request::get('id_khung');
+            $id_klkt_kct_chitiet = (String)Request::get('id_klkt_kct_chitiet');
+
+            $delete_klkt_chitiet = khungchuongtrinh_khoiluongkienthuc_chitiet::where('id_khoiluongkienthuc', $id_klkt_kct_chitiet)
+                                ->where('id_khung', $id_khung); 
+            $delete_klkt_chitiet->delete();
+
+            echo "Successfull";
+
+        }
+    }
+
+    public function load_danhsachhocphan_khoiluongkienthuc() {
+        if (Request::ajax()) {
+
+            $id_khung = (String)Request::get('id_khung');
+
+            $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc_chitiet')
+                                    ->join('table_khungchuongtrinh_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc.id')
+                                    ->where('table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khung', $id_khung)
+                                    ->get();
+
+            foreach($all_khoiluongkienthuc as $value_all_khoiluongkienthuc) {
+                if($value_all_khoiluongkienthuc->isKhoiluongkienthuc != 0) {
+                    $khkt_parent = DB::table('table_khungchuongtrinh_khoiluongkienthuc')
+                            ->where('id', $value_all_khoiluongkienthuc->isKhoiluongkienthuc)
+                            ->first();
+                    $check = true;
+    
+                    foreach($all_khoiluongkienthuc as $value) {
+                        if($value->id == $khkt_parent->id) {
+                            $check = false;
+                            break;
+                        }
+                    }
+    
+                    if($check == true) {
+                        $all_khoiluongkienthuc[] = $khkt_parent;
+                    } 
+                }
+            }
+
+            $all_khoiluongkienthuc = collect($all_khoiluongkienthuc);
+            $all_khoiluongkienthuc = $all_khoiluongkienthuc->sortBy('id');
+            $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
+
+            foreach($all_khoiluongkienthuc as $value_all_klkt) {
+
+                $all_hp_klkt = DB::table('table_khungchuongtrinh_hocphan')
+                                ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
+                                ->where('table_khungchuongtrinh_hocphan.id_khung', $id_khung)
+                                ->where('table_khungchuongtrinh_hocphan.khoikienthuc', $value_all_klkt->id)
+                                ->get();
+
+                foreach($all_hp_klkt as $value_all_hp_klkt) {
+                    $value_all_klkt->hp_klkt[] = $value_all_hp_klkt;
+                }
+            }
+
+            $output = '';
+
+            $stt_parent = 0; $array = array('I', 'II', 'III', 'IV', 'V'); 
+            $stt = 1; 
+            foreach($all_khoiluongkienthuc as $value_all_klkt) {
+                if(isset($value_all_klkt->hasChild)) {
+                    $l2=1;
+                    $output .= '<tr style="background:#f6caad; font-weight: 600;">';
+                    $output .= '<td>'.$stt_l2 = $array[$stt_parent++].'</td>';
+                    $output .= '<td colspan="6" style="text-align: left;" >'.$value_all_klkt->tenkhoiluongkienthuc.'</td>';
+                    $output .= '</tr>';
+                } else if($value_all_klkt->level == 0) {
+                    $output .= '<tr style="background:#f6caad; font-weight: 600;">';
+                    $output .= '<td>'.$array[$stt_parent++].'</td>';
+                    $output .= '<td colspan="6" style="text-align: left;" >'.$value_all_klkt->tenkhoiluongkienthuc.'</td>';
+                    $output .= '</tr>';
+                    if(isset($value_all_klkt->hp_klkt)) {
+                        foreach($value_all_klkt->hp_klkt as $value_hp_klkt) {
+                            $output .= '<tr class="click-hocphan" data-value="'.$value_hp_klkt->id_hocphan.'" >';
+                            $output .= '<td>'.$stt++.'</td>';
+                            $output .= '<td style="text-align: left;">'.$value_hp_klkt->mahocphan.'</td>';
+                            $output .= '<td style="text-align: left;">'.$value_hp_klkt->tenhocphan.'</td>';
+                            $output .= '<td>'.$value_hp_klkt->soTC.'</td>';
+                            $output .= '<td>'.$value_hp_klkt->hocky.'</td>';
+                            $output .= '</tr>';
+                        }
+                    }
+
+                } else if($value_all_klkt->level == 1) {
+                    $output .= '<tr style="background:#f6caad; font-weight: 600;">';
+                    $output .= '<td>'.$stt_l2.'.'.$l2++.'</td>';
+                    $output .= '<td colspan="6" style="text-align: left;" >|____'.$value_all_klkt->tenkhoiluongkienthuc.'</td>';
+                    $output .= '</tr>';
+                    if(isset($value_all_klkt->hp_klkt)) {
+                        foreach($value_all_klkt->hp_klkt as $value_hp_klkt) {
+                            $output .= '<tr class="click-hocphan" data-value="'.$value_hp_klkt->id_hocphan.'" >';
+                            $output .= '<td>'.$stt++.'</td>';
+                            $output .= '<td style="text-align: left;">'.$value_hp_klkt->mahocphan.'</td>';
+                            $output .= '<td style="text-align: left;">'.$value_hp_klkt->tenhocphan.'</td>';
+                            $output .= '<td>'.$value_hp_klkt->soTC.'</td>';
+                            $output .= '<td>'.$value_hp_klkt->hocky.'</td>';
+                            $output .= '</tr>';
+                        }
+                    }
+                }
+
+            }
+
+            echo $output;
+
+        }
+    }
+
+    public function khoiluongkienthuc_hocphan() {
+        if (Request::ajax()) {
+
+            $id_khung = (String)Request::get('id_khung');
+            $id_hocphan_clicked = (String)Request::get('id_hocphan_clicked');
+
+            $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc_chitiet')
+                                    ->join('table_khungchuongtrinh_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc.id')
+                                    ->where('table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khung', $id_khung)
+                                    ->get();
+
+            foreach($all_khoiluongkienthuc as $value_all_khoiluongkienthuc) {
+                if($value_all_khoiluongkienthuc->isKhoiluongkienthuc != 0) {
+                    $khkt_parent = DB::table('table_khungchuongtrinh_khoiluongkienthuc')
+                            ->where('id', $value_all_khoiluongkienthuc->isKhoiluongkienthuc)
+                            ->first();
+                    $check = true;
+    
+                    foreach($all_khoiluongkienthuc as $value) {
+                        if($value->id == $khkt_parent->id) {
+                            $check = false;
+                            break;
+                        }
+                    }
+    
+                    if($check == true) {
+                        $all_khoiluongkienthuc[] = $khkt_parent;
+                    } 
+                }
+            }
+
+            $all_khoiluongkienthuc = collect($all_khoiluongkienthuc);
+            $all_khoiluongkienthuc = $all_khoiluongkienthuc->sortBy('id');
+            $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
+
+            $get_khoikienthuc = DB::table('table_khungchuongtrinh_hocphan')
+                                ->where('id_khung', $id_khung)
+                                ->where('id_hocphan', $id_hocphan_clicked)
+                                ->first()->khoikienthuc;
+
+            $output = '';
+
+            $output .= '<select multiple data-value="'.$id_hocphan_clicked.'">';
+
+            foreach($all_khoiluongkienthuc as $value_all_khoiluongkienthuc) {
+                if(isset($value_all_khoiluongkienthuc->hasChild)) {
+                    $output .= '<option disabled >'.$value_all_khoiluongkienthuc->tenkhoiluongkienthuc.'</option>';
+                }else if($value_all_khoiluongkienthuc->level == 0) {
+
+                    $select = '';
+                    if($value_all_khoiluongkienthuc->id == $get_khoikienthuc) {
+                        $select = 'selected';
+                    }
+
+                    $output .= '<option '.$select.' value="'.$value_all_khoiluongkienthuc->id.'"> '.$value_all_khoiluongkienthuc->tenkhoiluongkienthuc .'</option>';
+                }else if($value_all_khoiluongkienthuc->level == 1) {
+                    
+                    $select = '';
+                    if($value_all_khoiluongkienthuc->id == $get_khoikienthuc) {
+                        $select = 'selected';
+                    }
+                    
+                    $output .= '<option '.$select.' value="'.$value_all_khoiluongkienthuc->id.'" >|____'.$value_all_khoiluongkienthuc->tenkhoiluongkienthuc.'</option>';			
+                }
+            }
+
+
+            $output .= '</select>';
+
+            echo $output;
+            
+        }
+    }
+
+    public function sua_khoiluongkienthuc_hocphan() {
+        if (Request::ajax()) {
+
+            $id_klkt_sua = (String)Request::get('id_klkt_sua');
+            $id_khung = (String)Request::get('id_khung');
+            $id_hocphan = (String)Request::get('id_hocphan');
+
+            $sua_klkt = DB::table('table_khungchuongtrinh_hocphan')
+                        ->where('id_khung', $id_khung)
+                        ->where('id_hocphan', $id_hocphan)
+                        ->update(['khoikienthuc' => $id_klkt_sua]);
+
+            echo "Successfull";
+            
+        }
+    }
+
+    public function load_danhsachhocphan_chuathem_khoiluongkienthuc() {
+        if (Request::ajax()) {
+
+            $id_khung = (String)Request::get('id_khung');
+
+            $all_hp_chuathem = DB::table('table_khungchuongtrinh_hocphan')
+                                ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
+                                ->where('table_khungchuongtrinh_hocphan.khoikienthuc', null)
+                                ->get();
+
+            $output = '';
+
+            if(count($all_hp_chuathem)) {
+                $stt = 1;
+                foreach($all_hp_chuathem as $value_all_hp_chuathem) {
+                    $output .= '<tr class="click-hocphan" data-value="'.$value_all_hp_chuathem->id_hocphan.'" >';
+                    $output .= '<td>'.$stt++.'</td>';
+                    $output .= '<td>'.$value_all_hp_chuathem->mahocphan.'</td>';
+                    $output .= '<td>'.$value_all_hp_chuathem->tenhocphan.'</td>';
+                    $output .= '<td>'.$value_all_hp_chuathem->soTC.'</td>';
+                    $output .= '<td>'.$value_all_hp_chuathem->hocky.'</td>';
+                    $output .= '</tr>';
+                }
+            } else {
+                $output .= '<tr>';
+                $output .= '<td colspan="5">Không có học phần nào chưa thêm Khối lượng kiến thức</td>';
+                $output .= '</tr>';
+            }
+
+            echo $output;
+
+        }
+    }
+
+    public function load_them_khoiluongkienthuc_hocphan() {
+        if (Request::ajax()) {
+
+            $id_khung = (String)Request::get('id_khung');
+            $id_hocphan = (String)Request::get('id_hocphan');
+
+            $all_khoiluongkienthuc = DB::table('table_khungchuongtrinh_khoiluongkienthuc_chitiet')
+                                    ->join('table_khungchuongtrinh_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khoiluongkienthuc', 'table_khungchuongtrinh_khoiluongkienthuc.id')
+                                    ->where('table_khungchuongtrinh_khoiluongkienthuc_chitiet.id_khung', $id_khung)
+                                    ->get();
+
+            foreach($all_khoiluongkienthuc as $value_all_khoiluongkienthuc) {
+                if($value_all_khoiluongkienthuc->isKhoiluongkienthuc != 0) {
+                    $khkt_parent = DB::table('table_khungchuongtrinh_khoiluongkienthuc')
+                            ->where('id', $value_all_khoiluongkienthuc->isKhoiluongkienthuc)
+                            ->first();
+                    $check = true;
+    
+                    foreach($all_khoiluongkienthuc as $value) {
+                        if($value->id == $khkt_parent->id) {
+                            $check = false;
+                            break;
+                        }
+                    }
+    
+                    if($check == true) {
+                        $all_khoiluongkienthuc[] = $khkt_parent;
+                    } 
+                }
+            }
+
+            $all_khoiluongkienthuc = collect($all_khoiluongkienthuc);
+            $all_khoiluongkienthuc = $all_khoiluongkienthuc->sortBy('id');
+            $all_khoiluongkienthuc = $this->data_khoiluongkienthuc($all_khoiluongkienthuc, 0);
+
+            
+            $output = '';
+
+            $output .= '<select multiple data-value="'.$id_hocphan.'">';
+            foreach($all_khoiluongkienthuc as $value_all_khoiluongkienthuc) {
+                if(isset($value_all_khoiluongkienthuc->hasChild)) {
+                    $output .= '<option disabled >'.$value_all_khoiluongkienthuc->tenkhoiluongkienthuc.'</option>';
+                }else if($value_all_khoiluongkienthuc->level == 0) {
+                    $output .= '<option value="'.$value_all_khoiluongkienthuc->id.'"> '.$value_all_khoiluongkienthuc->tenkhoiluongkienthuc .'</option>';
+                }else if($value_all_khoiluongkienthuc->level == 1) {
+                    $output .= '<option value="'.$value_all_khoiluongkienthuc->id.'" >|____'.$value_all_khoiluongkienthuc->tenkhoiluongkienthuc.'</option>';			
+                }
+            }
+
+            $output .= '</select>';
+
+            echo $output;
+            
+        }
+    }
+
+    public function them_khoiluongkienthuc_hocphan() {
+        if (Request::ajax()) {
+
+            $id_klkt_them = (String)Request::get('id_klkt_them');
+            $id_khung = (String)Request::get('id_khung');
+            $id_hocphan = (String)Request::get('id_hocphan');
+
+            $sua_klkt = DB::table('table_khungchuongtrinh_hocphan')
+                        ->where('id_khung', $id_khung)
+                        ->where('id_hocphan', $id_hocphan)
+                        ->update(['khoikienthuc' => $id_klkt_them]);
+
+            echo "Successfull";
+            
         }
     }
 

@@ -3,6 +3,7 @@
 
 <script>
 	function Opentab(e, tabId) {
+
 		var i;
 		var list_tab = document.getElementsByClassName("list-tab-body");
 
@@ -19,15 +20,21 @@
 		}
 
 		event.currentTarget.className += ' active';
-	}
-</script>
 
+	} 
+
+</script>
+  
 <div class="containe-fluid">
     <div class="them-moi-de-cuong">
 
+		<!-- <div class="title">
+			<p>Thêm mới đề cương</p></p>
+		</div> -->
+
 		<div class="row">
 			<div class="col-md-12 title nopadding">
-				<p>Thêm mới đề cương</p>
+				<p>Sửa đề cương</p>
 			</div>
 		</div>
 
@@ -38,11 +45,11 @@
 					<div onclick="Opentab(event, 2)" class="tabLink" >Chọn giảng viên</div>
 					<div onclick="Opentab(event, 3)" class="tabLink" >Mô tả đề cương</div>	
 					<div onclick="Opentab(event, 4)" class="tabLink" >Chuẩn đầu ra học phần</div>
-					<div onclick="Opentab(event, 5)" class="tabLink" >Nhiệm vụ tài liệu</div> 
+					<div onclick="Opentab(event, 5)" class="tabLink" >Nhiệm vụ tài liệu</div>
 				</div>
             </div>
             <div class="col-md-10 nopadding">
-				<form action="{{URL::to('admin/decuong/them-moi-de-cuong')}}" method="post">
+				<form action="{{URL::to('admin/decuong/sua-de-cuong/'.$all_decuong->id_decuong)}}" method="post">
 				{{ csrf_field() }}
 					<div class="tab-body">
 						<div class="list-tab-body active">
@@ -70,8 +77,8 @@
 										</td>
 										<td>
 											<div>
-												<input type="text" name="ten_hoc_phan" id="ip-ten-hoc-phan" disabled value="{{$ten_hocphan}}" placeholder="Nhập tên học phần" required="">
-												<input type="hidden" name="id_ten_hoc_phan" id="id-ten-hoc-phan" value="{{$id_hocphan}}">
+												<input type="text" name="ten_hoc_phan" id="ip-ten-hoc-phan" placeholder="Nhập tên học phần" required="" value="{{$all_decuong->tenhocphan}}" disabled>
+												<input type="hidden" name="id_ten_hoc_phan" id="id-ten-hoc-phan" value="{{$all_decuong->id_hocphan}}">
 												<div id="tenhocphanaj" class="list-danh-sach">
 									
 												</div>
@@ -83,7 +90,7 @@
 											<p class="">2. Số tiết lý thuyết</p>
 										</td>
 										<td>
-											<input type="number" name="so_tiet_ly_thuyet" min=0 id="ip-so-tiet-lt" placeholder="Số tiết lí thuyết" required="" class="ip2row">
+											<input type="number" name="so_tiet_ly_thuyet" id="ip-so-tiet-lt" placeholder="Số tiết lí thuyết" required="" value="{{$all_decuong->phanbo_lythuyet}}">
 										</td>
 									</tr>
 									<tr>
@@ -91,7 +98,7 @@
 											<p>3. Số tiết bài tập</p>
 										</td>
 										<td>
-											<input type="number" name="so_tiet_bai_tap" min=0 id="ip-so-tiet-bt" class="ip2row" placeholder="Số tiết bài tập" required="">
+											<input type="number" name="so_tiet_bai_tap" placeholder="Số tiết bài tập" required="" value="{{$all_decuong->phanbo_baitap}}">
 										</td>
 									</tr>
 									<tr>
@@ -99,7 +106,7 @@
 											<p class="">4. Số tiết thực hành</p>
 										</td>
 										<td>
-											<input type="number" name="so_tiet_thuc_hanh" min=0 id="ip-so-tiet-th" class="ip2row" placeholder="Số tiết thực hành" required="">
+											<input type="number" name="so_tiet_thuc_hanh" placeholder="Số tiết thực hành" required="" value="{{$all_decuong->phanbo_thuchanh}}">
 										</td>
 									</tr>
 									<tr>
@@ -107,7 +114,7 @@
 											<p>5. Số tiết tự học</p>
 										</td>
 										<td>
-											<input type="number" name="so_tiet_tu_hoc" min=0 id="ip-so-tiet-th" class="ip2row" placeholder="Số tiết tự học" required="">
+											<input type="number" name="so_tiet_tu_hoc" placeholder="Số tiết tự học" required="" value="{{$all_decuong->phanbo_tuhoc}}">
 										</td>
 									</tr>
 								</table>
@@ -122,8 +129,8 @@
 										</td>
 										<td>
 											<div class="gvpt">
-												<input type="text" name="giang_vien_phu_trach" id="giang-vien-phu-trach" placeholder="Nhập tên Giảng viên phụ trách" required="">
-												<input type="hidden" name="id_giang_vien_phu_trach" id="id-giang-vien-phu-trach" required="">
+												<input type="text" name="giang_vien_phu_trach" id="giang-vien-phu-trach" placeholder="Nhập tên Giảng viên phụ trách" required="" value="{{$all_decuong->chucdanh.'. '.$all_decuong->hodem.' '.$all_decuong->ten}}">
+												<input type="hidden" name="id_giang_vien_phu_trach" id="id-giang-vien-phu-trach" required="" value="{{$all_decuong->giangvienphutrach_id}}">
 												<div id="giangvienphutrachaj" class="list-danh-sach">
 
 												</div>
@@ -139,12 +146,18 @@
 
 												</div>
 											</div>
-										</td>
+										</td> 
 										<td>
 											<div class="danh-sach-gvdc">
 												<h4>Danh sách các giảng viên cùng giảng dạy: </h4>
 												<ul id="list-gvdc">
-													
+                                                    @foreach($list_gvdc as $val_gvdc)
+                                                    <li>
+                                                        <p>{{$val_gvdc["ten_gv"]}}</p>
+                                                        <p id="delete-gvdc">Xoá</p>
+                                                        <input type="hidden" name="list_id_gvdc[]" value="{{$val_gvdc["id_gv"]}}">
+                                                    </li>
+                                                    @endforeach
 												</ul>
 											</div>
 										</td>
@@ -153,9 +166,9 @@
 										<td>9. Khoa phụ trách</td>
 										<td>
 											<select multiple name="khoa_phu_trach" class="khoa-phu-trach" required>
-												<option value="1">Khoa học máy tính</option>
-												<option value="2">Khoa kỹ thuật máy tính & điện tử</option>
-												<option value="3">Khoa kinh tế số & thương mại điện tử</option>
+												<option value="1" <?php if($all_decuong->khoaphutrach == 1) echo "selected"; ?> >Khoa học máy tính</option>
+												<option value="2" <?php if($all_decuong->khoaphutrach == 2) echo "selected"; ?> >Khoa kỹ thuật máy tính & điện tử</option>
+												<option value="3" <?php if($all_decuong->khoaphutrach == 3) echo "selected"; ?> >Khoa kinh tế số & thương mại điện tử</option>
 											</select>
 										</td>
 									</tr>
@@ -163,22 +176,22 @@
 										<td>10. Loại học phần</td>
 										<td>
 											<select multiple name="loai_hoc_phan" class="loai-hoc-phan" required>
-												<option value="1">Bắt buộc</option>
-												<option value="2">Tự chọn bắt buộc</option>
-												<option value="3">Tự chọn tự do</option>
+												<option value="1" <?php if($all_decuong->loaihocphan == 1) echo "selected"; ?> >Bắt buộc</option>
+												<option value="2" <?php if($all_decuong->loaihocphan == 2) echo "selected"; ?> >Tự chọn bắt buộc</option>
+												<option value="3" <?php if($all_decuong->loaihocphan == 3) echo "selected"; ?> >Tự chọn tự do</option>
 											</select>
 										</td>
 									</tr>
-									<tr> 
+									<tr>
 										<td>11. Thuộc khối kiến thức</td>
 										<td>
 											<select multiple name="khoi_kien_thuc" class="khoi-kien-thuc" required>
-												<option value="1">Toán và Khoa học tự nhiên</option>
-												<option value="2">Kiến thức chung</option>
-												<option value="3">Kiến thức cơ sở ngành</option>
-												<option value="4">Kiến thức chuyên ngành</option>
-												<option value="5">Thực tập</option>
-												<option value="6">Đồ án tốt nghiệp</option>
+												<option value="1" <?php if($all_decuong->khoikienthuc == 1) echo "selected"; ?> >Toán và Khoa học tự nhiên</option>
+												<option value="2" <?php if($all_decuong->khoikienthuc == 2) echo "selected"; ?> >Kiến thức chung</option>
+												<option value="3" <?php if($all_decuong->khoikienthuc == 3) echo "selected"; ?> >Kiến thức cơ sở ngành</option>
+												<option value="4" <?php if($all_decuong->khoikienthuc == 4) echo "selected"; ?> >Kiến thức chuyên ngành</option>
+												<option value="5" <?php if($all_decuong->khoikienthuc == 5) echo "selected"; ?> >Thực tập</option>
+												<option value="6" <?php if($all_decuong->khoikienthuc == 6) echo "selected"; ?> >Đồ án tốt nghiệp</option>
 											</select>
 										</td>
 									</tr>
@@ -191,25 +204,25 @@
 									<tr>
 										<td>12. Mô tả tóm tắt học phần</td>
 										<td>
-											<textarea class="list-textarea-chung" name="mota_tomtat" required="" placeholder="Mô tả tóm tắt học phần"></textarea>
+											<textarea class="list-textarea-chung" name="mota_tomtat" required="" placeholder="Mô tả tóm tắt học phần">{{$all_decuong->mota_tomtat}}</textarea>
 										</td>
 									</tr>
 									<tr>
 										<td>13. Mục tiêu kiến thức của học phần</td>
 										<td>
-											<textarea class="list-textarea-chung" name="muctieu_kienthuc" required="" placeholder="Mục tiêu kiến thức của học phần"></textarea>
+											<textarea class="list-textarea-chung" name="muctieu_kienthuc" required="" placeholder="Mục tiêu kiến thức của học phần">{{$all_decuong->muctieu_kienthuc}}</textarea>
 										</td>
 									</tr>
 									<tr>
 										<td>14. Mục tiêu kỹ năng của học phần</td>
 										<td>
-											<textarea class="list-textarea-chung" name="muctiey_kynang" required="" placeholder="Mục tiêu kỹ năng của học phần"></textarea>
+											<textarea class="list-textarea-chung" name="muctiey_kynang" required="" placeholder="Mục tiêu kỹ năng của học phần">{{$all_decuong->muctieu_kynang}}</textarea>
 										</td>
 									</tr>
 									<tr>
 										<td>15. Mục tiêu thái độ của học phần</td>
 										<td>
-											<textarea class="list-textarea-chung" name="muctieu_thaido" required="" placeholder="Mục tiêu thái độ của học phần"></textarea>
+											<textarea class="list-textarea-chung" name="muctieu_thaido" required="" placeholder="Mục tiêu thái độ của học phần">{{$all_decuong->muctieu_thaido}}</textarea>
 										</td>
 									</tr>
 								</table>
@@ -258,22 +271,7 @@
 											</table>
 										</td>
 									</tr>
-
-									<tr>
-										<td class="c1">16.Chọn ngành</td>
-										<td>
-											<select multiple name="nganh" id="select-nganh" multiple class="chon-nganh" required>
-												@foreach($all_nganh as $value_nganh)
-												@if($value_nganh->id == 1)
-												<option value="{{$value_nganh->id}}" selected>{{$value_nganh->tennganh}}</option>
-												@else
-												<option value="{{$value_nganh->id}}">{{$value_nganh->tennganh}}</option>
-												@endif
-												@endforeach
-											</select>
-										</td>
-									</tr>
-									 
+									
 									<tr>
 										<td></td>
 										<td>
@@ -303,19 +301,19 @@
 									<tr>
 										<td>17. Nhiệm vụ của học viên</td>
 										<td>
-											<textarea class="list-textarea-chung" name="nhiemvu" required="" placeholder="Nhiệm vụ của học viên"></textarea>
+											<textarea class="list-textarea-chung" name="nhiemvu" required="" placeholder="Nhiệm vụ của học viên">{{$all_decuong->nhiemvu}}</textarea>
 										</td>
 									</tr>									
 									<!-- <tr>
 										<td>18. Tài liệu tham khảo - Giáo trình</td>
 										<td>
-											<textarea class="list-textarea-chung" name="tltk_giaotrinh" required="" placeholder="Tài liệu tham khảo - Giáo trình"></textarea>
+											<textarea class="list-textarea-chung" name="tltk_giaotrinh" required="" placeholder="Tài liệu tham khảo - Giáo trình">{{$all_decuong->tailieuthamkhao_giaotrinh}}</textarea>
 										</td>
 									</tr>
 									<tr>
 										<td>19. Tài liệu tham khảo - Sách</td>
 										<td>
-											<textarea class="list-textarea-chung" name="tltk_sach" required="" placeholder="Tài liệu tham khảo - Sách"></textarea>
+											<textarea class="list-textarea-chung" name="tltk_sach" required="" placeholder="Tài liệu tham khảo - Sách">{{$all_decuong->tailieuthamkhao_sach}}</textarea>
 										</td>
 									</tr> -->
 									<tr>
@@ -335,29 +333,35 @@
 													</tr>
 												</thead>
 												<tbody id="list-tltk-giaotrinh">
-													<!-- <tr>
-														<td class="align-middle">
-															<p>1</p>
+													<?php $stt_tltk_giaotrinh=1; ?>
+													@foreach($all_tltk_giaotrinh as $value_all_tltk_giaotrinh)
+													<tr>
+														<td class="stt-tltk-giaotrinh align-middle">
+															<p>{{$stt_tltk_giaotrinh++}}</p>
 														</td>
 														<td class="align-middle">
-															<textarea name="" id="" cols="15" rows="5"></textarea>
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->tentacgia}}</textarea>
 														</td>
 														<td class="align-middle">
-															<input type="number" name="" id="" style="width:80px">
+															<input type="number" name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" style="width:80px" value="{{$value_all_tltk_giaotrinh->namxuatban}}">
 														</td>
 														<td class="align-middle">
-															<textarea name="" id="" cols="15" rows="5"></textarea>
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->tensach}}</textarea>
 														</td>
 														<td class="align-middle">
-															<textarea name="" id="" cols="15" rows="5"></textarea>
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->noixuatban}}</textarea>
 														</td>
 														<td class="align-middle">
-															<textarea name="" id="" cols="15" rows="5"></textarea>
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->nhaxuatban}}</textarea>
 														</td>
 														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_giao_trinh[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_giaotrinh->url}}</textarea>
+														</td>
+														<td class="align-middle" id="delete-tltk-giaotrinh">
 															<p>Xóa</p>
 														</td>
-													</tr> -->
+													</tr>
+													@endforeach
 												</tbody>
 												<tr>
 													<td class="align-middle" colspan="7" id="add-tltk-giaotrinh">
@@ -384,7 +388,35 @@
 													</tr>
 												</thead>
 												<tbody id="list-tltk-sach">
-													
+													<?php $stt_tltk_sach=1; ?>
+													@foreach($all_tltk_sach as $value_all_tltk_sach)
+													<tr>
+														<td class="stt-tltk-sach align-middle">
+															<p>{{$stt_tltk_sach++}}</p>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->tentacgia}}</textarea>
+														</td>
+														<td class="align-middle">
+															<input type="number" name="tai_lieu_tham_khao_sach[]" id="" required="" style="width:80px" value="{{$value_all_tltk_sach->namxuatban}}">
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->tensach}}</textarea>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->noixuatban}}</textarea>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->nhaxuatban}}</textarea>
+														</td>
+														<td class="align-middle">
+															<textarea name="tai_lieu_tham_khao_sach[]" id="" required="" cols="15" rows="5">{{$value_all_tltk_sach->url}}</textarea>
+														</td>
+														<td class="align-middle" id="delete-tltk-sach">
+															<p>Xóa</p>
+														</td>
+													</tr>
+													@endforeach
 												</tbody>
 												<tr>
 													<td class="align-middle" colspan="7" id="add-tltk-sach">
@@ -397,43 +429,22 @@
 									<tr>
 										<td>Ngày phê duyệt</td>
 										<td>
-											<input type="date" name="ngay_phe_duyet" required="">
+											<input type="date" name="ngay_phe_duyet" required="" value="{{gmdate("Y-m-d", $all_decuong->ngaypheduyet)}}">
 										</td>
 									</tr>
- 
-									<tr>
-										<td></td>
-										<td>
-											
-										</td>
-									</tr>
- 
 								</table>
 							</div>
 						</div>
 					</div>		
             </div>
         </div>
-		<center><input style="margin-bottom:100px;" class="btn btn-success" type="submit" name="sm_decuong" id="sm-decuong" value="Tạo đề cương"></center>
-		</form>
+		<center><input style="margin-bottom:100px;" class="btn btn-success" type="submit" name="sm_decuong" id="sm-decuong" value="Cập nhật đề cương"></center>
+		</form>	
     </div>
 </div>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
-		$('#ip-so-tiet-lt').keyup(function() {
-			let sotiet = $(this).val();
-
-			if (sotiet < 0) {
-				document.getElementById("ip-so-tiet-lt").value = "0";
-			}
-
-			if (sotiet > 100) {
-				document.getElementById("ip-so-tiet-lt").value = "100";
-			}
-
-		});
 
 		$('#ip-ten-hoc-phan').keyup(function() {
 			var query = $(this).val();
@@ -441,7 +452,7 @@
 			if (query != '') {
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
-					url: "{{URL::to('admin/decuong/dc-ten-hoc-phan')}}",
+					url: "{{URL::to('admin/decuong/get-ten-hoc-phan-de-cuong')}}",
 					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
@@ -468,12 +479,10 @@
 		$('#giang-vien-phu-trach').keyup(function() {
 			var query = $(this).val();
 
-			var id_gvdc1 = $('#list-gvdc-id').val();
-
 			if (query != '') {
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
-					url: "{{URL::to('admin/decuong/dc-giang-vien-phu-trach')}}",
+					url: "{{URL::to('admin/decuong/get-giang-vien-phu-trach-de-cuong')}}",
 					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
@@ -487,31 +496,8 @@
 				$('#giangvienphutrachaj').fadeOut();   
 			}
 
-		}); 
-
-		$('#select-nganh').on('change', function() {
-			var id_nganh = this.value;
-			var id_hocphan = {{$id_hocphan}};
-			var id_khung = {{$id_khung}};
-
-			select_nganh(id_nganh, id_hocphan, id_khung);
-
 		});
 
-		function select_nganh(id_nganh, id_hocphan, khungchuongtrinh) {
-			var _token = $('input[name="_token"]').val();
-			$.ajax({
-				url: "{{URL::to('admin/decuong/select-nganh-aj')}}",
-				method: 'GET',
-				data:{id_nganh:id_nganh, id_hocphan:id_hocphan, khungchuongtrinh:khungchuongtrinh, _token:_token},
-				success: function(data) {
-					if (data != null) { 
-						//alert(data);
-       					$('#chuan-dau-ra').html(data);
-					}   
-				}
-			});
-		}
 
 		$('#giangvienphutrachaj').on('click', 'ul li', function() {
 			$('#giang-vien-phu-trach').val($(this).text()); 
@@ -522,16 +508,13 @@
 
 		$('#giang-vien-day-cung').keyup(function() {
 			var query = $(this).val();
-			var id_gvptc = $('#id-giang-vien-phu-trach').val();
-
-			var id_gvdc1 = document.querySelectorAll('[name="list_id_gvdc[]"]').value;
 
 			if (query != '') {
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
-					url: "{{URL::to('admin/decuong/dc-giang-vien-day-cung')}}",
+					url: "{{URL::to('admin/decuong/get-giang-vien-day-cung-de-cuong')}}",
 					method: 'GET',
-					data:{query:query, id_gvptc:id_gvptc, id_gvdc1:id_gvdc1, _token:_token},
+					data:{query:query, _token:_token},
 					success: function(data) {
 						if (data != null) {
 							$('#giangviendaycungaj').fadeIn();  
@@ -544,7 +527,6 @@
 			}
 
 		});
-
 
 		$('#giangviendaycungaj').on('click', 'ul li', function() {
 			$('#giang-vien-day-cung').val(""); 
@@ -563,7 +545,6 @@
 			p2.setAttribute("type", "hidden");
 			p2.setAttribute("name", "list_id_gvdc[]");
 			p2.setAttribute("value", id_gvcgd);
-			p2.setAttribute("class", "list-gvdc-id");
 
 			var p3 = document.createElement("p")
 			var node1 = document.createTextNode("Xoá");
@@ -589,79 +570,20 @@
 			$(this).parent('li').remove();
 		});
 
+		function select_nganh(id_hocphan, khungchuongtrinh) {
 
-		//chuan dau ra
-		// $('#chuan-dau-ra').on('click', 'tr td p', function() {
-
-		// 	var numberOfCLO = $('#body-clo').children('tr').length;
-
-		// 	var b = $(this).attr('data-value');
-
-		// 	p = document.createElement("div");
-		// 	p.setAttribute("class", "line-add-cdr");
-
-		// 	p1 = document.createElement("input");
-		// 	p1.setAttribute("type", "hidden");
-		// 	p1.setAttribute("name", "list_cdr[]");
-		// 	p1.setAttribute("value", b);
-
-		// 	p2 = document.createElement("select");
-		// 	p2.setAttribute("name", "list_cdr[]");
-		// 	p2.setAttribute("multiple", "multiple");
-		// 	p2.setAttribute("required", "required");
-		// 	p2.setAttribute("size", "4");
-		// 	p2.id = "select_chuandaura";
-
-		// 	for (var i = 0; i < numberOfCLO; i++) {
-		// 		p2_1 = document.createElement("option");
-		// 		p2_1.setAttribute("value", (i+1));
-		// 		p2_1.text = "CLO"+(i+1);
-		// 		p2.appendChild(p2_1);
-		// 	}
-
-		// 	p3 = document.createElement("select");
-		// 	p3.setAttribute("name", "list_cdr[]");		
-		// 	p3.setAttribute("multiple", "multiple");
-		// 	p3.setAttribute("required", "required");
-		// 	p3.id = "select_mucdo";
-
-		// 	p3_1 = document.createElement("option");
-		// 	p3_1.setAttribute("value", "0");
-		// 	p3_1.setAttribute("selected", "true");
-		// 	p3_1.text = "I";
-		// 	p3_2 = document.createElement("option");
-		// 	p3_2.setAttribute("value", "1");
-		// 	p3_2.text = "R";
-		// 	p3_3 = document.createElement("option");
-		// 	p3_3.setAttribute("value", "2");
-		// 	p3_3.text = "M";
-
-		// 	p3.appendChild(p3_1);
-		// 	p3.appendChild(p3_2);
-		// 	p3.appendChild(p3_3);
-
-		// 	p4 = document.createElement("h5");
-		// 	var nodexoa = document.createTextNode("Xóa");
-		// 	p4.appendChild(nodexoa);
-		// 	p4.id = "delete-cdr";
-
-		// 	p.appendChild(p1);
-		// 	p.appendChild(p2);
-		// 	p.appendChild(p3);
-		// 	p.appendChild(p4);
-
-		// 	var div = document.getElementById("add-parent-cdr-"+b);
-		// 	div.appendChild(p); 
-
-		// });
-
-		// $('#chuan-dau-ra').on('click', 'tr td div div h5', function() {
-		// 	$(this).parent('div').remove();
-		// 	var x = document.getElementsByClassName('stt-cdr');
-		// 	for (var i = 0; i < x.length; i++) {
-		// 	    x[i].innerHTML = i+1;
-		// 	}
-		// });
+			$.ajax({
+				url: "{{URL::to('admin/decuong/chon-nganh-de-cuong')}}",
+				method: 'GET',
+				data:{id_hocphan:id_hocphan, khungchuongtrinh:khungchuongtrinh},
+				success: function(data) {
+					if (data != null) { 
+						//alert(data);
+       					$('#chuan-dau-ra').html(data);
+					}   
+				}
+			});
+		}
 
 		$('#chuan-dau-ra').on('click', 'tr td div div h5#add-moilienhe', function() {
 
@@ -673,30 +595,27 @@
 			var id_hocphan = {{$id_hocphan}};
 			var id_khung = {{$id_khung}};
 
-			var id_nganh = $('#select-nganh').val().toString();
-
 			if (!id_chuandaura.length) {
 				alert("Bạn vui lòng chọn Chuẩn đầu ra và tiếp tục");
 			} else {
 				$.ajax({
 					url: "{{URL::to('admin/decuong/add-moilienhe-clo-plo')}}",
 					method: 'GET',
-					data:{id_chuandaura_chung:id_chuandaura_chung, id_chuandaura:id_chuandaura, mucdo:mucdo, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					data:{id_chuandaura_chung:id_chuandaura_chung, id_chuandaura:id_chuandaura, mucdo:mucdo, id_hocphan:id_hocphan, id_khung:id_khung},
 					success: function(data) {
 						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
+							select_nganh(id_hocphan, id_khung);
 							alert(data);
 						}   
 					}
 				});
 			}
-
+	
 		});
 
 		$('#chuan-dau-ra').on('click', 'tr td div div select#select_chuandaura', function() {
 			var id_hocphan = {{$id_hocphan}};
 			var id_khung = {{$id_khung}};
-			var id_nganh = $('#select-nganh').val().toString();
 
 			var id_chuandaura = $(this).val().toString();
 			var id_moilienhe = $(this).parent('div').children('#delete-moilienhe').attr('data-value');
@@ -705,10 +624,10 @@
 				$.ajax({
 					url: "{{URL::to('admin/decuong/edit-moilienhe-clo-plo-cdr')}}",
 					method: 'GET',
-					data:{id_moilienhe:id_moilienhe, id_chuandaura:id_chuandaura, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					data:{id_moilienhe:id_moilienhe, id_chuandaura:id_chuandaura},
 					success: function(data) {
 						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
+							select_nganh(id_hocphan, id_khung);
 							alert(data);
 						}   
 					}
@@ -721,20 +640,17 @@
 			var id_hocphan = {{$id_hocphan}};
 			var id_khung = {{$id_khung}};
 
-			var id_nganh = $('#select-nganh').val().toString();
-
 			var mucdo = $(this).val().toString();
-
 			var id_moilienhe = $(this).parent('div').children('#delete-moilienhe').attr('data-value');
 
 			if(id_moilienhe) {
 				$.ajax({
 					url: "{{URL::to('admin/decuong/edit-moilienhe-clo-plo-mucdo')}}",
 					method: 'GET',
-					data:{id_moilienhe:id_moilienhe, mucdo:mucdo, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					data:{id_moilienhe:id_moilienhe, mucdo:mucdo},
 					success: function(data) {
 						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
+							select_nganh(id_hocphan, id_khung);
 							alert(data);
 						}   
 					}
@@ -750,17 +666,15 @@
 				var id_hocphan = {{$id_hocphan}};
 				var id_khung = {{$id_khung}};
 
-				var id_nganh = $('#select-nganh').val().toString();
-
 				var id_moilienhe = $(this).attr('data-value');
 
 				$.ajax({
 					url: "{{URL::to('admin/decuong/delete-moilienhe-clo-plo')}}",
 					method: 'GET',
-					data:{id_moilienhe:id_moilienhe, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					data:{id_moilienhe:id_moilienhe},
 					success: function(data) {
 						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
+							select_nganh(id_hocphan, id_khung);
 							alert(data);
 						}   
 					}
@@ -771,6 +685,7 @@
 			}
 
 		});
+
 
 		$('#tr-add-clo').on('click', 'td p#add-clo', function() {
 
@@ -820,9 +735,7 @@
 							$('#text-warning').html("Học phần đang có: "+numberOfSpans+" CLO, số CLO nên có là từ 3 -> 4 CLO");
 						}
 
-						var id_nganh = $('#select-nganh').val().toString();
-
-						select_nganh(id_nganh, id_hocphan, id_khung);
+						select_nganh(id_hocphan, id_khung);
 
 					}   
 				}
@@ -856,12 +769,13 @@
 
 		});
 
-		
+
 		$('#body-clo').on('click', 'td p#delete-clo', function() {
 
 			var answer = window.confirm("Bạn có chắc chắn muốn xóa không?");
 
 			if (answer) {
+
 				var id_clo = $(this).attr('data-value');
 
 				$.ajax({
@@ -875,7 +789,7 @@
 						}   
 					}
 				});
-
+				
 			} else {
 
 			}

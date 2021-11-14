@@ -258,21 +258,6 @@
 											</table>
 										</td>
 									</tr>
-
-									<tr>
-										<td class="c1">16.Chọn ngành</td>
-										<td>
-											<select multiple name="nganh" id="select-nganh" multiple class="chon-nganh" required>
-												@foreach($all_nganh as $value_nganh)
-												@if($value_nganh->id == 1)
-												<option value="{{$value_nganh->id}}" selected>{{$value_nganh->tennganh}}</option>
-												@else
-												<option value="{{$value_nganh->id}}">{{$value_nganh->tennganh}}</option>
-												@endif
-												@endforeach
-											</select>
-										</td>
-									</tr>
 									 
 									<tr>
 										<td></td>
@@ -441,7 +426,7 @@
 			if (query != '') {
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
-					url: "{{URL::to('admin/decuong/dc-ten-hoc-phan')}}",
+					url: "{{URL::to('admin/decuong/get-ten-hoc-phan-de-cuong')}}",
 					method: 'GET',
 					data:{query:query, _token:_token},
 					success: function(data) {
@@ -466,16 +451,13 @@
 		});
 
 		$('#giang-vien-phu-trach').keyup(function() {
-			var query = $(this).val();
+			var tengiangvien = $(this).val();
 
-			var id_gvdc1 = $('#list-gvdc-id').val();
-
-			if (query != '') {
-				var _token = $('input[name="_token"]').val();
+			if (tengiangvien != '') {
 				$.ajax({
-					url: "{{URL::to('admin/decuong/dc-giang-vien-phu-trach')}}",
+					url: "{{URL::to('admin/decuong/get-giang-vien-phu-trach-de-cuong')}}",
 					method: 'GET',
-					data:{query:query, _token:_token},
+					data:{tengiangvien:tengiangvien},
 					success: function(data) {
 						if (data != null) {
 							$('#giangvienphutrachaj').fadeIn();  
@@ -489,21 +471,13 @@
 
 		}); 
 
-		$('#select-nganh').on('change', function() {
-			var id_nganh = this.value;
-			var id_hocphan = {{$id_hocphan}};
-			var id_khung = {{$id_khung}};
 
-			select_nganh(id_nganh, id_hocphan, id_khung);
-
-		});
-
-		function select_nganh(id_nganh, id_hocphan, khungchuongtrinh) {
-			var _token = $('input[name="_token"]').val();
+		function select_nganh(id_hocphan, khungchuongtrinh) {
+			
 			$.ajax({
-				url: "{{URL::to('admin/decuong/select-nganh-aj')}}",
+				url: "{{URL::to('admin/decuong/chon-nganh-de-cuong')}}",
 				method: 'GET',
-				data:{id_nganh:id_nganh, id_hocphan:id_hocphan, khungchuongtrinh:khungchuongtrinh, _token:_token},
+				data:{id_hocphan:id_hocphan, khungchuongtrinh:khungchuongtrinh},
 				success: function(data) {
 					if (data != null) { 
 						//alert(data);
@@ -521,17 +495,16 @@
 		});
 
 		$('#giang-vien-day-cung').keyup(function() {
-			var query = $(this).val();
+			var tengiangvien = $(this).val();
 			var id_gvptc = $('#id-giang-vien-phu-trach').val();
 
 			var id_gvdc1 = document.querySelectorAll('[name="list_id_gvdc[]"]').value;
 
-			if (query != '') {
-				var _token = $('input[name="_token"]').val();
+			if (tengiangvien != '') {
 				$.ajax({
-					url: "{{URL::to('admin/decuong/dc-giang-vien-day-cung')}}",
+					url: "{{URL::to('admin/decuong/get-giang-vien-day-cung-de-cuong')}}",
 					method: 'GET',
-					data:{query:query, id_gvptc:id_gvptc, id_gvdc1:id_gvdc1, _token:_token},
+					data:{tengiangvien:tengiangvien, id_gvptc:id_gvptc, id_gvdc1:id_gvdc1},
 					success: function(data) {
 						if (data != null) {
 							$('#giangviendaycungaj').fadeIn();  
@@ -589,80 +562,6 @@
 			$(this).parent('li').remove();
 		});
 
-
-		//chuan dau ra
-		// $('#chuan-dau-ra').on('click', 'tr td p', function() {
-
-		// 	var numberOfCLO = $('#body-clo').children('tr').length;
-
-		// 	var b = $(this).attr('data-value');
-
-		// 	p = document.createElement("div");
-		// 	p.setAttribute("class", "line-add-cdr");
-
-		// 	p1 = document.createElement("input");
-		// 	p1.setAttribute("type", "hidden");
-		// 	p1.setAttribute("name", "list_cdr[]");
-		// 	p1.setAttribute("value", b);
-
-		// 	p2 = document.createElement("select");
-		// 	p2.setAttribute("name", "list_cdr[]");
-		// 	p2.setAttribute("multiple", "multiple");
-		// 	p2.setAttribute("required", "required");
-		// 	p2.setAttribute("size", "4");
-		// 	p2.id = "select_chuandaura";
-
-		// 	for (var i = 0; i < numberOfCLO; i++) {
-		// 		p2_1 = document.createElement("option");
-		// 		p2_1.setAttribute("value", (i+1));
-		// 		p2_1.text = "CLO"+(i+1);
-		// 		p2.appendChild(p2_1);
-		// 	}
-
-		// 	p3 = document.createElement("select");
-		// 	p3.setAttribute("name", "list_cdr[]");		
-		// 	p3.setAttribute("multiple", "multiple");
-		// 	p3.setAttribute("required", "required");
-		// 	p3.id = "select_mucdo";
-
-		// 	p3_1 = document.createElement("option");
-		// 	p3_1.setAttribute("value", "0");
-		// 	p3_1.setAttribute("selected", "true");
-		// 	p3_1.text = "I";
-		// 	p3_2 = document.createElement("option");
-		// 	p3_2.setAttribute("value", "1");
-		// 	p3_2.text = "R";
-		// 	p3_3 = document.createElement("option");
-		// 	p3_3.setAttribute("value", "2");
-		// 	p3_3.text = "M";
-
-		// 	p3.appendChild(p3_1);
-		// 	p3.appendChild(p3_2);
-		// 	p3.appendChild(p3_3);
-
-		// 	p4 = document.createElement("h5");
-		// 	var nodexoa = document.createTextNode("Xóa");
-		// 	p4.appendChild(nodexoa);
-		// 	p4.id = "delete-cdr";
-
-		// 	p.appendChild(p1);
-		// 	p.appendChild(p2);
-		// 	p.appendChild(p3);
-		// 	p.appendChild(p4);
-
-		// 	var div = document.getElementById("add-parent-cdr-"+b);
-		// 	div.appendChild(p); 
-
-		// });
-
-		// $('#chuan-dau-ra').on('click', 'tr td div div h5', function() {
-		// 	$(this).parent('div').remove();
-		// 	var x = document.getElementsByClassName('stt-cdr');
-		// 	for (var i = 0; i < x.length; i++) {
-		// 	    x[i].innerHTML = i+1;
-		// 	}
-		// });
-
 		$('#chuan-dau-ra').on('click', 'tr td div div h5#add-moilienhe', function() {
 
 			var id_chuandaura_chung = $(this).attr('data-value');
@@ -673,18 +572,16 @@
 			var id_hocphan = {{$id_hocphan}};
 			var id_khung = {{$id_khung}};
 
-			var id_nganh = $('#select-nganh').val().toString();
-
 			if (!id_chuandaura.length) {
 				alert("Bạn vui lòng chọn Chuẩn đầu ra và tiếp tục");
 			} else {
 				$.ajax({
 					url: "{{URL::to('admin/decuong/add-moilienhe-clo-plo')}}",
 					method: 'GET',
-					data:{id_chuandaura_chung:id_chuandaura_chung, id_chuandaura:id_chuandaura, mucdo:mucdo, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					data:{id_chuandaura_chung:id_chuandaura_chung, id_chuandaura:id_chuandaura, mucdo:mucdo, id_hocphan:id_hocphan, id_khung:id_khung},
 					success: function(data) {
 						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
+							select_nganh(id_hocphan, id_khung);
 							alert(data);
 						}   
 					}
@@ -696,7 +593,6 @@
 		$('#chuan-dau-ra').on('click', 'tr td div div select#select_chuandaura', function() {
 			var id_hocphan = {{$id_hocphan}};
 			var id_khung = {{$id_khung}};
-			var id_nganh = $('#select-nganh').val().toString();
 
 			var id_chuandaura = $(this).val().toString();
 			var id_moilienhe = $(this).parent('div').children('#delete-moilienhe').attr('data-value');
@@ -705,10 +601,10 @@
 				$.ajax({
 					url: "{{URL::to('admin/decuong/edit-moilienhe-clo-plo-cdr')}}",
 					method: 'GET',
-					data:{id_moilienhe:id_moilienhe, id_chuandaura:id_chuandaura, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					data:{id_moilienhe:id_moilienhe, id_chuandaura:id_chuandaura},
 					success: function(data) {
 						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
+							select_nganh(id_hocphan, id_khung);
 							alert(data);
 						}   
 					}
@@ -721,20 +617,17 @@
 			var id_hocphan = {{$id_hocphan}};
 			var id_khung = {{$id_khung}};
 
-			var id_nganh = $('#select-nganh').val().toString();
-
 			var mucdo = $(this).val().toString();
-
 			var id_moilienhe = $(this).parent('div').children('#delete-moilienhe').attr('data-value');
 
 			if(id_moilienhe) {
 				$.ajax({
 					url: "{{URL::to('admin/decuong/edit-moilienhe-clo-plo-mucdo')}}",
 					method: 'GET',
-					data:{id_moilienhe:id_moilienhe, mucdo:mucdo, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					data:{id_moilienhe:id_moilienhe, mucdo:mucdo},
 					success: function(data) {
 						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
+							select_nganh(id_hocphan, id_khung);
 							alert(data);
 						}   
 					}
@@ -750,17 +643,15 @@
 				var id_hocphan = {{$id_hocphan}};
 				var id_khung = {{$id_khung}};
 
-				var id_nganh = $('#select-nganh').val().toString();
-
 				var id_moilienhe = $(this).attr('data-value');
 
 				$.ajax({
 					url: "{{URL::to('admin/decuong/delete-moilienhe-clo-plo')}}",
 					method: 'GET',
-					data:{id_moilienhe:id_moilienhe, id_nganh:id_nganh, id_hocphan:id_hocphan, id_khung:id_khung},
+					data:{id_moilienhe:id_moilienhe},
 					success: function(data) {
 						if (data != null) {
-							select_nganh(id_nganh, id_hocphan, id_khung);
+							select_nganh(id_hocphan, id_khung);
 							alert(data);
 						}   
 					}
@@ -820,9 +711,7 @@
 							$('#text-warning').html("Học phần đang có: "+numberOfSpans+" CLO, số CLO nên có là từ 3 -> 4 CLO");
 						}
 
-						var id_nganh = $('#select-nganh').val().toString();
-
-						select_nganh(id_nganh, id_hocphan, id_khung);
+						select_nganh(id_hocphan, id_khung);
 
 					}   
 				}

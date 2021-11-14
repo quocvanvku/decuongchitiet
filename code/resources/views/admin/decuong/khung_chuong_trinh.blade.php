@@ -147,7 +147,7 @@
 	<input type="text" name="" id="nhap_tim_kiem_hoc_phan" placeholder="Nhập tên học phần...">
 </div> -->
 
-<script>
+<script> 
 	$(document).ready(function() {
 
 		$('#select_khungchuongtrinh').on('change', function () {

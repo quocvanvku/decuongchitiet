@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12 nopadding">
 
-                <select multiple size="14" id="select-khungchuongtrinh-hocphan">
+                <select id="select-khungchuongtrinh-hocphan">
                     @foreach($all_khungchuongtrinh as $value_all_khungchuongtrinh)                 
                         @if($value_all_khungchuongtrinh->level == 1)
                         <option value="{{$value_all_khungchuongtrinh->id}}" <?php if($value_all_khungchuongtrinh->id == $id_khungchuongtrinh) {echo "selected";} ?> >|____ {{$value_all_khungchuongtrinh->tenkhungchuongtrinh}}</option>
@@ -29,6 +29,7 @@
                         <tr>
                             <td></td>
                             <td>STT</td>
+                            <td>Mã HP</td>
                             <td>Tên học phần</td>
                             <td>Học kỳ</td>
                             <td>Học phần: tiên quyết (a), học trước (b), song hành (c)</td>
@@ -41,8 +42,7 @@
                     <tbody id="body-khung-chuong-trinh-hoc-phan"> 
                         <?php $cr_hocky = 0; ?>
                         @foreach($all_kct_hocphan as $value_kct_hocphan)
-
-                        <tr>
+                        <tr class='click-thiet-lap-moi-quan-he-hoc-phan' data-href='{{url("/admin/decuong/thiet-lap-moi-quan-he-hoc-phan/".$value_kct_hocphan->id_khung."/".$value_kct_hocphan->id_hocphan)}}'>
                             <td>
                                 @if($value_kct_hocphan->hocky == $cr_hocky)
                                 <span id="up-stt" data-value="{{$value_kct_hocphan->id.'_'.$value_kct_hocphan->id_khung}}">
@@ -55,13 +55,10 @@
                                 </span>
                                 @endif
                             </td>
-                            <td >{{$value_kct_hocphan->stt}}</td>
-                            <td >
-                                {{$value_kct_hocphan->tenhocphan}}       
-                            </td>
-                            <td >
-                                {{$value_kct_hocphan->hocky}}      
-                            </td>
+                            <td>{{$value_kct_hocphan->stt}}</td>
+                            <td>{{$value_kct_hocphan->mahocphan}}</td>
+                            <td>{{$value_kct_hocphan->tenhocphan}}</td>
+                            <td>{{$value_kct_hocphan->hocky}}</td>
                             <td id="dshplq-{{$value_kct_hocphan->id_hocphan}}" class="ds-hp-lq"></td>
                             <script type="text/javascript">
                                 var dataenc = <?php echo json_encode(html_entity_decode($value_kct_hocphan->ds_hocphan_lienquan, ENT_QUOTES, "utf-8")); ?>;
@@ -109,6 +106,11 @@
 			}
           return false;
         });
+
+        $(".click-thiet-lap-moi-quan-he-hoc-phan").click(function() {
+            window.location.href = $(this).data("href");
+        });
+
 
         $('#body-khung-chuong-trinh-hoc-phan').on('click', 'tr td span#up-stt',function() {
 

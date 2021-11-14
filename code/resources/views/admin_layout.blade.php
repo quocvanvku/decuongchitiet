@@ -13,11 +13,16 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/admin.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/menu_footer.css')}}">
-	<!-- <link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/decuongchitiet.css')}}"> -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/style.css')}}">
+	<!-- <link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/decuongchitiet.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/themdecuong.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/khungchuongtrinh.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/dghp_khgd.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/dghp_khgd.css')}}">  -->
+	
+	<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+	<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
+
+	
 	
 </head>
 <body>
@@ -42,7 +47,7 @@
 					<i class="icon-menu-ad-item fas fa-chevron-right"></i>
 					<ul class="sub-menu-ad-item">
 						<li><p><a href="{{URL::to('admin/decuong/them-moi-de-cuong-admin')}}">Thêm đề cương Admin</a></p></li>
-						<li><p><a href="{{URL::to('admin/decuong/khung-chuong-trinh/142')}}">Khung chương trình</a></p></li>
+						<li><p><a href="{{URL::to('admin/decuong/khung-chuong-trinh2/142')}}">Khung chương trình</a></p></li>
 						<li><p><a href="{{URL::to('admin/decuong/khoi-kien-thuc/142')}}">Khối kiến thức</a></p></li>
 						<li><p><a href="{{URL::to('admin/decuong/khgd-khung-chuong-trinh/142')}}">Kế hoạch giảng dạy</a></p></li>
 						<!-- <li><p><a href="{{URL::to('admin/decuong/danh-sach-de-cuong/0/146')}}">Danh sách đề cương</a></p></li> -->
@@ -63,6 +68,26 @@
 					<i class="icon-menu-ad-item fas fa-chevron-right"></i>
 					<ul class="sub-menu-ad-item">
 						<li><p><a href="{{URL::to('admin/decuong/thong-ke-khung')}}">Thống kê khung chương trình</a></p></li>
+					</ul>
+				</li>
+				<li class="menu-ad-item">
+					<p><a href="<?php echo url('admin/decuong/quan-ly-chuong-trinh-dao-tao/142'); ?>">Quản lý chương trình đào tạo</a></p>
+				</li>
+				<li class="menu-ad-item">
+					<p>Quản lý khung chương trình</p>
+					<i class="icon-menu-ad-item fas fa-chevron-right"></i>
+					<ul class="sub-menu-ad-item">
+						<li><p><a href="<?php echo url('admin/decuong/khung-chuong-trinh/142'); ?>">Khung chương trình</a></p></li>
+						<li><p><a href="<?php echo url('admin/decuong/quan-ly-plo/1'); ?>">Quản lý PLO</a></p></li>
+					</ul>
+				</li>
+				<li class="menu-ad-item">
+					<p>Nghiên cứu khoa học</p>
+					<i class="icon-menu-ad-item fas fa-chevron-right"></i>
+					<ul class="sub-menu-ad-item">
+						<li><p><a href="<?php echo url('admin/decuong/chon-nam-hoc-nckh'); ?>">Nghiên cứu khoa học của tôi</a></p></li>
+						<li><p><a href="<?php echo url('admin/decuong/chon-nam-hoc-thong-ke-nckh-cua-toi'); ?>">Thống kê NCKH của tôi</a></p></li>
+						<li><p><a href="<?php echo url('admin/decuong/chon-nam-hoc-quan-ly-hoat-dong-nckh'); ?>">Quản lý hoạt động NCKH</a></p></li>
 					</ul>
 				</li>
 				<li class="menu-ad-item">

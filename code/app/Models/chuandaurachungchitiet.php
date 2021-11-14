@@ -5,13 +5,13 @@ namespace App\Models;
 // use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class chuandaurachung extends Model
+class chuandaurachungchitiet extends Model
 {
     // use HasFactory;
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'id_cdr_chung','ten_plo','noidung_cdr_chung','id_khungchuongtrinh'
+    	'id_cdr_chitiet','noidung_cdr_chitiet','id_cdr_chung'
     ];
-    protected $primaryKey = 'id_cdr_chung';
- 	protected $table = 'table_chuandaura_chung';
+    protected $primaryKey = 'id_cdr_chitiet';
+ 	protected $table = 'table_chuandaura_chung_chitiet';
 }

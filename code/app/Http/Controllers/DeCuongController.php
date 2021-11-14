@@ -2008,10 +2008,6 @@ class DeCuongController extends Controller
 
         }
 
-        // echo "<pre>";
-        // print_r($all_kct_hocphan);
-        // die();
-
         return view('admin.decuong.khung_chuong_trinh_hoc_phan')
                 ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
                 ->with('id_khungchuongtrinh', $id_khungchuongtrinh)
