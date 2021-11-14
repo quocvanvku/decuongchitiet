@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 09/10/2021 09:20:18
+ Date: 14/11/2021 22:13:25
 */
 
 SET NAMES utf8mb4;
@@ -50,6 +50,6 @@ INSERT INTO `table_nganh` VALUES (9, '', 'Chuyên ngành An toàn thông tin và
 INSERT INTO `table_nganh` VALUES (10, '', 'Chuyên ngành IoT- Robotics', 1, '', 1, 0, NULL, NULL, NULL);
 INSERT INTO `table_nganh` VALUES (11, '', 'Chuyên ngành Truyền thông đa phương tiện', 1, '', 1, 0, NULL, NULL, NULL);
 INSERT INTO `table_nganh` VALUES (12, '', 'Chuyên ngành Digital marketing', 2, '', 3, 0, NULL, NULL, NULL);
-INSERT INTO `table_nganh` VALUES (13, '', 'Chuyên ngành Thương mại điện tử', NULL, '', NULL, 0, NULL, NULL, NULL);
+INSERT INTO `table_nganh` VALUES (13, '', 'Chuyên ngành Thương mại điện tử', 2, '', 3, 0, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

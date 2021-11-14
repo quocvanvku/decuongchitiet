@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 09/10/2021 09:20:24
+ Date: 14/11/2021 22:13:57
 */
 
 SET NAMES utf8mb4;
@@ -33,13 +33,17 @@ CREATE TABLE `table_tailieuthamkhao`  (
   `id_hocphan` int NULL DEFAULT NULL,
   `khungchuongtrinh` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 90 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 89 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of table_tailieuthamkhao
 -- ----------------------------
-INSERT INTO `table_tailieuthamkhao` VALUES (77, 'ten tac gia 1', 2021, 'ten tai lieu 1', 'noi xuat ban 1', 'nha xuat ban 1', NULL, 0, 12, 142);
-INSERT INTO `table_tailieuthamkhao` VALUES (78, 'ten tac gia 2', 2021, 'ten tai lieu 2', 'noi xuat ban 2', 'nha xuat ban 2', NULL, 0, 12, 142);
-INSERT INTO `table_tailieuthamkhao` VALUES (79, 'ten tac gia 3', 2021, 'ten tai lieu 3', 'noi xuat ban 3', 'nha xuat ban 3', NULL, 1, 12, 142);
+INSERT INTO `table_tailieuthamkhao` VALUES (80, 'ten tac gia 1', 2021, 'ten tai lieu 1', 'noi xuat ban 1', 'nha xuat ban 1', '4', 0, 12, 142);
+INSERT INTO `table_tailieuthamkhao` VALUES (81, 'ten tac gia 2', 2021, 'ten tai lieu 2', 'noi xuat ban 2', 'nha xuat ban 2', '4', 0, 12, 142);
+INSERT INTO `table_tailieuthamkhao` VALUES (82, 'ten tac gia 3', 2021, 'ten tai lieu 3', 'noi xuat ban 3', 'nha xuat ban 3', '4', 1, 12, 142);
+INSERT INTO `table_tailieuthamkhao` VALUES (83, 'tai lieu 4', 4, '4', '4', '4', '4', 1, 12, 142);
+INSERT INTO `table_tailieuthamkhao` VALUES (84, 'a', 1, 'a', 'a', 'a', 'a', 0, 7, 142);
+INSERT INTO `table_tailieuthamkhao` VALUES (85, 'c', 3, 'c', 'c', 'c', 'c', 1, 12, 154);
+INSERT INTO `table_tailieuthamkhao` VALUES (88, 'a', 1, 'a', 'a', 'a', 'a', 0, 10, 142);
 
 SET FOREIGN_KEY_CHECKS = 1;

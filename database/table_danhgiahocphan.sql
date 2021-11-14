@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 09/10/2021 09:18:54
+ Date: 14/11/2021 22:11:53
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `table_danhgiahocphan`  (
   `id_hocphan` int NULL DEFAULT NULL,
   `khungchuongtrinh` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 539 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 557 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_danhgiahocphan
@@ -183,5 +183,13 @@ INSERT INTO `table_danhgiahocphan` VALUES (528, 'Thi vấn đáp trên đồ án
 INSERT INTO `table_danhgiahocphan` VALUES (532, 'Chuyên cần', 100, '', 5, 1, 12, 156);
 INSERT INTO `table_danhgiahocphan` VALUES (533, 'Bài kiểm tra giữa kỳ (Trắc nghiệm + Tự luận (Nghe – Đọc – Viết – Chức năng giao tiếp) hoặc Nói)', 100, '1_2_3_4', 8, 3, 12, 156);
 INSERT INTO `table_danhgiahocphan` VALUES (534, 'Bài thi cuối kỳ  (Trắc nghiệm + Tự luận (Nghe – Đọc – Viết – Chức năng giao tiếp))', 100, '1_2_3_4', 9, 4, 12, 156);
+INSERT INTO `table_danhgiahocphan` VALUES (539, 'ab', 100, '1', 5, 1, 12, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (540, 'bc', 100, '1', 6, 2, 12, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (541, 'cd', 100, '2', 8, 3, 12, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (542, 'de', 100, '1', 9, 4, 12, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (553, 'a', 100, '1', 5, 1, 3, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (554, 'b', 100, '1_2', 6, 2, 3, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (555, 'c', 100, '1_2', 8, 3, 3, 142);
+INSERT INTO `table_danhgiahocphan` VALUES (556, 'de', 100, '1_2', 9, 4, 3, 142);
 
 SET FOREIGN_KEY_CHECKS = 1;

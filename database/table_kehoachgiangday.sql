@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 09/10/2021 09:19:20
+ Date: 14/11/2021 22:12:29
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `table_kehoachgiangday`  (
   `thuochocphan` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `khungchuongtrinh` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1639 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1640 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_kehoachgiangday
@@ -763,5 +763,14 @@ INSERT INTO `table_kehoachgiangday` VALUES (1619, 12, '8.3. Culture: Traditional
 INSERT INTO `table_kehoachgiangday` VALUES (1620, 13, '8.4. Grammar: Articles. 8.5. Reading: Healthy Eating', 'a', '', '', 12, '0', 156);
 INSERT INTO `table_kehoachgiangday` VALUES (1621, 14, '8.6. Everyday English: In a Cafe', 'a', '', '', 12, '0', 156);
 INSERT INTO `table_kehoachgiangday` VALUES (1622, 15, '8.7. Writing: A Formal Letter. Revision', 'a', '', '', 12, '0', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1626, 1, 'ke hoach 1', 'hoat dong 1', 'A1.1_A2.1_A3.1', '1', 12, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1627, 2, 'ke hoach 2', 'hoat dong 2', 'A4.1', '2', 12, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1628, 3, 'ke hoach 5', 'ke hoach 6', 'A1.1', '1', 12, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1629, 1, 'ke hoach 3', 'hoat dong 3', 'A1.1_A2.1_A3.1_A4.1', '1_2', 12, '1', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1630, 2, 'ke hoach 6', 'ke hoach 6', 'A2.1', '2', 12, '1', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1636, 1, 'a', 'a', 'A1.1_A2.1_A3.1_A4.1', '1', 3, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1637, 2, 'b', 'b', 'A1.1_A2.1_A3.1_A4.1', '2', 3, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1638, 1, 'c', 'c', 'A1.1_A2.1_A3.1_A4.1', '1_2', 3, '1', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1639, 2, 'e', 'e', 'A1.1_A2.1_A3.1_A4.1', '1_2', 3, '1', 142);
 
 SET FOREIGN_KEY_CHECKS = 1;

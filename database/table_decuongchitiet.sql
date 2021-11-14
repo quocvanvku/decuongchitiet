@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 09/10/2021 09:19:00
+ Date: 14/11/2021 22:11:59
 */
 
 SET NAMES utf8mb4;
@@ -44,7 +44,7 @@ CREATE TABLE `table_decuongchitiet`  (
   `ngaypheduyet` int NULL DEFAULT NULL,
   `khungchuongtrinh` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_decuong`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 88 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_decuongchitiet
@@ -94,6 +94,8 @@ INSERT INTO `table_decuongchitiet` VALUES (76, 31, 30, 30, 30, 90, 20, '172_23_1
 INSERT INTO `table_decuongchitiet` VALUES (78, 12, 45, 0, 0, 0, 153, '57', 1, 1, 1, 2, 'Học phần này được thiết kế tích hợp giữa 4 kỹ năng Nghe, Nói, Đọc, và Viết cùng với các điểm ngữ pháp. Nội dung học phần được trình bày trong 3 unit; mỗi unit gồm 7 bài học.', 'Trang bị cho sinh viên vốn từ vựng về các địa điểm ở nông thôn và thành thị; các đặc điểm địa lý ở các quốc gia; tên quốc gia và tính từ chỉ quốc tịch; phương tiện đi lại; thực phẩm.\r\nTrang bị cho sinh viên lượng kiến thức liên quan đến các cấu trúc của thì quá khứ đơn, các từ chỉ số lượng, các loại danh từ, mạo từ, ...', 'Giúp sinh viên có thể nghe và hiểu những cụm từ và những từ liên quan đến lĩnh vực cá nhân được sử dụng thường xuyên (ví dụ: thông tin rất cơ bản về cá nhân và gia đình, khu vực địa phương, các quốc gia, các loại thực phẩm); nắm được ý chính trong các tin nhắn và thông báo ngắn, đơn giản, rõ ràng.\r\nGiúp sinh viên có thể đọc được những đoạn văn rất ngắn và đơn giản; tìm được thông tin cụ thể và có thể dự đoán được trong những mẩu tin hàng ngày như tin quảng cáo, thực đơn và thời gian biểu; hiểu được thư tín cá nhân viết ngắn gọn, đơn giản.\r\nGiúp sinh viên có thể giao tiếp được về những công việc đơn giản hàng ngày, trao đổi thông tin trực tiếp và đơn giản về các chủ đề thuộc như ẩm thực, nhà hàng, địa điểm, quốc gia, danh nhân và hoạt động quen; trao đổi rất ngắn gọn về những vấn đề xã hội, mặc dù bản thân chưa thể hiểu đầy đủ để tự mình có thể duy trì cuộc nói chuyện.\r\nGiúp sinh viên có thể viết được những ghi chú và tin nhắn đơn giản và ngắn; viết một bức thư cá nhân rất đơn giản ví dụ như thư cảm ơn ai đó về việc gì.', 'Biết tự chủ và có trách nhiệm đối với cá nhân ; có thái độ hợp tác, thân thiện với các bạn; có tính thần học hỏi, cần cù, sáng tạo.', NULL, 'Solutions, Elementary Student’s Book & Workbook', 'Key English Test', 1629763200, 156);
 INSERT INTO `table_decuongchitiet` VALUES (82, 12, 1, 1, 1, 1, 1, '', 1, 1, 1, 1, '1', '1', '1', '1', '1', NULL, NULL, 1632268800, 142);
 INSERT INTO `table_decuongchitiet` VALUES (83, 3, 2, 2, 2, 2, 1, '5', 2, 1, 1, 1, 'a', 'a', 'a', 'a', 'a', NULL, NULL, 1632268800, 142);
-INSERT INTO `table_decuongchitiet` VALUES (84, 7, 1, 1, 1, 1, 1, '', 1, 1, 1, 1, '1', '1', '1', '1', 'a', NULL, NULL, 1632960000, 142);
+INSERT INTO `table_decuongchitiet` VALUES (84, 10, 1, 1, 1, 1, 1, '5_2_4', 1, 1, 1, 1, 'a', 'a', 'a', 'a', 'a', NULL, NULL, 1636243200, 142);
+INSERT INTO `table_decuongchitiet` VALUES (85, 7, 2, 2, 2, 2, 23, '3_8', 1, 1, 1, 2, 'n', 'n', 'n', 'n', 'a', NULL, NULL, 1636243200, 142);
+INSERT INTO `table_decuongchitiet` VALUES (86, 12, 3, 3, 3, 3, 18, '2_4_25', 1, 1, 1, 1, 'm', 'm', 'm', 'm', 'm', NULL, NULL, 1636243200, 154);
 
 SET FOREIGN_KEY_CHECKS = 1;
