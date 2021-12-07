@@ -228,9 +228,22 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('them-ke-hoach-giang-day/{id_decuong}', 'DeCuongChiTiet@postThemKeHoachGiangDay');
         Route::get('sua-ke-hoach-giang-day/{id_decuong}', 'DeCuongChiTiet@getSuaKeHoachGiangDay');
         Route::post('sua-ke-hoach-giang-day/{id_decuong}', 'DeCuongChiTiet@postSuaKeHoachGiangDay');
-        
 
-        Route::get('test', 'DeCuongChiTiet@test');
+        //Chinh sua nhan ban de cuong
+        Route::get('nhan-ban-de-cuong/{id_decuong}/{id_khung}', 'DeCuongChiTiet@getNhanBanDeCuong');
+        Route::post('nhan-ban-de-cuong', 'DeCuongChiTiet@postNhanBanDeCuong');
+
+        //Chinh sua nhan ban de cuong moi
+        Route::get('nhan-ban-de-cuong-moi/{id_decuong}/{id_khung}', 'DeCuongChiTiet@getNhanBanDeCuongMoi');
+
+        //Xoa de cuong
+        Route::get('xoa-de-cuong/{id_decuong}', 'DeCuongChiTiet@xoaDeCuong');
+
+        //Xem de cuong
+        Route::get('xem-de-cuong/{id_decuong}', 'DeCuongChiTiet@xemDeCuong');
+        Route::get('xem-de-cuong-moi/{id_decuong}', 'DeCuongChiTiet@xemDeCuongMoi');
+
+        Route::get('test', 'KhungChuongTrinh@test');
         
     });
 

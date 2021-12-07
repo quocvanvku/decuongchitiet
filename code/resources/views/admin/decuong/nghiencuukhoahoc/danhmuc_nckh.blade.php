@@ -59,7 +59,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="tablinks" onclick="opentab(event, 'thongke-nckh')" >
+                            <a class="tablinks" href="<?php echo url('admin/decuong/thong-ke-nghien-cuu-khoa-hoc-cua-toi/'.$namhoc_dangchon->id); ?>" >
                                 <span id="thong-ke-nckh">Thống kê NCKH</span>
                             </a>
                         </li>
@@ -117,9 +117,9 @@
                                                     <td class="align-middle" rowspan="{{$value_all_hoatdong_nckh->count_sub+1}}">{{$stt++}}</td>
                                                     <td class="align-middle" style="text-align: left;text-align: justify;" rowspan="{{$value_all_hoatdong_nckh->count_sub+1}}">{{$value_all_hoatdong_nckh->tenhoatdongnghiencuu}}</td>
                                                     <td style="background: none repeat scroll 0 0 #ffeca9;"></td>
-                                                    <td style="background: none repeat scroll 0 0 #ffeca9;">0</td>
+                                                    <td style="background: none repeat scroll 0 0 #ffeca9;">{{$value_all_hoatdong_nckh->tongsodiem}} Điểm</td>
                                                     <td style="background: none repeat scroll 0 0 #ffeca9;"></td>
-                                                    <td style="background: none repeat scroll 0 0 #ffeca9;">4</td>
+                                                    <td style="background: none repeat scroll 0 0 #ffeca9;">{{$value_all_hoatdong_nckh->tongsogio}}</td>
                                                     <td style="background: none repeat scroll 0 0 #ffeca9;"></td>
                                                 </tr>
                                                 @if ($value_all_hoatdong_nckh->loai_hoatdong == 1)

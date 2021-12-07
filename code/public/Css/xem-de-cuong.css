@@ -1,22 +1,128 @@
-@import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,700,600);
 * {
 	margin: 0;
 	padding: 0;
 }
 
-pre {
-	font-family: 'Oswald', Arial, Helvetica, sans-serif;
-}
- 
-body {
-	font-family: 'Oswald', Arial, Helvetica, sans-serif;
-}
+
 
 a {
 	text-decoration: none;
 }
 
+li {
+	list-style: none;
+}
+
 .xem-de-cuong {
+	width: 100%;
+	height: auto;
+	margin-top: 50px;
+}
+
+.xem-de-cuong .row .nopadding {
+	margin: 0;
+	padding: 0;
+}
+
+.xem-de-cuong .row .table-top {
+	width: 100%;
+	text-align: center;
+}
+
+.xem-de-cuong .row .table-top tr td span.text-underline {
+	padding-bottom: 3px;
+	border-bottom: 1px solid;
+}
+
+.xem-de-cuong .row h4.title {
+	padding-top: 30px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.xem-de-cuong .row .table-thong-tin-ctdd {
+	width: 100%;
+}
+
+.xem-de-cuong .row .table-thong-tin-ve-hoc-phan {
+	margin-top: 20px;
+}
+
+.xem-de-cuong .row .table-clo {
+	width: 100%;
+	margin-top: 5px;
+}
+
+.xem-de-cuong .row .table-clo thead tr {
+	text-align: center;
+}
+
+.xem-de-cuong .row .table-clo tbody tr td.column-1 {
+	text-align: center;
+}
+
+.xem-de-cuong .row .table-clo tr td {
+	padding: 5px;
+}
+
+.xem-de-cuong .row .table-moi-lien-he-clo-plo-pi {
+	width: 100%;
+}
+
+.xem-de-cuong .row .table-moi-lien-he-clo-plo-pi thead tr td {
+	font-weight: bold;
+	text-align: center;
+}
+
+.xem-de-cuong .row .table-moi-lien-he-clo-plo-pi tbody tr td.column-1 {
+	font-weight: bold;
+	width: 10%;
+}
+
+.xem-de-cuong .row .table-danh-gia-hoc-phan {
+	width: 100%;
+}
+
+.xem-de-cuong .row .table-danh-gia-hoc-phan tr td {
+	padding: 5px;
+}
+
+.xem-de-cuong .row .table-danh-gia-hoc-phan thead tr td {
+	font-weight: bold;
+	text-align: center;
+}
+
+.xem-de-cuong .row .table-ke-hoach-giang-day {
+	width: 100%;
+}
+
+.xem-de-cuong .row .table-ke-hoach-giang-day tr td {
+	padding: 5px;
+}
+
+.xem-de-cuong .row .table-ke-hoach-giang-day thead tr td {
+	font-weight: bold;
+	text-align: center;
+}
+
+.xem-de-cuong .row .table-tai-lieu-tham-khao {
+	width: 100%;
+}
+
+.xem-de-cuong .row .table-tai-lieu-tham-khao tr td {
+	padding: 5px;
+}
+
+.xem-de-cuong .row .table-tai-lieu-tham-khao thead tr td {
+	font-weight: bold;
+	text-align: center;
+}
+
+
+
+
+
+/* .xem-de-cuong {
 	margin-bottom: 80px;
 }
 
@@ -194,3 +300,9 @@ li {
 	width: 8%;
 	padding: 0;
 }
+
+.table-moi-lien-he-clo-plo-pi tr td {
+	padding: 5px;
+    text-align: center;
+    font-size: 15px;
+} */

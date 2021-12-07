@@ -117,6 +117,7 @@ class NghienCuuKhoaHoc extends Controller
 
             $thanhgionckh = $value_all_hoatdong_cuatoi_view1->giokhoahoc*($value_all_hoatdong_cuatoi_view1->diemcongtrinh/$value_all_hoatdong_cuatoi_view1->sotacgia);
             $value_all_hoatdong_cuatoi_view1->thanhgionckh = $thanhgionckh;
+
         }
 
         foreach($all_hoatdong_cuatoi_view2 as $value_all_hoatdong_cuatoi_view2) {
@@ -176,8 +177,64 @@ class NghienCuuKhoaHoc extends Controller
                    
         }
 
+        foreach($all_hoatdong_nckh as $value_them_tongsogio) {
+
+            if(isset($value_them_tongsogio->count_sub)) {
+
+                if($value_them_tongsogio->loai_hoatdong == 1) {
+
+                    $tongsogio_view1 = 0;
+                    $tongsodiem_view1 = 0;
+
+                    foreach($all_hoatdong_cuatoi_view1 as $value_view1_them_tongsogio) {
+                        if($value_view1_them_tongsogio->id_hoatdong == $value_them_tongsogio->id) {
+                            $tongsogio_view1 += $value_view1_them_tongsogio->thanhgionckh;
+                            $tongsodiem_view1 += $value_view1_them_tongsogio->diemcuatoi;
+                        }
+                    }
+
+                    $value_them_tongsogio->tongsogio = $tongsogio_view1;
+                    $value_them_tongsogio->tongsodiem = $tongsodiem_view1;
+                }
+
+                if($value_them_tongsogio->loai_hoatdong == 2) {
+
+                    $tongsogio_view2 = 0;
+                    $tongsodiem_view2 = 0;
+
+                    foreach($all_hoatdong_cuatoi_view2 as $value_view2_them_tongsogio) {
+                        if($value_view2_them_tongsogio->id_hoatdong == $value_them_tongsogio->id) {
+                            $tongsogio_view2 += $value_view2_them_tongsogio->thanhgionckh;
+                            $tongsodiem_view2 += $value_view2_them_tongsogio->diemcuatoi;
+                        }
+                    }
+
+                    $value_them_tongsogio->tongsogio = $tongsogio_view2;
+                    $value_them_tongsogio->tongsodiem = $tongsodiem_view2;
+
+                }
+
+                if($value_them_tongsogio->loai_hoatdong == 3) {
+
+                    $tongsogio_view3 = 0;
+                    $tongsodiem_view3 = 0;
+
+                    foreach($all_hoatdong_cuatoi_view3 as $value_view3_them_tongsogio) {
+                        if($value_view3_them_tongsogio->id_hoatdong == $value_them_tongsogio->id) {
+                            $tongsogio_view3 += $value_view3_them_tongsogio->thanhgionckh;
+                            $tongsodiem_view3 += $value_view3_them_tongsogio->diemcongtrinh;
+                        }
+                    }
+
+                    $value_them_tongsogio->tongsogio = $tongsogio_view3;
+                    $value_them_tongsogio->tongsodiem = $tongsodiem_view3;
+
+                }
+            }
+        }
+
         // echo "<pre>";
-        // print_r($all_hoatdong_cuatoi_view1);
+        // print_r($all_hoatdong_cuatoi_view3);
         // die();
 
         return view('admin.decuong.nghiencuukhoahoc.danhmuc_nckh')

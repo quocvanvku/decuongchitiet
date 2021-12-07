@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 14/11/2021 22:11:59
+ Date: 07/12/2021 22:07:53
 */
 
 SET NAMES utf8mb4;
@@ -44,7 +44,7 @@ CREATE TABLE `table_decuongchitiet`  (
   `ngaypheduyet` int NULL DEFAULT NULL,
   `khungchuongtrinh` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_decuong`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 89 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_decuongchitiet
@@ -94,8 +94,9 @@ INSERT INTO `table_decuongchitiet` VALUES (76, 31, 30, 30, 30, 90, 20, '172_23_1
 INSERT INTO `table_decuongchitiet` VALUES (78, 12, 45, 0, 0, 0, 153, '57', 1, 1, 1, 2, 'Học phần này được thiết kế tích hợp giữa 4 kỹ năng Nghe, Nói, Đọc, và Viết cùng với các điểm ngữ pháp. Nội dung học phần được trình bày trong 3 unit; mỗi unit gồm 7 bài học.', 'Trang bị cho sinh viên vốn từ vựng về các địa điểm ở nông thôn và thành thị; các đặc điểm địa lý ở các quốc gia; tên quốc gia và tính từ chỉ quốc tịch; phương tiện đi lại; thực phẩm.\r\nTrang bị cho sinh viên lượng kiến thức liên quan đến các cấu trúc của thì quá khứ đơn, các từ chỉ số lượng, các loại danh từ, mạo từ, ...', 'Giúp sinh viên có thể nghe và hiểu những cụm từ và những từ liên quan đến lĩnh vực cá nhân được sử dụng thường xuyên (ví dụ: thông tin rất cơ bản về cá nhân và gia đình, khu vực địa phương, các quốc gia, các loại thực phẩm); nắm được ý chính trong các tin nhắn và thông báo ngắn, đơn giản, rõ ràng.\r\nGiúp sinh viên có thể đọc được những đoạn văn rất ngắn và đơn giản; tìm được thông tin cụ thể và có thể dự đoán được trong những mẩu tin hàng ngày như tin quảng cáo, thực đơn và thời gian biểu; hiểu được thư tín cá nhân viết ngắn gọn, đơn giản.\r\nGiúp sinh viên có thể giao tiếp được về những công việc đơn giản hàng ngày, trao đổi thông tin trực tiếp và đơn giản về các chủ đề thuộc như ẩm thực, nhà hàng, địa điểm, quốc gia, danh nhân và hoạt động quen; trao đổi rất ngắn gọn về những vấn đề xã hội, mặc dù bản thân chưa thể hiểu đầy đủ để tự mình có thể duy trì cuộc nói chuyện.\r\nGiúp sinh viên có thể viết được những ghi chú và tin nhắn đơn giản và ngắn; viết một bức thư cá nhân rất đơn giản ví dụ như thư cảm ơn ai đó về việc gì.', 'Biết tự chủ và có trách nhiệm đối với cá nhân ; có thái độ hợp tác, thân thiện với các bạn; có tính thần học hỏi, cần cù, sáng tạo.', NULL, 'Solutions, Elementary Student’s Book & Workbook', 'Key English Test', 1629763200, 156);
 INSERT INTO `table_decuongchitiet` VALUES (82, 12, 1, 1, 1, 1, 1, '', 1, 1, 1, 1, '1', '1', '1', '1', '1', NULL, NULL, 1632268800, 142);
 INSERT INTO `table_decuongchitiet` VALUES (83, 3, 2, 2, 2, 2, 1, '5', 2, 1, 1, 1, 'a', 'a', 'a', 'a', 'a', NULL, NULL, 1632268800, 142);
-INSERT INTO `table_decuongchitiet` VALUES (84, 10, 1, 1, 1, 1, 1, '5_2_4', 1, 1, 1, 1, 'a', 'a', 'a', 'a', 'a', NULL, NULL, 1636243200, 142);
 INSERT INTO `table_decuongchitiet` VALUES (85, 7, 2, 2, 2, 2, 23, '3_8', 1, 1, 1, 2, 'n', 'n', 'n', 'n', 'a', NULL, NULL, 1636243200, 142);
 INSERT INTO `table_decuongchitiet` VALUES (86, 12, 3, 3, 3, 3, 18, '2_4_25', 1, 1, 1, 1, 'm', 'm', 'm', 'm', 'm', NULL, NULL, 1636243200, 154);
+INSERT INTO `table_decuongchitiet` VALUES (87, 13, 15, 0, 30, 0, 18, '64_23_2', 1, NULL, 2, 2, 'Học phần tiếng Anh chuyên ngành bao gồm các bài đọc liên quan về lĩnh vực công nghệ thông tin phù hợp với giai đoạn đầu học chuyên ngành của sinh viên công nghệ thông tin và hướng dẫn thực tập cách thực hiện bài báo cáo tiếng Anh trên powerpoint, khả năng đọc bài báo tiếng Anh chuyên ngành,…', 'Nắm bắt được các các kiến thức tiếng Anh chuyên ngành công nghệ thông tin về máy vi tính và các thiết bị ngoại vi\r\nÁp dụng kiến thức tiếng Anh chuyên ngành để đọc tài liệu tiếng Anh\r\nVận dụng tất cả kiến thức đã học để trình bày một chủ đề công nghệ thông tin bằng tiếng Anh', 'Vận dụng kỹ năng tự luyện tập để nghe và trả lời các câu hỏi bằng tiếng Anh\r\nTrình bày các vấn đề liên quan đến chuyên ngành bằng tiếng Anh', 'Giúp sinh viên hình thành thái độ học tập tích cực, đạo đức nghề nghiệp và sự tự chủ, tự chịu trách nhiệm trong giải quyết....', 'SV tham dự >=80% số buổi của HP. Nếu nghỉ >20% số buổi sẽ không được dự thi kết thúc HP.', NULL, NULL, 1637280000, 142);
+INSERT INTO `table_decuongchitiet` VALUES (88, 15, 60, 0, 30, 0, 66, '169_83_135_21_168_146', 1, NULL, 1, 3, 'Học phần Cấu trúc dữ liệu thuộc khối kiens thức cơ sở ngành bắt buộc. Học phần bao gồm các nội dung về các cấu trúc dữ liệu và một số giải thuậtcơ bản trong CNTT. Học phần giúp sinh viên có thể áp dụng giải quyết các bài toán tin học trong thực tế.  Học phần Cấu trúc dữ liệu và giải thuật thuộc khối kiến thức cơ sở của ngành CNTT.', 'Học phần nhằm cung cấp cho sinh viên kiến thức cơ bản về các cấu trúc dữ liệu, như danh sách, ngăn xếp, hàng đợi, cây, đồ thị... Ngoài ra, học phần cung cấp một số giải thuật, như: Đệ quy, sắp xếp... và các giải thuật xử lý trên các cấu trúc dữ liệu', NULL, NULL, NULL, NULL, NULL, 1637452800, 156);
 
 SET FOREIGN_KEY_CHECKS = 1;

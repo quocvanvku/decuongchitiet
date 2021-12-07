@@ -501,7 +501,7 @@ class KhungChuongTrinh extends Controller
 
             $output = "";
 
-            $output .= '<table class="table table-bordered">';
+            $output .= '<table class="table table-bordered table-sua-de-cuong">';
             $output .= '<thead>';
             $output .= '<tr>';
             $output .= '<td>#</td>';
@@ -549,7 +549,13 @@ class KhungChuongTrinh extends Controller
             }
 
             $output .= '<td class="list-icon l-icon-views">';
-            $output .=  "<a href='". url("admin/decuong/xem-de-cuong/{$all_decuong->id_decuong}") ."' target='_blank' >";       
+
+            if((int)$getnamhoc_hientai < 2020) {
+                $output .=  "<a href='". url("admin/decuong/xem-de-cuong/{$all_decuong->id_decuong}") ."' target='_blank' >";
+            } else {
+                $output .=  "<a href='". url("admin/decuong/xem-de-cuong-moi/{$all_decuong->id_decuong}") ."' target='_blank' >";
+            }
+
             $output .= "<img src='". url("./public/Images/icons/views.png") ."' >";
             $output .= '</a>';
             $output .= '</td>';
@@ -566,10 +572,8 @@ class KhungChuongTrinh extends Controller
             $output .= '</a>';
             $output .= '</td>';
 
-            $output .= '<td class="list-icon">';
-            $output .=  "<a href='". url("admin/decuong/delete-de-cuong/{$all_decuong->id_decuong}") ."'>";       
+            $output .= '<td class="list-icon" id="xoa-de-cuong-chi-tiet" data-value="'. url('admin/decuong/xoa-de-cuong/'.$all_decuong->id_decuong) .'" >';
             $output .= "<img src='". url("./public/Images/icons/delete.png") ."' >";
-            $output .= '</a>';
             $output .= '</td>';
 
             $output .= '</tr>';
@@ -580,6 +584,31 @@ class KhungChuongTrinh extends Controller
         }
     }
 
+    public function test() {
+
+        $decuong = DB::table('table_decuongchitiet')
+                        ->select('mahocphan', 'tenhocphan', 'hodem', 'ten', 'tenKhoa', 'tenkhungchuongtrinh', 'id_decuong', 'nambatdau')
+                        ->join('table_hocphan', 'table_hocphan.id', 'table_decuongchitiet.id_hocphan')
+                        ->join('table_giangvien', 'table_giangvien.id', 'table_decuongchitiet.giangvienphutrach_id')
+                        ->join('table_khoa', 'table_khoa.id', 'table_decuongchitiet.khoaphutrach')
+                        ->join('table_khungchuongtrinh', 'table_khungchuongtrinh.id', 'table_decuongchitiet.khungchuongtrinh')
+                        ->join('table_namhoc_hocky', 'table_khungchuongtrinh.id_namapdung', 'table_namhoc_hocky.id')
+                        ->where('table_decuongchitiet.id_hocphan', 7)
+                        ->DISTINCT()
+                        ->get();
+
+        foreach($decuong as $value_decuong) {
+            if($value_decuong->nambatdau < 2020) {
+                $value_decuong->version = "cu";
+            } else {
+                $value_decuong->version = "moi"; 
+            }
+        }
+
+        echo "<pre>";
+        print_r($decuong);
+    }
+
     public function getModalNhanBanDeCuong(Request $request) {
         if($request->ajax()) {
             
@@ -587,17 +616,26 @@ class KhungChuongTrinh extends Controller
             $id_khung = (String)$request->id_khung;
 
             $decuong = DB::table('table_decuongchitiet')
+                        ->select('mahocphan', 'tenhocphan', 'hodem', 'ten', 'tenKhoa', 'tenkhungchuongtrinh', 'id_decuong', 'nambatdau')
                         ->join('table_hocphan', 'table_hocphan.id', 'table_decuongchitiet.id_hocphan')
                         ->join('table_giangvien', 'table_giangvien.id', 'table_decuongchitiet.giangvienphutrach_id')
                         ->join('table_khoa', 'table_khoa.id', 'table_decuongchitiet.khoaphutrach')
                         ->join('table_khungchuongtrinh', 'table_khungchuongtrinh.id', 'table_decuongchitiet.khungchuongtrinh')
+                        ->join('table_namhoc_hocky', 'table_khungchuongtrinh.id_namapdung', 'table_namhoc_hocky.id')
                         ->where('table_decuongchitiet.id_hocphan', $id_hocphan)
+                        ->DISTINCT()
                         ->get();
 
             $getnamhoc_hientai = DB::table('table_khungchuongtrinh')
                         ->join('table_namhoc_hocky', 'table_khungchuongtrinh.id_namapdung', 'table_namhoc_hocky.id')
                         ->where('table_khungchuongtrinh.id', $id_khung)
                         ->first()->nambatdau;
+
+            if($getnamhoc_hientai < 2020) {
+                $version_hientai = "cu";
+            } else {
+                $version_hientai = "moi";
+            }
 
             $output = "";
 
@@ -612,6 +650,16 @@ class KhungChuongTrinh extends Controller
             $output .= "Thêm mới đề cương ";
             $output .= '</a>';
             $output .= 'hoặc chọn đề cương để nhân bản</p>';
+
+
+            foreach($decuong as $value_version) {
+                if($value_version->nambatdau < 2020) {
+                    $value_version->version = "cu";
+                } else {
+                    $value_version->version = "moi"; 
+                }
+            }
+
 
             if($decuong->count()) {
                 
@@ -632,19 +680,29 @@ class KhungChuongTrinh extends Controller
                 $stt_dsdc = 1;
 
                 foreach($decuong as $value_decuong) {
-                    $output .= '<tr>';
-                    $output .= '<td>'.$stt_dsdc++.'</td>';
-                    $output .= '<td>'.$value_decuong->mahocphan.'</td>';
-                    $output .= '<td>'.$value_decuong->tenhocphan.'</td>';
-                    $output .= '<td>'.$value_decuong->hodem.' '.$value_decuong->ten.'</td>';
-                    $output .= '<td>'.$value_decuong->tenKhoa.'</td>';
-                    $output .= '<td>'.$value_decuong->tenkhungchuongtrinh.'</td>';
-                    $output .= '<td>';
-                    $output .=  "<a href='". url("admin/decuong/chinh-sua-them-moi-de-cuong/{$value_decuong->id_decuong}/{$id_khung}") ."' style='color:#f64e60;' >";
-                    $output .= "Chỉnh sửa và nhân bản";
-                    $output .= '</a>';
-                    $output .= '</td>';
-                    $output .= '</tr>';
+
+                    if($value_decuong->version == $version_hientai) {
+                        $output .= '<tr>';
+                        $output .= '<td>'.$stt_dsdc++.'</td>';
+                        $output .= '<td>'.$value_decuong->mahocphan.'</td>';
+                        $output .= '<td>'.$value_decuong->tenhocphan.'</td>';
+                        $output .= '<td>'.$value_decuong->hodem.' '.$value_decuong->ten.'</td>';
+                        $output .= '<td>'.$value_decuong->tenKhoa.'</td>';
+                        $output .= '<td>'.$value_decuong->tenkhungchuongtrinh.'</td>';
+                        $output .= '<td>';
+
+                        if((int)$getnamhoc_hientai < 2020) {
+                            $output .=  "<a href='". url("admin/decuong/nhan-ban-de-cuong/{$value_decuong->id_decuong}/{$id_khung}") ."' style='color:#f64e60;' >";
+                        } else {
+                            $output .=  "<a href='". url("admin/decuong/nhan-ban-de-cuong-moi/{$value_decuong->id_decuong}/{$id_khung}") ."' style='color:#f64e60;' >";
+                        }
+
+                        $output .= "Chỉnh sửa và nhân bản";
+                        $output .= '</a>';
+                        $output .= '</td>';
+                        $output .= '</tr>';
+                    }
+                    
                 }
 
                 $output .= '</tbody>';

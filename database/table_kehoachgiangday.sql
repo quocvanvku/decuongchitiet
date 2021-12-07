@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 14/11/2021 22:12:29
+ Date: 07/12/2021 22:08:20
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `table_kehoachgiangday`  (
   `thuochocphan` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `khungchuongtrinh` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1640 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1666 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_kehoachgiangday
@@ -772,5 +772,31 @@ INSERT INTO `table_kehoachgiangday` VALUES (1636, 1, 'a', 'a', 'A1.1_A2.1_A3.1_A
 INSERT INTO `table_kehoachgiangday` VALUES (1637, 2, 'b', 'b', 'A1.1_A2.1_A3.1_A4.1', '2', 3, '0', 142);
 INSERT INTO `table_kehoachgiangday` VALUES (1638, 1, 'c', 'c', 'A1.1_A2.1_A3.1_A4.1', '1_2', 3, '1', 142);
 INSERT INTO `table_kehoachgiangday` VALUES (1639, 2, 'e', 'e', 'A1.1_A2.1_A3.1_A4.1', '1_2', 3, '1', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1640, 1, 'Computer applications_1/MATCH THE PICTURE_2/LISTENING_3/READING', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1641, 2, 'Computer applications_4/LANGUAGE WORK: THE PRESENT SIMPLE PASSIVE_5/Other applications', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1642, 3, 'Computer essentials_1/WARM-UP_2/READING_3/READ AND GUESS', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1643, 4, 'Computer essentials_4/GET READY FOR LISTENING_5/LISTENING_6/ LANGUAGE WORK: COMPOUND ADJECTIVES', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1644, 5, 'Inside the system_1/WARM-UP_2/READING_3/LANGUAGE WORK: RELATIVE CLAUSES', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1645, 6, 'Inside the system_4/LISTENING_5/ YOUR IDEAL COMPUTER SYSTEM', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1646, 7, 'Bits And Bytes_1/WARM-UP_2/Word building', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1647, 8, 'Bits And Bytes_3/Bits for pictures', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1648, 9, 'Buying A Computer_1/Before you listen_2/Listening_3/Role play_4/Read and talk', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1649, 10, 'Type and click!_1/Interacting with your computer_2/Listening_3/Language work_4/About the keyboard_5/Reading', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1650, 11, 'Capture Your Favourite Image_1/The eyes of your computer_2/Listening_3/Facts and opinions_4/Language work: Comparatives and superlatives_5/Word building', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1651, 12, 'Viewing The Output_1/Warm-up_2/Reading_3/Listening_4/Language work: Instructions and advice', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Viewing The Output_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1652, 13, 'Choosing A Printer_1/Reading_2/Discourse cohesion_3/Listening_4/Language work: Revision of comparison', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về Choosing A Printer_Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1653, 14, 'I/O Devices For The Disabled_1/Adaptive technology_2/Reading', 'Giới thiệu về từ vựng, cách xây dựng, thiết kế Video để giới thiệu về I/O Devices For The Disabled', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1654, 15, 'I/O Devices For The Disabled_3/Language work: Noun phrases_4/Listening', 'Hướng dẫn thiết kế bài báo cáo, góp ý chỉnh sửa lỗi phát âm trong thuyết trình.', 'A1.1_A2.1', '1_2_3', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1655, 16, 'Thi cuối kỳ', '', 'A4.1', '1_2_3_4', 13, '0', 142);
+INSERT INTO `table_kehoachgiangday` VALUES (1656, 1, 'Chương 0. Giới thiệu môn học và ôn tập ngôn ngữ C++_1. Giới thiệu học phần_2. Ôn tập ngôn ngữ C++_- Con trỏ_- Hàm_- Đệ quy', 'Dạy:_- Giảng viên giới thiệu đến sinh viên mục tiêu môn học; vị trí và vai trò của môn học trong chương trình đào tạo của ngành; chuẩn đầu ra môn học, các hình thức kiểm tra đánh giá và trọng số của các bài đánh giá, nội dung học phần theo chương._- Giảng bài kết hợp trình chiếu slide bài giảng._- Đặt câu hỏi cho sinh viên suy nghĩ và trả lời._Học ở lớp:_- Nghe giảng._- Trả lời các câu hỏi của giảng viên đưa ra._- Đặt câu hỏi các vấn đề quan tâm._Học ở nhà:_- Ôn lại lý thuyết', 'A1.1', '4', 15, '0', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1657, 2, 'Chương 1. Phân tích thuật toán_1.1. Cấu trúc dữ liệu và giải thuật_1.2. Phân tích thuật toán', 'Dạy:_- Giảng bài kết hợp trình chiếu slide bài giảng._- Đặt câu hỏi cho sinh viên suy nghĩ và trả lời._Học ở lớp:_- Nghe giảng._- Trả lời các câu hỏi của giảng viên đưa ra._- Đặt câu hỏi các vấn đề quan tâm._Học ở nhà:_- Ôn lại lý thuyết._- Đọc thêm tài liệu, tìm hiểu nội dung bài mới.', 'A1.1_A2.1_A3.1_A4.1', '1_2_3_4', 15, '0', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1658, 1, 'Hàm, Con trỏ, Đệ quy', '', 'A1.1', '1_2_3_4', 15, '1', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1659, 2, 'Mảng và Danh sách liên kết', '', 'A1.1_A2.1', '1_2_3_4', 15, '1', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1660, 3, 'Ngăn xếp và Hàng đợi', '', 'A1.1_A2.1', '1_2_3_4', 15, '1', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1661, 4, 'Sắp xếp và tìm kiếm', '', 'A1.1_A2.1', '1_2_3_4', 15, '1', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1662, 5, 'Thi giữa kỳ', '', 'A1.1_A2.1', '1_2_3_4', 15, '1', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1663, 6, 'Cây', '', 'A1.1_A2.1', '1_2_3_4', 15, '1', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1664, 7, 'Heap và Đồ thị', '', 'A1.1_A2.1', '1_2_3_4', 15, '1', 156);
+INSERT INTO `table_kehoachgiangday` VALUES (1665, 8, 'Bảng băm', '', 'A1.1_A2.1', '1_2_3_4', 15, '1', 156);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -225,16 +225,14 @@
 									</tr>
 
 									<tr>
-										<td></td>
-										<td class="danh-sach-clo">
+										<td colspan="2" class="danh-sach-clo">
 											<p>Danh sách chuẩn đầu ra của học phần {{$ten_hocphan}}</p>
 											<p style="color:red;" id="text-warning">Chưa có học CLO nào được thêm</p>
 										</td>
 									</tr>
 
 									<tr>
-										<td></td>
-										<td>
+										<td colspan="2">
 											<table class="table table-bordered table-add-clo">
 												<thead>
 													<tr>
@@ -260,9 +258,8 @@
 									</tr>
 									 
 									<tr>
-										<td></td>
-										<td>
-											<table class="table-chuan-dau-ra" border="1px">
+										<td colspan="2">
+											<table style="width:100%;" class="table-chuan-dau-ra" border="1px">
 												<thead>
 													<tr>
 														<td style="width:15px;">#</td>

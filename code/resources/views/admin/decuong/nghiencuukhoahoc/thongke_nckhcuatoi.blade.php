@@ -54,7 +54,7 @@
                 <div class="tab">
                     <ul>
                         <li>
-                            <a class="tablinks" onclick="opentab(event, 'hoatdong-nckh')" >
+                            <a class="tablinks" href="<?php echo url('admin/decuong/nghien-cuu-khoa-hoc/'.$namhoc_dangchon->id); ?>" >
                                 <span>Hoạt động NCKH</span>
                             </a>
                         </li>
@@ -72,7 +72,7 @@
                 </div>
 
                 
-                <div id="hoatdong-nckh" class="tabcontent">
+                <div id="hoatdong-nckh" class="tabcontent" >
 
                 </div>
 
@@ -89,27 +89,33 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>Năm học</td>
-                                                        <td>nam hoc</td>
+                                                        <td>{{$namhoc_dangchon->nambatdau.' - '.$namhoc_dangchon->namketthuc}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Họ tên</td>
-                                                        <td>nam hoc</td>
+                                                        <td>Nguyễn Anh Tuấn</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Đơn vị</td>
-                                                        <td>nam hoc</td>
+                                                        <td>Phòng Đào tạo và Nghiên cứu khoa học</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Chức năng</td>
-                                                        <td>nam hoc</td>
+                                                        <td>
+                                                            <b>Giảng viên</b> <br>
+                                                            (Giờ chuẩn 600)
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Chức vụ</td>
-                                                        <td>nam hoc</td>
+                                                        <td>
+                                                            <b>Phó trưởng phòng và tương đương</b> <br>
+                                                            (Nghiên cứu 30%)
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Ghi chú</td>
-                                                        <td>nam hoc</td>
+                                                        <td></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -119,13 +125,13 @@
                                                 <tbody>
                                                     <tr>
                                                         <td colspan="2"><strong>Giờ chuẩn cần nghiên cứu</strong> (a)</td>
-                                                        <td colspan="2">nam hoc</td>
+                                                        <td colspan="2">600</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
                                                             <strong>Giờ cần nghiên cứu</strong> (b) <br> (Sau khi áp dụng ưu tiên)
                                                         </td>
-                                                        <td colspan="2">nam hoc</td>
+                                                        <td colspan="2">180</td>
                                                     </tr>
                                                     <tr>
                                                         <td rowspan="4">
@@ -136,29 +142,29 @@
                                                         <td>
                                                             Trong năm (c)
                                                         </td>
-                                                        <td>nam hoc</td>
+                                                        <td>0</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             Năm trước (d)
                                                         </td>
-                                                        <td>nam hoc</td>
+                                                        <td>0</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <strong>Tổng cộng</strong> (e)
                                                         </td>
-                                                        <td>nam hoc</td>
+                                                        <td>0</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2"><strong>Giờ còn thiếu</strong> (f=b-e)</td>
-                                                        <td colspan="2">nam hoc</td>
+                                                        <td colspan="2">180</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
                                                             <strong>Giờ chuyển năm sau</strong> (g=c-b) <br> (Chỉ tính cho 1 năm liền kề)
                                                         </td>
-                                                        <td colspan="2">nam hoc</td>
+                                                        <td colspan="2">0</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -174,7 +180,7 @@
                         <legend>Chi tiết nghiên cứu khoa học</legend>
 
                         <div class="chi-tiet-nckh-cua-toi">
-                            
+                            <p>Chưa có Hoạt động Nghiên cứu khoa học nào trong năm được duyệt</p>
                         </div>
 
                     </fieldset>
@@ -248,6 +254,7 @@
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+
 
     
 

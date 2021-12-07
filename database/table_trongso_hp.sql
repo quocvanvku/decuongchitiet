@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 14/11/2021 22:14:07
+ Date: 07/12/2021 22:09:53
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `table_trongso_hp`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6399 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6411 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_trongso_hp
@@ -196,13 +196,17 @@ INSERT INTO `table_trongso_hp` VALUES (6387, 7, 1, 0.00, 0, 142, NULL, NULL, NUL
 INSERT INTO `table_trongso_hp` VALUES (6388, 7, 2, 0.00, 0, 142, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6389, 7, 3, 0.00, 0, 142, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6390, 7, 4, 0.00, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6391, 10, 1, 0.00, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6392, 10, 2, 0.00, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6393, 10, 3, 0.00, 0, 142, NULL, NULL, NULL);
-INSERT INTO `table_trongso_hp` VALUES (6394, 10, 4, 0.00, 0, 142, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6395, 3, 1, 0.10, 0, 142, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6396, 3, 2, 0.20, 0, 142, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6397, 3, 3, 0.20, 0, 142, NULL, NULL, NULL);
 INSERT INTO `table_trongso_hp` VALUES (6398, 3, 4, 0.50, 0, 142, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6403, 13, 1, 0.10, 0, 142, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6404, 13, 2, 0.20, 0, 142, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6405, 13, 3, 0.20, 0, 142, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6406, 13, 4, 0.50, 0, 142, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6407, 15, 1, 0.10, 0, 156, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6408, 15, 2, 0.20, 0, 156, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6409, 15, 3, 0.20, 0, 156, NULL, NULL, NULL);
+INSERT INTO `table_trongso_hp` VALUES (6410, 15, 4, 0.50, 0, 156, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

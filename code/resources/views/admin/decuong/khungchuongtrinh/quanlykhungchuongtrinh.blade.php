@@ -135,7 +135,7 @@
                                         <span>Nhân bản đề cương</span>
                                     </td>
                                     @endif
-                                </tr>
+                                </tr> 
                                 @endforeach
                             </tbody>
                         </table>
@@ -144,8 +144,12 @@
                     <div id="modal-sua-de-cuong" class="modal">
                         <div class="modal-content">
                             <span class="close-modal">&times;</span>
-                            <h4>Chọn danh mục cần sửa <hr></h4>       
+                            <h4>Chọn danh mục cần sửa <hr></h4>      
+                            
+                            <p>a</p>
+
                             <div id="content-modal-sua-de-cuong">
+                                
                                 
                             </div> 
                         </div>
@@ -219,6 +223,22 @@
             document.getElementById("modal-doi-khung-chuong-trinh").style.display = "none";
         });
 
+        $('#modal-sua-de-cuong').on('click', 'div div table tbody tr td#xoa-de-cuong-chi-tiet',function() {
+
+            var answer = window.confirm("Bạn có chắc chắn muốn xóa không?");
+
+			if (answer) {
+
+                let link_href = $(this).attr('data-value');
+
+				window.location.href = link_href;
+
+			} else {
+
+			}
+
+        });
+
         window.onclick = function(event) {
 
             let modal1 = document.getElementById("modal-sua-de-cuong");
@@ -237,6 +257,8 @@
             }
 
         }
+
+        
 
 
 
