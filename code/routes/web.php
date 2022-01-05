@@ -233,6 +233,9 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('sua-ke-hoach-giang-day/{id_decuong}', 'DeCuongChiTiet@getSuaKeHoachGiangDay');
         Route::post('sua-ke-hoach-giang-day/{id_decuong}', 'DeCuongChiTiet@postSuaKeHoachGiangDay');
 
+        Route::get('up-stt-khgd', 'DeCuongChiTiet@getUpSttKhgd');
+        Route::get('down-stt-khgd', 'DeCuongChiTiet@getDownSttKhgd');
+
         //Chinh sua nhan ban de cuong
         Route::get('nhan-ban-de-cuong/{id_decuong}/{id_khung}', 'DeCuongChiTiet@getNhanBanDeCuong');
         Route::post('nhan-ban-de-cuong', 'DeCuongChiTiet@postNhanBanDeCuong');

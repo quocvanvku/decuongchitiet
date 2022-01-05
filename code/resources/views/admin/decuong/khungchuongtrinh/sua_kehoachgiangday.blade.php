@@ -553,7 +553,7 @@
 		}
 	});
 
-	$('#up-buoi').live('click',function() {
+	$('.table-ke-hoach-giang-day').on('click', 'table tr td p#up-buoi', function() {
 		var vl_khgd = this.dataset.value;
 
 		var mang_khgd = vl_khgd.split("_");
@@ -563,11 +563,10 @@
 		var thuochocphan_khgd = mang_khgd[2];
 		var khungchuongtrinh_khgd = mang_khgd[3];
 		
-		var _token = $('input[name="_token"]').val();
 		$.ajax({
-			url: "{{URL::to('admin/decuong/up-khgd')}}",
-			method: 'post',
-			data:{id_khgd:id_khgd, id_hocphan_khgd:id_hocphan_khgd, thuochocphan_khgd:thuochocphan_khgd, khungchuongtrinh_khgd:khungchuongtrinh_khgd, _token:_token},
+			url: "{{URL::to('admin/decuong/up-stt-khgd')}}",
+			method: 'GET',
+			data:{id_khgd:id_khgd, id_hocphan_khgd:id_hocphan_khgd, thuochocphan_khgd:thuochocphan_khgd, khungchuongtrinh_khgd:khungchuongtrinh_khgd},
 			success: function(data) {
 				if (data != null) {
 					location.reload();
@@ -578,7 +577,7 @@
 
 	});
 
-	$('#down-buoi').live('click',function() {
+	$('.table-ke-hoach-giang-day').on('click', 'table tr td p#down-buoi', function() {
 		var vl_khgd = this.dataset.value;
 
 		var mang_khgd = vl_khgd.split("_");
@@ -588,11 +587,10 @@
 		var thuochocphan_khgd = mang_khgd[2];
 		var khungchuongtrinh_khgd = mang_khgd[3];
 		
-		var _token = $('input[name="_token"]').val();
 		$.ajax({
-			url: "{{URL::to('admin/decuong/down-khgd')}}",
-			method: 'post',
-			data:{id_khgd:id_khgd, id_hocphan_khgd:id_hocphan_khgd, thuochocphan_khgd:thuochocphan_khgd, khungchuongtrinh_khgd:khungchuongtrinh_khgd, _token:_token},
+			url: "{{URL::to('admin/decuong/down-stt-khgd')}}",
+			method: 'GET',
+			data:{id_khgd:id_khgd, id_hocphan_khgd:id_hocphan_khgd, thuochocphan_khgd:thuochocphan_khgd, khungchuongtrinh_khgd:khungchuongtrinh_khgd},
 			success: function(data) {
 				if (data != null) {
 					location.reload();

@@ -2215,6 +2215,69 @@ class DeCuongChiTiet extends Controller
         return Redirect::to('admin/decuong/khung-chuong-trinh/'.$khungchuongtrinh);
     }
 
+    public function getUpSttKhgd(Request $request) {
+        if ($request->ajax()) {
+            
+            $id_khgd = (String)$request->id_khgd;
+            $id_hocphan_khgd = (String)$request->id_hocphan_khgd;
+            $thuochocphan_khgd = (String)$request->thuochocphan_khgd;
+            $khungchuongtrinh_khgd = (String)$request->khungchuongtrinh_khgd;
+
+            $allkhgd = DB::table('table_kehoachgiangday')->where('id', $id_khgd)->first();
+
+            $buoi_ht = $allkhgd->buoi;
+
+            $allkhgd_sua = DB::table('table_kehoachgiangday')
+                            ->where('buoi', $buoi_ht-1)
+                            ->where('id_hocphan', $id_hocphan_khgd)
+                            ->where('thuochocphan', $thuochocphan_khgd)
+                            ->where('khungchuongtrinh', $khungchuongtrinh_khgd)
+                            ->first();
+
+            $buoi_1 = $allkhgd->buoi-1;
+            $buoi_2 = $allkhgd_sua->buoi+1;
+
+            $cr_khgd = DB::table('table_kehoachgiangday')->where('id', $allkhgd->id)->update(['buoi' => $buoi_1]);
+            $ed_khgd = DB::table('table_kehoachgiangday')->where('id', $allkhgd_sua->id)->update(['buoi' => $buoi_2]);
+
+            echo "Successfull";
+
+        }
+    }
+
+    public function getDownSttKhgd(Request $request) {
+        if ($request->ajax()) {
+            
+            $id_khgd = (String)$request->id_khgd;
+            $id_hocphan_khgd = (String)$request->id_hocphan_khgd;
+            $thuochocphan_khgd = (String)$request->thuochocphan_khgd;
+            $khungchuongtrinh_khgd = (String)$request->khungchuongtrinh_khgd;
+
+            $allkhgd = DB::table('table_kehoachgiangday')->where('id', $id_khgd)->first();
+
+            $buoi_ht = $allkhgd->buoi;
+
+            $allkhgd_sua = DB::table('table_kehoachgiangday')
+                            ->where('buoi', $buoi_ht+1)
+                            ->where('id_hocphan', $id_hocphan_khgd)
+                            ->where('thuochocphan', $thuochocphan_khgd)
+                            ->where('khungchuongtrinh', $khungchuongtrinh_khgd)
+                            ->first();
+
+            $buoi_1 = $allkhgd->buoi+1;
+            $buoi_2 = $allkhgd_sua->buoi-1;
+
+            $cr_khgd = DB::table('table_kehoachgiangday')->where('id', $allkhgd->id)->update(['buoi' => $buoi_1]);
+            $ed_khgd = DB::table('table_kehoachgiangday')->where('id', $allkhgd_sua->id)->update(['buoi' => $buoi_2]);
+
+            echo "Successfull";
+
+        }
+    }
+
+
+
+
     public function getNhanBanDeCuong($id_decuong, $id_khung) {
 
         $all_decuong = DB::table('table_decuongchitiet')
