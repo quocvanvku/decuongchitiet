@@ -112,7 +112,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('delete-moi-quan-he-hoc-phan', 'DeCuongAjax@delete_moiquanhe_hocphan');
         Route::get('load-moi-quan-he-hoc-phan', 'DeCuongAjax@load_moiquanhe_hocphan');
 
-        //new
+        //new 
 
         //Quan ly chuong trinh dao tao
         Route::get('quan-ly-chuong-trinh-dao-tao/{id_khung}', 'KhungChuongTrinh@quanly_chuongtrinhdaotao');
@@ -203,6 +203,10 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('edit-moilienhe-clo-pi-mucdo', 'DeCuongChiTiet@edit_moilienheclopi_mucdo');
         Route::get('sua-de-cuong-moi/{id_decuong}', 'DeCuongChiTiet@getSuaDeCuongMoi');
 
+        Route::get('get-tai-lieu-tham-khao-giao-trinh', 'DeCuongChiTiet@getTaiLieuThamKhaoGiaoTrinh');
+        Route::get('get-thong-tin-tai-lieu-tham-khao-giao-trinh', 'DeCuongChiTiet@getThongTinTaiLieuThamKhaoGiaoTrinh');
+        
+
         //PLO
         Route::get('quan-ly-plo/{id_nganh}', 'DeCuongChiTiet@getQuanLyPLO');
         Route::get('load-plo', 'DeCuongChiTiet@getLoadPLO');
@@ -243,8 +247,10 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('xem-de-cuong/{id_decuong}', 'DeCuongChiTiet@xemDeCuong');
         Route::get('xem-de-cuong-moi/{id_decuong}', 'DeCuongChiTiet@xemDeCuongMoi');
 
-        Route::get('test', 'KhungChuongTrinh@test');
-        
+        Route::get('ma-tran-lien-ket-plo-pi-hp/{id_khung}', 'DeCuongChiTiet@getMaTranLienKetPloPiHp');
+
+        Route::get('ma-tran-lien-ket-plo-pi-clo/{id_khung}/{id_hocphan}', 'DeCuongChiTiet@getMaTranLienKetPloPiClo');
+         
     });
 
     Route::get('/', 'KhungChuongTrinh@chuongtrinhdaotao_layout');

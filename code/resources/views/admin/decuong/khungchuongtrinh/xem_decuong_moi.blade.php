@@ -201,7 +201,7 @@
 								@foreach($all_PLO as $value_all_PLO)
 									<?php $stt_plo++; ?>
 									<td colspan="{{$value_all_PLO->count_pli}}" class="align-middle">PLO {{$stt_plo}}</td>
-								@endforeach	
+								@endforeach	 
 							</tr>
 
 							<tr>
@@ -215,6 +215,7 @@
 
 								@endforeach	
 							</tr>
+
 						</thead>
 
 						<tbody>

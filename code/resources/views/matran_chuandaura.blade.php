@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('./public/Css/matranchuandaura.css')}}">
     <title>Ma trận chuẩn đầu ra</title>
 </head>
-<body>
+<body> 
     <div class="mo-ta-chuong-trinh-dao-tao">
 		<div class="container"> 
 			<div class="row"> 

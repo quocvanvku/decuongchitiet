@@ -557,7 +557,7 @@ class DeCuongChiTiet extends Controller
                         $output .= '<input type="hidden" name="list_cdr[]" value="'.$value_cdr_chung->id_cdr_chung.'">';
                         $output .= '<select name="list_cdr[]" multiple="multiple" required size="4" id="select_chuandaura">';
                             foreach($all_chuandaura as $value_all_chuandaura) {
-                                $output .= '<option value="'.$value_all_chuandaura->stt.'" ';
+                                $output .= '<option value="'.$value_all_chuandaura->id.'" ';
                                 if ($value_all_chuandaura->id == $value_all_moilienhe->id_chuandaura_monhoc) {
                                     $output .=  'selected';
                                 }
@@ -745,6 +745,17 @@ class DeCuongChiTiet extends Controller
             $id_hocphan = (String)$request->id_hocphan;
             $id_khung = (String)$request->id_khung;
 
+            $check = DB::table('table_decuongchitiet_moilienhe_clo_plo')
+                    ->where('id_chuandaura_chung', $id_chuandaura_chung)
+                    ->where('id_chuandaura_monhoc', $id_chuandaura)
+                    ->where('id_hocphan', $id_hocphan)
+                    ->where('khungchuongtrinh', $id_khung)
+                    ->first();
+
+            if($check) {
+                return "Chuẩn đầu ra học phần này đã thêm rồi !!!";
+            }
+
             $moilienhe = new moilienhecloplo;
             $moilienhe->id_chuandaura_chung = $id_chuandaura_chung;
             $moilienhe->id_chuandaura_monhoc = $id_chuandaura;
@@ -763,6 +774,21 @@ class DeCuongChiTiet extends Controller
 
             $id_moilienhe = $request->id_moilienhe;
             $id_chuandaura = $request->id_chuandaura;
+
+            $mlh = DB::table('table_decuongchitiet_moilienhe_clo_plo')
+                    ->where('id', $id_moilienhe)
+                    ->first();
+
+            $check = DB::table('table_decuongchitiet_moilienhe_clo_plo')
+                    ->where('id_chuandaura_chung', $mlh->id_chuandaura_chung)
+                    ->where('id_chuandaura_monhoc', $id_chuandaura)
+                    ->where('id_hocphan', $mlh->id_hocphan)
+                    ->where('khungchuongtrinh', $mlh->khungchuongtrinh)
+                    ->first();
+
+            if($check) {
+                return "Chuẩn đầu ra học phần này đã thêm rồi !!!";
+            }
 
             $edit_moilienhe = DB::table('table_decuongchitiet_moilienhe_clo_plo')
                         ->where('id', $id_moilienhe)
@@ -888,7 +914,7 @@ class DeCuongChiTiet extends Controller
                             $output .= '<div class="line-add-cdr">';
                             $output .= '<select multiple="multiple" required size="4" id="select_chuandaura">';
                                 foreach($all_chuandaura as $value_all_chuandaura) {
-                                    $output .= '<option value="'.$value_all_chuandaura->stt.'" ';
+                                    $output .= '<option value="'.$value_all_chuandaura->id.'" ';
                                     if ($value_all_chuandaura->id == $value_all_moilienhe->id_chuandaura_monhoc) {
                                         $output .=  'selected';
                                     }
@@ -963,6 +989,17 @@ class DeCuongChiTiet extends Controller
             $id_khung = (String)$request->id_khung;
             $id_nganh = (String)$request->id_nganh;
 
+            $check = DB::table('table_decuongchitiet_moilienhe_clo_pi')
+                    ->where('id_chuandaura_chung_chitiet', $id_chuandaura_chung_chitiet)
+                    ->where('id_chuandaura_monhoc', $id_chuandaura)
+                    ->where('id_hocphan', $id_hocphan)
+                    ->where('khungchuongtrinh', $id_khung)
+                    ->first();
+
+            if($check) {
+                return "Chuẩn đầu ra học phần này đã thêm rồi !!!";
+            }
+
             $moilienhe = new moilienheclopi;
             $moilienhe->id_chuandaura_chung_chitiet = $id_chuandaura_chung_chitiet;
             $moilienhe->id_chuandaura_monhoc = $id_chuandaura;
@@ -1005,6 +1042,21 @@ class DeCuongChiTiet extends Controller
             $id_hocphan = $request->id_hocphan;
             $id_khung = $request->id_khung;
             $id_nganh = $request->id_nganh;
+
+            $mlh = DB::table('table_decuongchitiet_moilienhe_clo_pi')
+                    ->where('id', $id_moilienhe)
+                    ->first();
+
+            $check = DB::table('table_decuongchitiet_moilienhe_clo_pi')
+                    ->where('id_chuandaura_chung_chitiet', $mlh->id_chuandaura_chung_chitiet)
+                    ->where('id_chuandaura_monhoc', $id_chuandaura)
+                    ->where('id_hocphan', $mlh->id_hocphan)
+                    ->where('khungchuongtrinh', $mlh->khungchuongtrinh)
+                    ->first();
+
+            if($check) {
+                return "Chuẩn đầu ra học phần này đã thêm rồi !!!";
+            }
 
             $edit_moilienhe = DB::table('table_decuongchitiet_moilienhe_clo_pi')
                         ->where('id', $id_moilienhe)
@@ -2967,6 +3019,303 @@ class DeCuongChiTiet extends Controller
     public function xem_decuong_khgd($string) {
         $tach = explode("_", $string);
         return $tach;
+    }
+
+    public function getTaiLieuThamKhaoGiaoTrinh(Request $request) {
+        if ($request->ajax()) {
+
+            $tentailieu = (String)$request->tentailieu;
+
+            $data = DB::table('table_tailieuthamkhao')
+                    ->where('tentacgia', 'LIKE', "%{$tentailieu}%")
+                    ->Orwhere('tensach', 'LIKE', "%{$tentailieu}%")
+                    ->Orwhere('noixuatban', 'LIKE', "%{$tentailieu}%")
+                    ->Orwhere('nhaxuatban', 'LIKE', "%{$tentailieu}%")
+                    ->limit(7)
+                    ->get();
+
+            $output = '<ul>';
+            foreach($data as $row) {   
+                $output .= '<li data-value="'.$row->id.'" >'.$row->tensach.'</li>';
+            }
+            $output .= '</ul>';
+
+            echo $output;
+
+        }
+    }
+
+    public function getThongTinTaiLieuThamKhaoGiaoTrinh(Request $request) {
+
+        if ($request->ajax()) {
+            $id_tltk_gt = (String)$request->id_tltk_gt;
+            
+            $thongtin = DB::table('table_tailieuthamkhao')
+                        ->where('id', $id_tltk_gt)   
+                        ->first();
+
+            echo json_encode($thongtin);
+
+        }
+
+    }
+
+    public function getMaTranLienKetPloPiHp($id_khung) {
+
+        $data = [];
+
+        $khunghientai = DB::table('table_khungchuongtrinh')
+                    ->where('id', $id_khung)
+                    ->first();
+
+        if($khunghientai->isKhungnangcao == 0) {
+            $all_PLO = DB::table('table_chuandaura_chung')
+                            ->join('table_khungchuongtrinh', 'table_chuandaura_chung.id_khungchuongtrinh', 'table_khungchuongtrinh.id')
+                            ->where('table_chuandaura_chung.id_khungchuongtrinh', $id_khung)
+                            ->get();
+        } else {
+            $chuandaura_parent = DB::table('table_chuandaura_chung')
+                            ->join('table_khungchuongtrinh', 'table_chuandaura_chung.id_khungchuongtrinh', 'table_khungchuongtrinh.id')
+                            ->where('table_chuandaura_chung.id_khungchuongtrinh', $khunghientai->isKhungnangcao)
+                            ->get();
+
+            $chuandaura_child = DB::table('table_chuandaura_chung')
+                            ->join('table_khungchuongtrinh', 'table_chuandaura_chung.id_khungchuongtrinh', 'table_khungchuongtrinh.id')
+                            ->where('table_chuandaura_chung.id_khungchuongtrinh', $id_khung)
+                            ->get();
+
+            foreach($chuandaura_parent as $value_parent) {
+                $all_PLO[] = $value_parent;
+            }
+
+            foreach($chuandaura_child as $value_child) {
+                $all_PLO[] = $value_child;
+            }
+
+        }
+
+        $tong_pi = 0;
+
+        $all_PI = array();
+
+        foreach($all_PLO as $value_all_PLO) {
+
+            $all_chuandaura_chung_chitiet = DB::table('table_chuandaura_chung_chitiet')
+                                            ->where('id_cdr_chung', $value_all_PLO->id_cdr_chung)
+                                            ->orderBy('id_cdr_chung', 'DES')
+                                            ->get();  
+
+            $value_all_PLO->count_pli = count($all_chuandaura_chung_chitiet);  
+
+            $stt_pi = 1;
+
+            if(count($all_chuandaura_chung_chitiet) > 0) {
+
+                foreach($all_chuandaura_chung_chitiet as $value_all_chuandaura_chung_chitiet) {
+                    $tong_pi++;
+                    $value_all_chuandaura_chung_chitiet->stt_pi = $stt_pi++;
+                    $all_PI[] = $value_all_chuandaura_chung_chitiet;
+                }
+
+            } else {
+
+                $tong_pi++;
+
+                $object = new stdClass();
+                $object->noPI = 'no pi';
+
+                $all_PI[] = $object;
+            }
+        }
+
+        $all_hocphan = DB::table('table_khungchuongtrinh_hocphan')
+                        ->join('table_hocphan', 'table_khungchuongtrinh_hocphan.id_hocphan', 'table_hocphan.id')
+                        ->where('id_khung', $id_khung)
+                        ->get();
+
+        $tongso_TC = 0;
+
+        foreach($all_hocphan as $value_all_hocphan) {
+            $tongso_TC = $tongso_TC+$value_all_hocphan->soTC;
+        }
+
+
+        $stt_PI = 1;
+        foreach($all_PI as $value_all_PI) {
+
+            if(isset($check_stt_pi)) {
+                if($check_stt_pi != $value_all_PI->id_cdr_chung) {
+                    $stt_PI++;
+                }
+            }
+            
+            $check_stt_pi = $value_all_PI->id_cdr_chung;
+
+            $value_all_PI->sothutupi = $stt_PI.'.'.$value_all_PI->stt_pi;
+        }
+
+        $all_moilienhe = DB::table('table_decuongchitiet_moilienhe_clo_pi')
+                        ->where('khungchuongtrinh', $id_khung)
+                        ->get();
+
+        foreach($all_moilienhe as $value_list_moilienhe) {
+            if($value_list_moilienhe->mucdo == 0) {
+                $value_list_moilienhe->ten_mucdo = 'I';
+            } elseif($value_list_moilienhe->mucdo == 1) {
+                $value_list_moilienhe->ten_mucdo = 'R';
+            } elseif($value_list_moilienhe->mucdo == 2) {
+                $value_list_moilienhe->ten_mucdo = 'M';
+            }
+        }
+
+        return view('admin.decuong.khungchuongtrinh.matranlienket_plo_pi_hp')
+                ->with('tong_pi', $tong_pi)
+                ->with('all_PLO', $all_PLO)
+                ->with('all_PI', $all_PI)
+                ->with('all_hocphan', $all_hocphan)
+                ->with('all_moilienhe', $all_moilienhe)
+                ->with('tongso_TC', $tongso_TC);
+
+    }
+
+    public function getMaTranLienKetPloPiClo($id_khung, $id_hocphan) {
+
+        $all_clo = DB::table('table_chuandaura_monhoc')
+                    ->where('id_hocphan', $id_hocphan)
+                    ->where('khungchuongtrinh', $id_khung)
+                    ->get();
+
+
+
+        $khunghientai = DB::table('table_khungchuongtrinh')
+        ->where('id', $id_khung)
+        ->first();
+
+        if($khunghientai->isKhungnangcao == 0) {
+            $data = DB::table('table_chuandaura_chung')
+                            ->join('table_khungchuongtrinh', 'table_chuandaura_chung.id_khungchuongtrinh', 'table_khungchuongtrinh.id')
+                            ->where('table_chuandaura_chung.id_khungchuongtrinh', $id_khung)
+                            ->get();
+        } else {
+            $chuandaura_parent = DB::table('table_chuandaura_chung')
+                            ->join('table_khungchuongtrinh', 'table_chuandaura_chung.id_khungchuongtrinh', 'table_khungchuongtrinh.id')
+                            ->where('table_chuandaura_chung.id_khungchuongtrinh', $khunghientai->isKhungnangcao)
+                            ->get();
+
+            $chuandaura_child = DB::table('table_chuandaura_chung')
+                            ->join('table_khungchuongtrinh', 'table_chuandaura_chung.id_khungchuongtrinh', 'table_khungchuongtrinh.id')
+                            ->where('table_chuandaura_chung.id_khungchuongtrinh', $id_khung)
+                            ->get();
+
+            foreach($chuandaura_parent as $value_parent) {
+                $all_PLO[] = $value_parent;
+            }
+
+            foreach($chuandaura_child as $value_child) {
+                $all_PLO[] = $value_child;
+            }
+
+        }
+
+        $tong_pi = 0;
+
+        $all_PI = array();
+
+        foreach($all_PLO as $value_all_PLO) {
+
+            $all_chuandaura_chung_chitiet = DB::table('table_chuandaura_chung_chitiet')
+                                            ->where('id_cdr_chung', $value_all_PLO->id_cdr_chung)
+                                            ->orderBy('id_cdr_chung', 'DES')
+                                            ->get();  
+
+            $value_all_PLO->count_pli = count($all_chuandaura_chung_chitiet);  
+
+            $stt_pi = 1;
+
+            if(count($all_chuandaura_chung_chitiet) > 0) {
+
+                foreach($all_chuandaura_chung_chitiet as $value_all_chuandaura_chung_chitiet) {
+                    $tong_pi++;
+                    $value_all_chuandaura_chung_chitiet->stt_pi = $stt_pi++;
+                    $all_PI[] = $value_all_chuandaura_chung_chitiet;
+                }
+
+            } else {
+
+                $tong_pi++;
+
+                $object = new stdClass();
+                $object->noPI = 'no pi';
+
+                $all_PI[] = $object;
+            }
+        }
+
+        $stt_PI = 1;
+        foreach($all_PI as $value_all_PI) {
+
+            if(isset($check_stt_pi)) {
+                if($check_stt_pi != $value_all_PI->id_cdr_chung) {
+                    $stt_PI++;
+                }
+            }
+            
+            $check_stt_pi = $value_all_PI->id_cdr_chung;
+
+            $value_all_PI->sothutupi = $stt_PI.'.'.$value_all_PI->stt_pi;
+        }
+
+        $list_moilienhe = array();
+
+        foreach($all_PI as $value_all_PI) {
+
+            if(!isset($value_all_PI->noPI)) {
+
+                $moilienhe_clo_pi = DB::table('table_decuongchitiet_moilienhe_clo_pi')
+                                    ->where('table_decuongchitiet_moilienhe_clo_pi.id_hocphan', $id_hocphan)
+                                    ->where('table_decuongchitiet_moilienhe_clo_pi.khungchuongtrinh', $id_khung)
+                                    ->where('table_decuongchitiet_moilienhe_clo_pi.id_chuandaura_chung_chitiet', $value_all_PI->id_cdr_chitiet)
+                                    ->get();
+
+                if(count($moilienhe_clo_pi) > 0) {
+
+                    foreach($moilienhe_clo_pi as $value_moilienhe_clo_pi) {
+                        $list_moilienhe[] = $value_moilienhe_clo_pi;
+                    }
+
+                }
+
+            } 
+        }
+
+        usort($list_moilienhe, function($a, $b) { return $a->id_chuandaura_monhoc - $b->id_chuandaura_monhoc; });
+
+
+        foreach($all_PI as $value_all_PI) {
+            
+            foreach($list_moilienhe as $value_list_moilienhe) {
+                if($value_all_PI->id_cdr_chitiet == $value_list_moilienhe->id_chuandaura_chung_chitiet) {
+
+                    if($value_list_moilienhe->mucdo == 0) {
+                        $value_list_moilienhe->ten_mucdo = 'I';
+                    } elseif($value_list_moilienhe->mucdo == 1) {
+                        $value_list_moilienhe->ten_mucdo = 'R';
+                    } elseif($value_list_moilienhe->mucdo == 2) {
+                        $value_list_moilienhe->ten_mucdo = 'M';
+                    }
+
+                    $value_all_PI->moilienhe[] = $value_list_moilienhe;
+                }
+            }
+
+        }
+
+        return view('admin.decuong.khungchuongtrinh.matranlienket_plo_pi_clo')
+                ->with('all_clo', $all_clo)
+                ->with('all_PLO', $all_PLO)
+                ->with('all_PI', $all_PI)
+                ->with('tong_pi', $tong_pi); 
+
     }
 
     

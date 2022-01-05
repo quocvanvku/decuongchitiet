@@ -298,19 +298,7 @@
 										<td>
 											<textarea class="list-textarea-chung" name="nhiemvu" required="" placeholder="Nhiệm vụ của học viên">{{$all_decuong->nhiemvu}}</textarea>
 										</td>
-									</tr>									
-									<!-- <tr>
-										<td>18. Tài liệu tham khảo - Giáo trình</td>
-										<td>
-											<textarea class="list-textarea-chung" name="tltk_giaotrinh" required="" placeholder="Tài liệu tham khảo - Giáo trình">{{$all_decuong->tailieuthamkhao_giaotrinh}}</textarea>
-										</td>
-									</tr>
-									<tr>
-										<td>19. Tài liệu tham khảo - Sách</td>
-										<td>
-											<textarea class="list-textarea-chung" name="tltk_sach" required="" placeholder="Tài liệu tham khảo - Sách">{{$all_decuong->tailieuthamkhao_sach}}</textarea>
-										</td>
-									</tr> -->
+									</tr>			
 									<tr>
 										<td colspan="2">18. Tài liệu tham khảo - Giáo trình</td>
 									</tr>
@@ -330,6 +318,16 @@
 													</tr>
 												</thead>
 												<tbody id="list-tltk-giaotrinh">
+
+													<tr>
+														<td colspan="8">
+															<input type="text" style="width:100%;" id="tai-lieu-tham-khao-giao-trinh" placeholder="Nhập tên tài liệu">
+															<div id="tailieuthamkhaogiaotrinh" class="list-danh-sach">
+																
+															</div>
+														</td>
+													</tr>
+
 													<?php $stt_tltk_giaotrinh=1; ?>
 													@foreach($all_tltk_giaotrinh as $value_all_tltk_giaotrinh)
 													<tr>
@@ -387,6 +385,16 @@
 													</tr>
 												</thead>
 												<tbody id="list-tltk-sach">
+
+													<tr>
+														<td colspan="8">
+															<input type="text" style="width:100%;" id="tai-lieu-tham-khao-sach" placeholder="Nhập tên tài liệu">
+															<div id="tailieuthamkhaosach" class="list-danh-sach">
+																
+															</div>
+														</td>
+													</tr>
+
 													<?php $stt_tltk_sach=1; ?>
 													@foreach($all_tltk_sach as $value_all_tltk_sach)
 													<tr>
@@ -990,6 +998,282 @@
 			var x = document.getElementsByClassName('stt-tltk-sach');
 			for (var i = 0; i < x.length; i++) {
 				x[i].innerHTML = i+1;
+			}
+		});
+		
+
+		$('#tai-lieu-tham-khao-giao-trinh').keyup(function() {
+			var tentailieu = $(this).val();
+
+			if (tentailieu != '') {
+
+				$.ajax({
+					url: "{{URL::to('admin/decuong/get-tai-lieu-tham-khao-giao-trinh')}}",
+					method: 'GET',
+					data:{tentailieu:tentailieu},
+					success: function(data) {
+						if (data != null) {
+							$('#tailieuthamkhaogiaotrinh').fadeIn();  
+       						$('#tailieuthamkhaogiaotrinh').html(data);
+						}   
+					}
+				});
+
+			} else {
+				$('#tailieuthamkhaogiaotrinh').fadeOut();   
+			}
+
+		});
+
+		$('#tailieuthamkhaogiaotrinh').on('click', 'ul li', function() {
+			$('#tai-lieu-tham-khao-giao-trinh').val(""); 
+			$('#tailieuthamkhaogiaotrinh').fadeOut(); 
+
+			let id_tltk_gt = this.dataset.value;
+
+			if (id_tltk_gt != '') {
+
+				$.ajax({
+					url: "{{URL::to('admin/decuong/get-thong-tin-tai-lieu-tham-khao-giao-trinh')}}",
+					method: 'GET',
+					data:{id_tltk_gt:id_tltk_gt},
+					success: function(data) {
+						if (data != null) {
+
+							var p = document.createElement("tr");
+
+							var p1 = document.createElement("td");
+							p1.setAttribute("class", "stt-tltk-giaotrinh align-middle");
+							var node1 = document.createTextNode("1");
+							p1.appendChild(node1);
+
+							var p2 = document.createElement("td");
+							p2.setAttribute("class", "align-middle");
+							var node2 = document.createElement("textarea");
+							node2.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+							node2.setAttribute('required',true);
+							node2.value = data['tentacgia'];
+							node2.rows = 5;
+							node2.cols = 15;
+							p2.appendChild(node2);
+
+							var p3 = document.createElement("td");
+							p3.setAttribute("class", "align-middle");
+							var node3 = document.createElement("input");
+							node3.type = "number";
+							node3.style = "width:80px";
+							node3.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+							node3.setAttribute('required',true);
+							node3.value = data['namxuatban'];
+							p3.appendChild(node3);
+
+							var p4 = document.createElement("td");
+							p4.setAttribute("class", "align-middle");
+							var node4 = document.createElement("textarea");
+							node4.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+							node4.setAttribute('required',true);
+							node4.value = data['tensach'];
+							node4.rows = 5;
+							node4.cols = 15;
+							p4.appendChild(node4);
+
+							var p5 = document.createElement("td");
+							p5.setAttribute("class", "align-middle");
+							var node5 = document.createElement("textarea");
+							node5.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+							node5.setAttribute('required',true);
+							node5.value = data['noixuatban'];
+							node5.rows = 5;
+							node5.cols = 15;
+							p5.appendChild(node5);
+
+							var p6 = document.createElement("td");
+							p6.setAttribute("class", "align-middle");
+							var node6 = document.createElement("textarea");
+							node6.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+							node6.setAttribute('required',true);
+							node6.value = data['nhaxuatban'];
+							node6.rows = 5;
+							node6.cols = 15;
+							p6.appendChild(node6);
+
+							var p7 = document.createElement("td");
+							p7.setAttribute("class", "align-middle");
+							var node7 = document.createElement("textarea");
+							node7.setAttribute("name", "tai_lieu_tham_khao_giao_trinh[]");
+							node7.setAttribute('required',true);
+							node7.value = data['url'];
+							node7.rows = 5;
+							node7.cols = 15;
+							p7.appendChild(node7);
+
+							var p8 = document.createElement("td");
+							p8.setAttribute("class", "align-middle");
+							p8.id = "delete-tltk-giaotrinh";
+							var node8 = document.createElement("p");
+							var node8_1 = document.createTextNode("Xóa");
+							node8.appendChild(node8_1);
+							p8.appendChild(node8);
+
+							p.appendChild(p1);
+							p.appendChild(p2);
+							p.appendChild(p3);
+							p.appendChild(p4);
+							p.appendChild(p5);
+							p.appendChild(p6);
+							p.appendChild(p7);
+							p.appendChild(p8);
+
+							var div = document.getElementById("list-tltk-giaotrinh");
+							div.appendChild(p);
+
+							var x = document.getElementsByClassName('stt-tltk-giaotrinh');
+							for (var i = 0; i < x.length; i++) {
+								x[i].innerHTML = i+1;
+							}
+
+						}   
+					},
+                    dataType:"json"
+				});
+			}
+		});
+
+
+		$('#tai-lieu-tham-khao-sach').keyup(function() {
+			var tentailieu = $(this).val();
+
+			if (tentailieu != '') {
+
+				$.ajax({
+					url: "{{URL::to('admin/decuong/get-tai-lieu-tham-khao-giao-trinh')}}",
+					method: 'GET',
+					data:{tentailieu:tentailieu},
+					success: function(data) {
+						if (data != null) {
+							$('#tailieuthamkhaosach').fadeIn();  
+       						$('#tailieuthamkhaosach').html(data);
+						}   
+					}
+				});
+
+			} else {
+				$('#tailieuthamkhaosach').fadeOut();   
+			}
+
+		});
+
+		$('#tailieuthamkhaosach').on('click', 'ul li', function() {
+			$('#tai-lieu-tham-khao-sach').val(""); 
+			$('#tailieuthamkhaosach').fadeOut(); 
+
+			let id_tltk_gt = this.dataset.value;
+
+			if (id_tltk_gt != '') {
+
+				$.ajax({
+					url: "{{URL::to('admin/decuong/get-thong-tin-tai-lieu-tham-khao-giao-trinh')}}",
+					method: 'GET',
+					data:{id_tltk_gt:id_tltk_gt},
+					success: function(data) {
+						if (data != null) {
+
+							var p = document.createElement("tr");
+
+							var p1 = document.createElement("td");
+							p1.setAttribute("class", "stt-tltk-sach align-middle");
+							var node1 = document.createTextNode("1");
+							p1.appendChild(node1);
+
+							var p2 = document.createElement("td");
+							p2.setAttribute("class", "align-middle");
+							var node2 = document.createElement("textarea");
+							node2.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+							node2.setAttribute('required',true);
+							node2.value = data['tentacgia'];
+							node2.rows = 5;
+							node2.cols = 15;
+							p2.appendChild(node2);
+
+							var p3 = document.createElement("td");
+							p3.setAttribute("class", "align-middle");
+							var node3 = document.createElement("input");
+							node3.type = "number";
+							node3.style = "width:80px";
+							node3.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+							node3.setAttribute('required',true);
+							node3.value = data['namxuatban'];
+							p3.appendChild(node3);
+
+							var p4 = document.createElement("td");
+							p4.setAttribute("class", "align-middle");
+							var node4 = document.createElement("textarea");
+							node4.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+							node4.setAttribute('required',true);
+							node4.value = data['tensach'];
+							node4.rows = 5;
+							node4.cols = 15;
+							p4.appendChild(node4);
+
+							var p5 = document.createElement("td");
+							p5.setAttribute("class", "align-middle");
+							var node5 = document.createElement("textarea");
+							node5.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+							node5.setAttribute('required',true);
+							node5.value = data['noixuatban'];
+							node5.rows = 5;
+							node5.cols = 15;
+							p5.appendChild(node5);
+
+							var p6 = document.createElement("td");
+							p6.setAttribute("class", "align-middle");
+							var node6 = document.createElement("textarea");
+							node6.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+							node6.setAttribute('required',true);
+							node6.value = data['nhaxuatban'];
+							node6.rows = 5;
+							node6.cols = 15;
+							p6.appendChild(node6);
+
+							var p7 = document.createElement("td");
+							p7.setAttribute("class", "align-middle");
+							var node7 = document.createElement("textarea");
+							node7.setAttribute("name", "tai_lieu_tham_khao_sach[]");
+							node7.setAttribute('required',true);
+							node7.value = data['url'];
+							node7.rows = 5;
+							node7.cols = 15;
+							p7.appendChild(node7);
+
+							var p8 = document.createElement("td");
+							p8.setAttribute("class", "align-middle");
+							p8.id = "delete-tltk-sach";
+							var node8 = document.createElement("p");
+							var node8_1 = document.createTextNode("Xóa");
+							node8.appendChild(node8_1);
+							p8.appendChild(node8);
+
+							p.appendChild(p1);
+							p.appendChild(p2);
+							p.appendChild(p3);
+							p.appendChild(p4);
+							p.appendChild(p5);
+							p.appendChild(p6);
+							p.appendChild(p7);
+							p.appendChild(p8);
+
+							var div = document.getElementById("list-tltk-sach");
+							div.appendChild(p);
+
+							var x = document.getElementsByClassName('stt-tltk-sach');
+							for (var i = 0; i < x.length; i++) {
+								x[i].innerHTML = i+1;
+							}
+
+						}   
+					},
+                    dataType:"json"
+				});
 			}
 		});
 

@@ -1344,7 +1344,7 @@ class DeCuongAjax extends Controller
             echo "Thêm mối quan hệ thành công !!!";
 
         }
-    }
+    } 
 
     public function load_moiquanhe_hocphan() {
         if (Request::ajax()) {
