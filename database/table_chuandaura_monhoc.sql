@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 07/12/2021 22:07:39
+ Date: 08/01/2022 22:51:35
 */
 
 SET NAMES utf8mb4;
@@ -28,7 +28,7 @@ CREATE TABLE `table_chuandaura_monhoc`  (
   `id_hocphan` int NULL DEFAULT NULL,
   `khungchuongtrinh` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of table_chuandaura_monhoc
@@ -50,5 +50,9 @@ INSERT INTO `table_chuandaura_monhoc` VALUES (19, 1, 'Trình bày, giải thích
 INSERT INTO `table_chuandaura_monhoc` VALUES (20, 2, 'Vận dụng được kỹ năng giao tiếp, kỹ năng tư duy và giải quyết vấn đề', 15, 156);
 INSERT INTO `table_chuandaura_monhoc` VALUES (21, 3, 'Áp dụng được các cấu trúc dữ liệu và kỹ thuật thiết kế giải thuật để giải quyết các bài toán tin học', 15, 156);
 INSERT INTO `table_chuandaura_monhoc` VALUES (22, 4, 'Phát triển ý thức làm việc trong môi trường chuyên nghiệp', 15, 156);
+INSERT INTO `table_chuandaura_monhoc` VALUES (23, 1, 'a', 10, 142);
+INSERT INTO `table_chuandaura_monhoc` VALUES (24, 2, 'b', 10, 142);
+INSERT INTO `table_chuandaura_monhoc` VALUES (25, 1, 'test clo 1', 12, 154);
+INSERT INTO `table_chuandaura_monhoc` VALUES (26, 2, 'test clo 2', 12, 154);
 
 SET FOREIGN_KEY_CHECKS = 1;

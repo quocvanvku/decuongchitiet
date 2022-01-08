@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 07/12/2021 22:07:58
+ Date: 08/01/2022 22:51:55
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `table_decuongchitiet_moilienhe_clo_pi`  (
   `id_hocphan` int NULL DEFAULT NULL,
   `khungchuongtrinh` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of table_decuongchitiet_moilienhe_clo_pi
@@ -40,5 +40,16 @@ INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (9, 17, 19, 0, 15, 15
 INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (10, 17, 22, 2, 15, 156);
 INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (11, 19, 19, 0, 15, 156);
 INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (12, 19, 21, 0, 15, 156);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (13, 2, 13, 2, 12, 156);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (14, 2, 14, 1, 12, 156);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (15, 23, 14, 0, 12, 156);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (17, 18, 14, 1, 12, 156);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (18, 1, 14, 1, 12, 156);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (19, 2, 26, 1, 12, 154);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (20, 2, 25, 0, 12, 154);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (21, 32, 26, 2, 12, 154);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (22, 23, 26, 1, 12, 154);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (23, 23, 25, 2, 12, 154);
+INSERT INTO `table_decuongchitiet_moilienhe_clo_pi` VALUES (24, 21, 25, 0, 12, 154);
 
 SET FOREIGN_KEY_CHECKS = 1;

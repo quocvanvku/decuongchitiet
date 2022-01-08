@@ -78,6 +78,7 @@
 					<i class="icon-menu-ad-item fas fa-chevron-right"></i>
 					<ul class="sub-menu-ad-item">
 						<li><p><a href="<?php echo url('admin/decuong/khung-chuong-trinh/142'); ?>">Khung chương trình</a></p></li>
+						<li><p><a href="<?php echo url('admin/decuong/quan-ly-po/142'); ?>">Quản lý PO</a></p></li>
 						<li><p><a href="<?php echo url('admin/decuong/quan-ly-plo/142'); ?>">Quản lý PLO</a></p></li>
 					</ul>
 				</li>

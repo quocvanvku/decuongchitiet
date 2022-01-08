@@ -2977,6 +2977,52 @@ li {
     text-align: center;
 }
 
+.table-moi-lien-he-po-plo tr td .line-them-moi-lien-he select#select_plo {
+    width: 98%;
+    margin-top: 7px;
+    margin-bottom: 5px;
+}
+
+.table-moi-lien-he-po-plo tr td .line-them-moi-lien-he > div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.table-moi-lien-he-po-plo tr td .line-them-moi-lien-he > div span#them-moilienhe-po-plo {
+    width: 100%;
+    height: 30px;
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 1px solid #ccc;
+    padding-bottom: 7px;
+    line-height: 27px;
+}
+
+.table-moi-lien-he-po-plo tr td .line-sua-moi-lien-he select#select_sua_plo {
+    width: 98%;
+    margin-top: 7px;
+    margin-bottom: 5px;
+}
+
+.table-moi-lien-he-po-plo tr td .line-sua-moi-lien-he > div {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.table-moi-lien-he-po-plo tr td .line-sua-moi-lien-he span#xoa-moi-lien-he-po-plo {
+    width: 100%;
+    height: 30px;
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 1px solid #ccc;
+    padding-bottom: 7px;
+    line-height: 27px;
+    margin-top: 20px;
+}
+
+
 
 
 

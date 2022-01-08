@@ -206,7 +206,19 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('get-tai-lieu-tham-khao-giao-trinh', 'DeCuongChiTiet@getTaiLieuThamKhaoGiaoTrinh');
         Route::get('get-thong-tin-tai-lieu-tham-khao-giao-trinh', 'DeCuongChiTiet@getThongTinTaiLieuThamKhaoGiaoTrinh');
         
+        //PO
+        Route::get('quan-ly-po/{id_nganh}', 'DeCuongChiTiet@getQuanLyPO');
+        Route::get('load-po', 'DeCuongChiTiet@getLoadPO');
+        Route::get('them-po', 'DeCuongChiTiet@getThemPO');
+        Route::get('load-sua-po', 'DeCuongChiTiet@getLoadSuaPO');
+        Route::get('sua-po', 'DeCuongChiTiet@getSuaPO');
+        Route::get('xoa-po', 'DeCuongChiTiet@getXoaPO');
 
+        Route::get('load-moilienhe-po-plo', 'DeCuongChiTiet@getLoadMoiLienHePoPlo');
+        Route::get('them-moilienhe-po-plo', 'DeCuongChiTiet@getThemMoiLienHePoPlo');
+        Route::get('sua-moilienhe-po-plo', 'DeCuongChiTiet@getSuaMoiLienHePoPlo');
+        Route::get('xoa-moilienhe-po-plo', 'DeCuongChiTiet@getXoaMoiLienHePoPlo');
+        
         //PLO
         Route::get('quan-ly-plo/{id_nganh}', 'DeCuongChiTiet@getQuanLyPLO');
         Route::get('load-plo', 'DeCuongChiTiet@getLoadPLO');
@@ -253,6 +265,8 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('ma-tran-lien-ket-plo-pi-hp/{id_khung}', 'DeCuongChiTiet@getMaTranLienKetPloPiHp');
 
         Route::get('ma-tran-lien-ket-plo-pi-clo/{id_khung}/{id_hocphan}', 'DeCuongChiTiet@getMaTranLienKetPloPiClo');
+
+        Route::get('ma-tran-lien-ket-po-plo/{id_khung}', 'DeCuongChiTiet@getMaTranLienKetPoPlo');
          
     });
 

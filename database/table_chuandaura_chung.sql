@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 07/12/2021 22:07:29
+ Date: 08/01/2022 22:51:18
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,6 @@ CREATE TABLE `table_chuandaura_chung`  (
 INSERT INTO `table_chuandaura_chung` VALUES (1, 1, 'day la plo 1 da', 142);
 INSERT INTO `table_chuandaura_chung` VALUES (2, 2, 'day la plo 2', 142);
 INSERT INTO `table_chuandaura_chung` VALUES (3, 3, 'day la plo', 142);
-INSERT INTO `table_chuandaura_chung` VALUES (4, 1, 'plo 143', 143);
 INSERT INTO `table_chuandaura_chung` VALUES (5, 1, 'Có khả năng áp dụng kiến thức về lĩnh vực khoa học dữ liệu và trí tuệ nhân tạo để giải quyết các bài toán phân tích dữ liệu, dự báo', 154);
 INSERT INTO `table_chuandaura_chung` VALUES (6, 1, 'Có đạo đức và trách nhiệm đối với nghề nghiệp, cộng đồng', 149);
 INSERT INTO `table_chuandaura_chung` VALUES (7, 2, 'Có khả năng giao tiếp và làm việc theo nhóm hiệu quả', 149);
