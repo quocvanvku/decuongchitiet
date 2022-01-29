@@ -3801,6 +3801,132 @@ class DeCuongChiTiet extends Controller
 
     } 
 
+
+    public function getSuaKhungChuongTrinh($id_khung) {
+
+        $getkhungchuongtrinh = DB::table('table_khungchuongtrinh')
+                                ->where('table_khungchuongtrinh.id', $id_khung)
+                                ->first();
+
+        $all_khoa = DB::table('table_khoa')->get();
+
+        $all_nganh = DB::table('table_nganh')->get();
+
+        $all_namhoc_hocky = DB::table('table_namhoc_hocky')->select('id', 'nambatdau', 'namketthuc')->distinct()->get();
+
+        $all_khoahoc = DB::table('table_khoahoc')->get();
+
+        $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')
+                                ->where('id', '!=', $id_khung)
+                                ->get();
+
+        $all_trinhdo = DB::table('table_khungchuongtrinh_trinhdo')->get();
+
+        $all_hinhthuc = DB::table('table_khungchuongtrinh_htdaotao')->get();
+
+        // echo "<pre>";
+        // print_r($getkhungchuongtrinh);
+        // die();
+
+        return view('admin.decuong.khungchuongtrinh.sua_khungchuongtrinh')
+                ->with('getkhungchuongtrinh', $getkhungchuongtrinh)
+                ->with('all_khoa', $all_khoa)
+                ->with('all_nganh', $all_nganh)
+                ->with('all_namhoc_hocky', $all_namhoc_hocky)
+                ->with('all_khoahoc', $all_khoahoc)
+                ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
+                ->with('all_trinhdo', $all_trinhdo)
+                ->with('all_hinhthuc', $all_hinhthuc)
+                ->with('id_khung', $id_khung);
+
+    }
+
+    public function postSuaKhungChuongTrinh($id_khung, Request $request) {
+
+        $update = DB::table('table_khungchuongtrinh')
+                ->where('id', $id_khung)
+                ->update(['tenkhungchuongtrinh' => $request->input_tenkhungchuongtrinh,
+                            'id_khoa' => $request->select_khoa,
+                            'id_nganh' => $request->select_nganh,
+                            'id_trinhdo' => $request->select_trinhdodaotao,
+                            'id_htdaotao' => $request->select_hinhthucdaotao,
+                            'id_khoahoc' => $request->select_khoahoc,
+                            'isKhungnangcao' => $request->select_thuocctdt,
+                            'soTCTCbatbuoc' => $request->input_sotcbatbuoc,
+                            'sotctoithieu' => $request->input_sotctoithieu,
+                            'thoigian' => $request->input_thoigiandaotao,
+                            'id_namapdung' => $request->select_namapdung ]);
+
+    }
+
+    public function getThemKhungChuongTrinh() {
+
+        $all_khoa = DB::table('table_khoa')->get();
+
+        $all_nganh = DB::table('table_nganh')->get();
+
+        $all_namhoc_hocky = DB::table('table_namhoc_hocky')->select('id', 'nambatdau', 'namketthuc')->distinct()->get();
+
+        $all_khoahoc = DB::table('table_khoahoc')->get();
+
+        $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')
+                                ->get();
+
+        $all_trinhdo = DB::table('table_khungchuongtrinh_trinhdo')->get();
+
+        $all_hinhthuc = DB::table('table_khungchuongtrinh_htdaotao')->get();
+
+        return view('admin.decuong.khungchuongtrinh.them_khungchuongtrinh')
+                ->with('all_khoa', $all_khoa)
+                ->with('all_nganh', $all_nganh)
+                ->with('all_namhoc_hocky', $all_namhoc_hocky)
+                ->with('all_khoahoc', $all_khoahoc)
+                ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
+                ->with('all_trinhdo', $all_trinhdo)
+                ->with('all_hinhthuc', $all_hinhthuc);
+
+    }
+
+    public function postThemKhungChuongTrinh(Request $request) {
+
+        $update = DB::table('table_khungchuongtrinh')
+                ->insert(['tenkhungchuongtrinh' => $request->input_tenkhungchuongtrinh,
+                            'id_khoa' => $request->select_khoa,
+                            'id_nganh' => $request->select_nganh,
+                            'id_trinhdo' => $request->select_trinhdodaotao,
+                            'id_htdaotao' => $request->select_hinhthucdaotao,
+                            'id_khoahoc' => $request->select_khoahoc,
+                            'isKhungnangcao' => $request->select_thuocctdt,
+                            'soTCTCbatbuoc' => $request->input_sotcbatbuoc,
+                            'sotctoithieu' => $request->input_sotctoithieu,
+                            'thoigian' => $request->input_thoigiandaotao,
+                            'id_namapdung' => $request->select_namapdung ]);
+
+    }
+
+    public function getNhanBanKhungChuongTrinh($id_khung) {
+
+        $nhanban = DB::table('table_khungchuongtrinh')
+                    ->where('id', $id_khung)
+                    ->first();
+
+        $getnhanban = DB::table('table_khungchuongtrinh')
+                ->insert(['tenkhungchuongtrinh' => $nhanban->tenkhungchuongtrinh.' (1)',
+                        'id_khoa' => $nhanban->id_khoa,
+                        'id_nganh' => $nhanban->id_nganh,
+                        'id_trinhdo' => $nhanban->id_trinhdo,
+                        'id_htdaotao' => $nhanban->id_htdaotao,
+                        'id_khoahoc' => $nhanban->id_khoahoc,
+                        'isKhungnangcao' => $nhanban->isKhungnangcao,
+                        'soTCTCbatbuoc' => $nhanban->soTCTCbatbuoc,
+                        'sotctoithieu' => $nhanban->sotctoithieu,
+                        'thoigian' => $nhanban->thoigian,
+                        'id_namapdung' => $nhanban->id_namapdung ]);
+
+        
+
+    }
+
     
 
 

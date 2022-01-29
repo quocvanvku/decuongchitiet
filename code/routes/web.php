@@ -267,6 +267,15 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('ma-tran-lien-ket-plo-pi-clo/{id_khung}/{id_hocphan}', 'DeCuongChiTiet@getMaTranLienKetPloPiClo');
 
         Route::get('ma-tran-lien-ket-po-plo/{id_khung}', 'DeCuongChiTiet@getMaTranLienKetPoPlo');
+
+        //Khung chuong trinh
+        Route::get('them-khung-chuong-trinh', 'DeCuongChiTiet@getThemKhungChuongTrinh');
+        Route::post('them-khung-chuong-trinh', 'DeCuongChiTiet@postThemKhungChuongTrinh');
+
+        Route::get('sua-khung-chuong-trinh/{id_khung}', 'DeCuongChiTiet@getSuaKhungChuongTrinh');
+        Route::post('sua-khung-chuong-trinh/{id_khung}', 'DeCuongChiTiet@postSuaKhungChuongTrinh');
+
+        Route::get('nhan-ban-khung-chuong-trinh/{id_khung}', 'DeCuongChiTiet@getNhanBanKhungChuongTrinh');
          
     });
 
