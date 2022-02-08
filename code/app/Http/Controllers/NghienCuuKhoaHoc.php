@@ -177,6 +177,8 @@ class NghienCuuKhoaHoc extends Controller
                    
         }
 
+        $counttongsogio = 0;
+
         foreach($all_hoatdong_nckh as $value_them_tongsogio) {
 
             if(isset($value_them_tongsogio->count_sub)) {
@@ -195,6 +197,9 @@ class NghienCuuKhoaHoc extends Controller
 
                     $value_them_tongsogio->tongsogio = $tongsogio_view1;
                     $value_them_tongsogio->tongsodiem = $tongsodiem_view1;
+
+                    $counttongsogio += $tongsogio_view1;
+
                 }
 
                 if($value_them_tongsogio->loai_hoatdong == 2) {
@@ -211,6 +216,8 @@ class NghienCuuKhoaHoc extends Controller
 
                     $value_them_tongsogio->tongsogio = $tongsogio_view2;
                     $value_them_tongsogio->tongsodiem = $tongsodiem_view2;
+
+                    $counttongsogio += $tongsogio_view2;
 
                 }
 
@@ -229,12 +236,15 @@ class NghienCuuKhoaHoc extends Controller
                     $value_them_tongsogio->tongsogio = $tongsogio_view3;
                     $value_them_tongsogio->tongsodiem = $tongsodiem_view3;
 
+                    $counttongsogio += $tongsogio_view3;
+
                 }
+
             }
         }
 
         // echo "<pre>";
-        // print_r($all_hoatdong_cuatoi_view3);
+        // print_r($all_hoatdong_cuatoi_view1);
         // die();
 
         return view('admin.decuong.nghiencuukhoahoc.danhmuc_nckh')
@@ -244,7 +254,8 @@ class NghienCuuKhoaHoc extends Controller
                 ->with('id_namhoc', $id_namhoc)
                 ->with('all_hoatdong_cuatoi_view1', $all_hoatdong_cuatoi_view1)
                 ->with('all_hoatdong_cuatoi_view2', $all_hoatdong_cuatoi_view2)
-                ->with('all_hoatdong_cuatoi_view3', $all_hoatdong_cuatoi_view3);
+                ->with('all_hoatdong_cuatoi_view3', $all_hoatdong_cuatoi_view3)
+                ->with('counttongsogio', $counttongsogio);
     
     }
 
@@ -914,6 +925,9 @@ class NghienCuuKhoaHoc extends Controller
     }
 
     public function ThongKeNghienCuuKhoaHocCuaToi($id_namhoc) {
+
+        $id_gv = 0;
+
         $namhoc_dangchon = DB::table('table_namhoc_hocky')
                         ->select('id', 'nambatdau', 'namketthuc', 'hienhanh')
                         ->where('nambatdau', '>', 0)
@@ -927,10 +941,240 @@ class NghienCuuKhoaHoc extends Controller
                         ->DISTINCT()
                         ->get();
 
+        $gionghiencuu = DB::table('table_nghiencuukhoahoc_gionghiencuu')
+                        ->join('table_nghiencuukhoahoc_giochuan', 'table_nghiencuukhoahoc_gionghiencuu.id_chucdanh', 'table_nghiencuukhoahoc_giochuan.id')
+                        ->join('table_nghiencuukhoahoc_tyledinhmuc', 'table_nghiencuukhoahoc_gionghiencuu.id_dinhmuc', 'table_nghiencuukhoahoc_tyledinhmuc.id')
+                        ->where('table_nghiencuukhoahoc_gionghiencuu.id_gv', $id_gv)
+                        ->where('table_nghiencuukhoahoc_gionghiencuu.id_namhoc', $id_namhoc)
+                        ->first();
+
+        if($gionghiencuu->tyle == 0) {
+            $giocannghiencuu = $gionghiencuu->gioNghienCuuChuan;
+        } else {
+            $giocannghiencuu = $gionghiencuu->gioNghienCuuChuan*($gionghiencuu->tyle/100);
+        }        
+
+        
+
+        $all_hoatdong_nckh = DB::table('table_nghiencuukhoahoc_hoatdong')
+                                ->where('namhoc', $id_namhoc)
+                                ->get();
+
+        foreach($all_hoatdong_nckh as $value_all_hoatdong_nckh) {
+
+            $all_ht_cuatoi_loai1 = DB::table('table_nghiencuukhoahoc_loai1')
+                        ->where('id_hoatdong', $value_all_hoatdong_nckh->id)
+                        ->count();
+            if($all_ht_cuatoi_loai1 > 0) {
+                $value_all_hoatdong_nckh->count_sub = $all_ht_cuatoi_loai1;
+            }
+
+            $all_ht_cuatoi_loai2 = DB::table('table_nghiencuukhoahoc_loai2')
+                        ->where('id_hoatdong', $value_all_hoatdong_nckh->id)
+                        ->count();
+            if($all_ht_cuatoi_loai2 > 0) {
+                $value_all_hoatdong_nckh->count_sub = $all_ht_cuatoi_loai2;
+            }
+
+            $all_ht_cuatoi_loai3 = DB::table('table_nghiencuukhoahoc_loai3')
+                        ->where('id_hoatdong', $value_all_hoatdong_nckh->id)
+                        ->count();
+            if($all_ht_cuatoi_loai3 > 0) {
+                $value_all_hoatdong_nckh->count_sub = $all_ht_cuatoi_loai3;
+            }
+
+        }
+
+        $all_hoatdong_cuatoi_view1 = DB::table('table_nghiencuukhoahoc_hoatdong')
+                                    ->join('table_nghiencuukhoahoc_loai1', 'table_nghiencuukhoahoc_loai1.id_hoatdong', 'table_nghiencuukhoahoc_hoatdong.id')
+                                    ->where('table_nghiencuukhoahoc_loai1.namhoc', $id_namhoc)
+                                    ->where('table_nghiencuukhoahoc_loai1.id_tacgia', $id_gv)
+                                    ->get();
+
+        $all_hoatdong_cuatoi_view2 = DB::table('table_nghiencuukhoahoc_hoatdong')
+                                    ->join('table_nghiencuukhoahoc_loai2', 'table_nghiencuukhoahoc_loai2.id_hoatdong', 'table_nghiencuukhoahoc_hoatdong.id')
+                                    ->where('table_nghiencuukhoahoc_loai2.namhoc', $id_namhoc)
+                                    ->where('table_nghiencuukhoahoc_loai2.id_tacgia', $id_gv)
+                                    ->get();
+
+
+        $all_hoatdong_cuatoi_view3 = DB::table('table_nghiencuukhoahoc_hoatdong')
+                                    ->join('table_nghiencuukhoahoc_loai3', 'table_nghiencuukhoahoc_loai3.id_hoatdong', 'table_nghiencuukhoahoc_hoatdong.id')
+                                    ->where('table_nghiencuukhoahoc_loai3.namhoc', $id_namhoc)
+                                    ->where('table_nghiencuukhoahoc_loai3.id_tacgia', $id_gv)
+                                    ->get();
+
+        foreach($all_hoatdong_cuatoi_view1 as $value_all_hoatdong_cuatoi_view1) {
+            $list_cactacgia = [];
+            $sotacgia = 0;
+            if(isset($value_all_hoatdong_cuatoi_view1->id_cactacgia) && $value_all_hoatdong_cuatoi_view1->id_cactacgia != null) {
+                $id_ctg = explode("_", $value_all_hoatdong_cuatoi_view1->id_cactacgia);            
+                foreach ($id_ctg as $value) {
+                    $tg = DB::table('table_giangvien')->where('id', $value)->first();
+                    $list_cactacgia[] = $tg;
+                    $sotacgia = $sotacgia+1;
+                }
+            }
+            $value_all_hoatdong_cuatoi_view1->id_cactacgia = $list_cactacgia;
+            $value_all_hoatdong_cuatoi_view1->sotacgia = $sotacgia+1;
+
+
+            $diemcuatoi = number_format((float)$value_all_hoatdong_cuatoi_view1->diemcongtrinh/$value_all_hoatdong_cuatoi_view1->sotacgia, 2, '.', '');
+            $value_all_hoatdong_cuatoi_view1->diemcuatoi = $diemcuatoi;
+
+            $thanhgionckh = $value_all_hoatdong_cuatoi_view1->giokhoahoc*($value_all_hoatdong_cuatoi_view1->diemcongtrinh/$value_all_hoatdong_cuatoi_view1->sotacgia);
+            $value_all_hoatdong_cuatoi_view1->thanhgionckh = $thanhgionckh;
+
+        }
+
+        foreach($all_hoatdong_cuatoi_view2 as $value_all_hoatdong_cuatoi_view2) {
+
+            $list_cactacgia = [];
+            $sotacgia = 0;
+            if(isset($value_all_hoatdong_cuatoi_view2->id_cactacgia) && $value_all_hoatdong_cuatoi_view2->id_cactacgia != null) {
+                $id_ctg = explode("_", $value_all_hoatdong_cuatoi_view2->id_cactacgia);            
+                foreach ($id_ctg as $value) {
+                    $tg = DB::table('table_giangvien')->where('id', $value)->first();
+                    $list_cactacgia[] = $tg;
+                    $sotacgia = $sotacgia+1;
+                }
+            }
+            $value_all_hoatdong_cuatoi_view2->id_cactacgia = $list_cactacgia;
+            $value_all_hoatdong_cuatoi_view2->sotacgia = $sotacgia+1;
+
+            $diemcuatoi = number_format((float)$value_all_hoatdong_cuatoi_view2->diemcongtrinh/$value_all_hoatdong_cuatoi_view2->sotacgia, 2, '.', '');
+            $value_all_hoatdong_cuatoi_view2->diemcuatoi = $diemcuatoi;
+
+            $thanhgionckh = $value_all_hoatdong_cuatoi_view2->giokhoahoc*($value_all_hoatdong_cuatoi_view2->diemcongtrinh/$value_all_hoatdong_cuatoi_view2->sotacgia);
+            $value_all_hoatdong_cuatoi_view2->thanhgionckh = $thanhgionckh;
+                   
+        }
+
+        foreach($all_hoatdong_cuatoi_view3 as $value_all_hoatdong_cuatoi_view3) {
+
+            $thanhgionckh = $value_all_hoatdong_cuatoi_view3->giokhoahoc*$value_all_hoatdong_cuatoi_view3->diemcongtrinh;
+            $value_all_hoatdong_cuatoi_view3->thanhgionckh = $thanhgionckh;
+                   
+        }
+
+        $counttongsogio = 0;
+
+        foreach($all_hoatdong_nckh as $value_them_tongsogio) {
+
+            if(isset($value_them_tongsogio->count_sub)) {
+
+                if($value_them_tongsogio->loai_hoatdong == 1) {
+
+                    $tongsogio_view1 = 0;
+                    $tongsodiem_view1 = 0;
+
+                    foreach($all_hoatdong_cuatoi_view1 as $value_view1_them_tongsogio) {
+                        if($value_view1_them_tongsogio->id_hoatdong == $value_them_tongsogio->id) {
+                            $tongsogio_view1 += $value_view1_them_tongsogio->thanhgionckh;
+                            $tongsodiem_view1 += $value_view1_them_tongsogio->diemcuatoi;
+                        }
+                    }
+
+                    $value_them_tongsogio->tongsogio = $tongsogio_view1;
+                    $value_them_tongsogio->tongsodiem = $tongsodiem_view1;
+
+                    $counttongsogio += $tongsogio_view1;
+
+                }
+
+                if($value_them_tongsogio->loai_hoatdong == 2) {
+
+                    $tongsogio_view2 = 0;
+                    $tongsodiem_view2 = 0;
+
+                    foreach($all_hoatdong_cuatoi_view2 as $value_view2_them_tongsogio) {
+                        if($value_view2_them_tongsogio->id_hoatdong == $value_them_tongsogio->id) {
+                            $tongsogio_view2 += $value_view2_them_tongsogio->thanhgionckh;
+                            $tongsodiem_view2 += $value_view2_them_tongsogio->diemcuatoi;
+                        }
+                    }
+
+                    $value_them_tongsogio->tongsogio = $tongsogio_view2;
+                    $value_them_tongsogio->tongsodiem = $tongsodiem_view2;
+
+                    $counttongsogio += $tongsogio_view2;
+
+                }
+
+                if($value_them_tongsogio->loai_hoatdong == 3) {
+
+                    $tongsogio_view3 = 0;
+                    $tongsodiem_view3 = 0;
+
+                    foreach($all_hoatdong_cuatoi_view3 as $value_view3_them_tongsogio) {
+                        if($value_view3_them_tongsogio->id_hoatdong == $value_them_tongsogio->id) {
+                            $tongsogio_view3 += $value_view3_them_tongsogio->thanhgionckh;
+                            $tongsodiem_view3 += $value_view3_them_tongsogio->diemcongtrinh;
+                        }
+                    }
+
+                    $value_them_tongsogio->tongsogio = $tongsogio_view3;
+                    $value_them_tongsogio->tongsodiem = $tongsodiem_view3;
+
+                    $counttongsogio += $tongsogio_view3;
+
+                }
+            }
+        }
+
+
+        $namtruoc = DB::table('table_namhoc_hocky')
+                        ->select('id', 'nambatdau', 'namketthuc', 'hienhanh')
+                        ->where('nambatdau', '>', 0)
+                        ->where('nambatdau', $namhoc_dangchon->nambatdau-1)
+                        ->DISTINCT()
+                        ->first();
+
+        $giodunamtruoc = DB::table('table_nghiencuukhoahoc_giochuyensangnamsau')
+                        ->where('id_gv', $id_gv)
+                        ->where('id_namhoc', $namtruoc->id)
+                        ->first(); 
+
+        if(!$giodunamtruoc) {
+            $giodunamtruoc=0;
+        }
+
+        $trongnam = $counttongsogio;
+
+        $tongcong = $trongnam+$giodunamtruoc->gioChuyenSangNamSau;
+
+        $gioconthieu = $giocannghiencuu-$tongcong;
+
+        if($gioconthieu < 0) {
+            $gioconthieu = 0;
+        }
+
+        $update_giochuyensangnamsau = DB::table('table_nghiencuukhoahoc_giochuyensangnamsau')
+                        ->where('id_gv', $id_gv)
+                        ->where('id_namhoc', $id_namhoc)
+                        ->update(['gioChuyenSangNamSau' => $tongcong-$giocannghiencuu]);
+                        
+
+        $giochuyensangnamsau = DB::table('table_nghiencuukhoahoc_giochuyensangnamsau')
+                        ->where('id_gv', $id_gv)
+                        ->where('id_namhoc', $id_namhoc)
+                        ->first();
+
+        // echo "<pre>";
+        // print_r($id_namhoc);
+        // die();
+
         return view('admin.decuong.nghiencuukhoahoc.thongke_nckhcuatoi')
                     ->with('namhoc_dangchon', $namhoc_dangchon)
                     ->with('all_namhoc', $all_namhoc)
-                    ->with('id_namhoc', $id_namhoc);
+                    ->with('id_namhoc', $id_namhoc)
+                    ->with('gionghiencuu', $gionghiencuu)
+                    ->with('giocannghiencuu', $giocannghiencuu)
+                    ->with('giochuyensangnamsau', $giochuyensangnamsau)
+                    ->with('giodunamtruoc', $giodunamtruoc)
+                    ->with('trongnam', $trongnam)
+                    ->with('tongcong', $tongcong)
+                    ->with('gioconthieu', $gioconthieu);
     }
 
     

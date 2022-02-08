@@ -84,7 +84,7 @@
 
                         <div class="list-nghien-cuu-khoa-hoc">
                             <div class="list-action">
-                                <span id="them-moi-nckh">Thêm mới NCKH</span>
+                                <span id="them-moi-nckh" onclick="openHdNckh(event, 'themmoi-nckh')" >Thêm mới NCKH</span>
                                 <span id="sua-nckh">Sửa hoạt động NCKH</span>
                                 <span id="xoa-nckh">Xóa hoạt động NCKH</span>
 
@@ -156,7 +156,15 @@
                                                             <td class="align-middle">{{$value_all_hdct_view1->diemcuatoi}} Điểm</td>
                                                             <td class="align-middle">{{$value_all_hoatdong_nckh->giokhoahoc}} Giờ/Điểm</td>
                                                             <td class="align-middle">{{$value_all_hdct_view1->thanhgionckh}} Giờ</td>
-                                                            <td class="align-middle"><i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i></td>
+                                                            <td class="align-middle">
+                                                                @if ($value_all_hdct_view1->trangthaiduyet==0)
+                                                                    <i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i>
+                                                                @elseif ($value_all_hdct_view1->trangthaiduyet==1)
+                                                                    <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
+                                                                @elseif ($value_all_hdct_view1->trangthaiduyet==2)
+                                                                    <i style="color:#f0134d;padding-right:3px" class="fas fa-ban"></i>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                         @endif
                                                     @endforeach
@@ -194,7 +202,15 @@
                                                             <td class="align-middle">{{$value_all_hdct_view2->diemcuatoi}} Điểm</td>
                                                             <td class="align-middle">{{$value_all_hoatdong_nckh->giokhoahoc}} Giờ/Điểm</td>
                                                             <td class="align-middle">{{$value_all_hdct_view2->thanhgionckh}} Giờ</td>
-                                                            <td class="align-middle"><i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i></td>
+                                                            <td class="align-middle">
+                                                                @if($value_all_hdct_view2->trangthaiduyet==0)
+                                                                    <i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i>
+                                                                @elseif ($value_all_hdct_view2->trangthaiduyet==1)
+                                                                    <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
+                                                                @elseif ($value_all_hdct_view2->trangthaiduyet==2)
+                                                                    <i style="color:#f0134d;padding-right:3px" class="fas fa-ban"></i>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                         @endif
                                                     @endforeach
@@ -226,7 +242,15 @@
                                                             <td class="align-middle">{{$value_all_hoatdong_nckh->diemcongtrinh}} Điểm</td>
                                                             <td class="align-middle">{{$value_all_hoatdong_nckh->giokhoahoc}} Giờ/Điểm</td>
                                                             <td class="align-middle">{{$value_all_hdct_view3->thanhgionckh}} Giờ</td>
-                                                            <td class="align-middle"><i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i></td>
+                                                            <td class="align-middle">
+                                                                @if($value_all_hdct_view3->trangthaiduyet==0)
+                                                                <i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i>
+                                                                @elseif ($value_all_hdct_view3->trangthaiduyet==1)
+                                                                    <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
+                                                                @elseif ($value_all_hdct_view3->trangthaiduyet==2)
+                                                                    <i style="color:#f0134d;padding-right:3px" class="fas fa-ban"></i>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                         @endif
                                                     @endforeach
@@ -235,7 +259,7 @@
                                                 <tr>
                                                     <td class="align-middle">{{$stt++}}</td>
                                                     <td class="align-middle" style="text-align: left;text-align: justify;">{{$value_all_hoatdong_nckh->tenhoatdongnghiencuu}}</td>
-                                                    <td>0</td>
+                                                    <td></td>
                                                     <td>0</td>
                                                     <td>0</td>
                                                     <td>0</td>
@@ -244,10 +268,20 @@
                                             @endif
                                         @endforeach
                                         <input type="hidden" name="" id="id-hoatdong-clicked">
+
+                                        <tr>
+                                            <td class="align-middle"></td>
+                                            <td style="color:blue;" class="align-middle">TỔNG KHỐI LƯỢNG GIỜ NCKH 0 (tạm tính)</td>
+                                            <td class="align-middle"></td>
+                                            <td class="align-middle"></td>
+                                            <td class="align-middle"></td>
+                                            <td style="color:blue;" class="align-middle">{{$counttongsogio}}</td>
+                                            <td class="align-middle"></td>
+                                        </tr>
+
                                     </tbody>
 
                                     <input type="hidden" name="" id="id-nckh-clicked">
-
                                 </table>
                             </div>
                         </div>
@@ -281,7 +315,7 @@
 
                             </table>
                         </div>
-                    </div>
+                    </div> 
 
                 </div>
 

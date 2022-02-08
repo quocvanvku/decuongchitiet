@@ -88,34 +88,34 @@
                                             <table class="table table-bordered table-left">
                                                 <tbody>
                                                     <tr>
-                                                        <td>Năm học</td>
-                                                        <td>{{$namhoc_dangchon->nambatdau.' - '.$namhoc_dangchon->namketthuc}}</td>
+                                                        <td class="align-middle" >Năm học</td>
+                                                        <td class="align-middle" >{{$namhoc_dangchon->nambatdau.' - '.$namhoc_dangchon->namketthuc}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Họ tên</td>
-                                                        <td>Nguyễn Anh Tuấn</td>
+                                                        <td class="align-middle" >Họ tên</td>
+                                                        <td class="align-middle" >Nguyễn Anh Tuấn</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Đơn vị</td>
-                                                        <td>Phòng Đào tạo và Nghiên cứu khoa học</td>
+                                                        <td class="align-middle" >Đơn vị</td>
+                                                        <td class="align-middle" >...</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Chức năng</td>
-                                                        <td>
-                                                            <b>Giảng viên</b> <br>
-                                                            (Giờ chuẩn 600)
+                                                        <td class="align-middle" >Chức danh</td>
+                                                        <td class="align-middle" >
+                                                            <b>{{$gionghiencuu->tenChucDanh}}</b> <br>
+                                                            (Giờ chuẩn {{$gionghiencuu->gioNghienCuuChuan}})
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Chức vụ</td>
-                                                        <td>
-                                                            <b>Phó trưởng phòng và tương đương</b> <br>
-                                                            (Nghiên cứu 30%)
+                                                        <td class="align-middle" >Chức vụ</td>
+                                                        <td class="align-middle" >
+                                                            <b>{{$gionghiencuu->tenChucVu}}</b> <br>
+                                                            (Nghiên cứu {{$gionghiencuu->tyle}}%)
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Ghi chú</td>
-                                                        <td></td>
+                                                        <td class="align-middle" >Ghi chú</td>
+                                                        <td class="align-middle" ></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -124,47 +124,47 @@
                                             <table class="table table-bordered table-right">
                                                 <tbody>
                                                     <tr>
-                                                        <td colspan="2"><strong>Giờ chuẩn cần nghiên cứu</strong> (a)</td>
-                                                        <td colspan="2">600</td>
+                                                        <td class="align-middle" colspan="2"><strong>Giờ chuẩn cần nghiên cứu</strong> (a)</td>
+                                                        <td class="align-middle" colspan="2">{{$gionghiencuu->gioNghienCuuChuan}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">
+                                                        <td class="align-middle" colspan="2">
                                                             <strong>Giờ cần nghiên cứu</strong> (b) <br> (Sau khi áp dụng ưu tiên)
                                                         </td>
-                                                        <td colspan="2">180</td>
+                                                        <td class="align-middle" colspan="2">{{$giocannghiencuu}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td rowspan="4">
+                                                        <td class="align-middle" rowspan="4">
                                                             <strong>Giờ NCKH</strong>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td class="align-middle" >
                                                             Trong năm (c)
                                                         </td>
-                                                        <td>0</td>
+                                                        <td class="align-middle" >{{$trongnam}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td class="align-middle" >
                                                             Năm trước (d)
                                                         </td>
-                                                        <td>0</td>
+                                                        <td class="align-middle" >{{$giodunamtruoc->gioChuyenSangNamSau}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td class="align-middle" >
                                                             <strong>Tổng cộng</strong> (e)
                                                         </td>
-                                                        <td>0</td>
+                                                        <td class="align-middle" >{{$tongcong}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2"><strong>Giờ còn thiếu</strong> (f=b-e)</td>
-                                                        <td colspan="2">180</td>
+                                                        <td class="align-middle" colspan="2"><strong>Giờ còn thiếu</strong> (f=b-e)</td>
+                                                        <td class="align-middle" colspan="2">{{$gioconthieu}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">
+                                                        <td class="align-middle" colspan="2">
                                                             <strong>Giờ chuyển năm sau</strong> (g=c-b) <br> (Chỉ tính cho 1 năm liền kề)
                                                         </td>
-                                                        <td colspan="2">0</td>
+                                                        <td class="align-middle" colspan="2">{{$giochuyensangnamsau->gioChuyenSangNamSau}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -187,8 +187,7 @@
                 </div>
 
                 <div id="trogiup" class="tabcontent">
-                    <h3>Tokyo</h3>
-                    <p>Tokyo is the capital of Japan.</p>
+                    
                 </div>
 
             </div>

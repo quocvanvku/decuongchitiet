@@ -33,7 +33,7 @@
                 <div id="hoatdong-nckh" class="tabcontent active">
                     
                     <div class="list-choice">
-                        <a href="<?php echo url('admin/decuong/nghien-cuu-khoa-hoc'); ?>"><span class="tablinkshdnckh">NCKH của tôi</span></a>
+                        <a href="<?php echo url('admin/decuong/nghien-cuu-khoa-hoc/'.$id_namhoc); ?>"><span class="tablinkshdnckh">NCKH của tôi</span></a>
                         <span>|</span>
                         <span class="tablinkshdnckh active">Thêm mới NCKH</span>
                     </div>
@@ -145,13 +145,11 @@
                 </div>
 
                 <div id="thongke-nckh" class="tabcontent">
-                    <h3>Paris</h3>
-                    <p>Paris is the capital of France.</p> 
+                    
                 </div>
 
                 <div id="trogiup" class="tabcontent">
-                    <h3>Tokyo</h3>
-                    <p>Tokyo is the capital of Japan.</p>
+                    
                 </div>
 
             </div>

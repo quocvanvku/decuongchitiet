@@ -33,7 +33,7 @@
                 <div id="hoatdong-nckh" class="tabcontent active">
                     
                     <div class="list-choice">
-                        <a href="<?php echo url('admin/decuong/nghien-cuu-khoa-hoc'); ?>"><span class="tablinkshdnckh">NCKH của tôi</span></a>
+                        <a href="<?php echo url('admin/decuong/nghien-cuu-khoa-hoc/'.$id_namhoc); ?>"><span class="tablinkshdnckh">NCKH của tôi</span></a>
                         <span>|</span>
                         <span class="tablinkshdnckh active">Thêm mới NCKH</span>
                     </div>
