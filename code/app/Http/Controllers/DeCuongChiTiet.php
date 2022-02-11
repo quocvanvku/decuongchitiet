@@ -3857,6 +3857,8 @@ class DeCuongChiTiet extends Controller
                             'thoigian' => $request->input_thoigiandaotao,
                             'id_namapdung' => $request->select_namapdung ]);
 
+        return Redirect::to('/admin/decuong/quan-ly-chuong-trinh-dao-tao/'.$id_khung);
+
     }
 
     public function getThemKhungChuongTrinh() {
@@ -3889,7 +3891,7 @@ class DeCuongChiTiet extends Controller
 
     public function postThemKhungChuongTrinh(Request $request) {
 
-        $update = DB::table('table_khungchuongtrinh')
+        $them_khung = DB::table('table_khungchuongtrinh')
                 ->insert(['tenkhungchuongtrinh' => $request->input_tenkhungchuongtrinh,
                             'id_khoa' => $request->select_khoa,
                             'id_nganh' => $request->select_nganh,
@@ -3901,6 +3903,8 @@ class DeCuongChiTiet extends Controller
                             'sotctoithieu' => $request->input_sotctoithieu,
                             'thoigian' => $request->input_thoigiandaotao,
                             'id_namapdung' => $request->select_namapdung ]);
+
+        return Redirect::to('/admin/decuong/quan-ly-chuong-trinh-dao-tao/'.$them_khung->id);
 
     }
 
@@ -3923,8 +3927,7 @@ class DeCuongChiTiet extends Controller
                         'thoigian' => $nhanban->thoigian,
                         'id_namapdung' => $nhanban->id_namapdung ]);
 
-        
-
+        return Redirect::to('/admin/decuong/quan-ly-chuong-trinh-dao-tao/'.$getnhanban->id);
     }
 
     

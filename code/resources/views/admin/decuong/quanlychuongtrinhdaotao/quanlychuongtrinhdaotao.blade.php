@@ -51,13 +51,101 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> 
                     <div class="list-option">
-                        <span id="tao-moi-ctdt"><i class="fas fa-plus-circle"></i> Tạo CTĐT mới | </span>
-                        <span id="sua-doi-ctdt"><i class="far fa-edit"></i> Sửa đổi CTĐT | </span>
+                        <span id="tao-moi-ctdt"><a href="<?php echo url('admin/decuong/them-khung-chuong-trinh'); ?>"><i class="fas fa-plus-circle"></i> Tạo CTĐT mới | </a></span>
+                        <span id="sua-doi-ctdt"><a href="<?php echo url('admin/decuong/sua-khung-chuong-trinh/'.$id_khung); ?>"><i class="far fa-edit"></i> Sửa đổi CTĐT | </a></span>
                         <span id="xoa-ctdt"><i class="fas fa-trash-alt"></i> Xóa CTĐT | </span>
                         <span id="xoa-noi-dung-ctdt"><i class="far fa-minus-square"></i> Xóa nội dung CTĐT | </span>
                         <span id="copy-noi-dung-tu-ctdt-khac"><i class="fas fa-copy"></i> Sao chép nội dung từ chương trình khác</span>
+                    
+                    
+                        <div id="modal-sao-chep-noi-dung-khung-chuong-trinh" class="modal">
+                            <div class="modal-content">
+                                <span class="close-modal">&times;</span>
+                                <div class="table-modal-sao-chep-noi-dung-khung-chuong-trinh">
+
+                                    <div id="layout-sao-chep-1">
+                                        <h4>Vui lòng chọn Khung chương trình và các hạng mục muốn sao chép</h4>
+            
+                                        <table>
+
+                                            <tr>
+                                                <td colspan="2">
+                                                    <strong>1. Chọn Khung chương trình muốn sao chép</strong>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="2" id="td-sao-chep-select-chon-khung">
+                                                    <select name="" id="chon-khung-muon-sao-chep">
+                                                        <option value="0">None</option>
+                                                        @foreach ($cackhungkhac as $value_cackhungkhac)
+                                                            <option value="{{$value_cackhungkhac->id}}">{{$value_cackhungkhac->tenkhungchuongtrinh}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="2">
+                                                    <strong>2. Chọn các hạng mục muốn sao chép</strong>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="checktieptucsaochep" name="" id="sao-chep-po">
+                                                </td>
+                                                <td>PO</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="checktieptucsaochep" name="" id="sao-chep-plo">
+                                                </td>
+                                                <td>PLO</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="checktieptucsaochep" name="" id="sao-chep-hoc-phan">
+                                                </td>
+                                                <td>Học phần trong khung</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="checktieptucsaochep" name="" id="sao-chep-de-cuong">
+                                                </td>
+                                                <td>Đề cương chi tiết của các học phần</td>
+                                            </tr>
+                                        </table>
+
+                                        <button class="btn btn-info" id="tiep-tuc" >Tiếp tục</button>
+
+                                    </div>
+
+                                    <div style="display:none" id="layout-sao-chep-2">
+
+                                        <h4>Xác nhận</h4>
+
+                                        <p id="text-thay-doi"></p>
+
+                                        <button class="btn btn-danger" id="quay-lai" >Quay lại</button>
+
+                                        <button class="btn btn-success" id="tien-hanh-sao-chep" >Sao Chép</button>
+
+                                    </div>
+                                    
+                                </div> 
+                            </div>
+                        </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     </div>
                 </div>
 
@@ -264,6 +352,7 @@
 
         $('.close-modal').click(function() {
             document.getElementById("modal-doi-khung-chuong-trinh").style.display = "none";
+            document.getElementById("modal-sao-chep-noi-dung-khung-chuong-trinh").style.display = "none";
         });
 
         window.onclick = function(event) {
@@ -271,7 +360,210 @@
             if (event.target == modal1) {
                 document.getElementById("modal-doi-khung-chuong-trinh").style.display = "none";
             }
+
+            let modal2 = document.getElementById("modal-sao-chep-noi-dung-khung-chuong-trinh");
+            if (event.target == modal2) {
+                document.getElementById("modal-sao-chep-noi-dung-khung-chuong-trinh").style.display = "none";
+            }
+
         }
+
+        let id_khung_sao_chep = 0;
+        let sao_chep_po = false;
+        let sao_chep_plo = false;
+        let sao_chep_hocphan = false;
+        let sao_chep_decuong = false;
+
+        $(".list-option").on('click', 'span#copy-noi-dung-tu-ctdt-khac', function() {
+            document.getElementById("modal-sao-chep-noi-dung-khung-chuong-trinh").style.display = "block";
+        });
+
+        $(".table-modal-sao-chep-noi-dung-khung-chuong-trinh").on('click', 'button#tiep-tuc', function() {
+
+            let nambatdau = {{$nambatdau}};
+            let id_khung_hien_tai = {{$id_khung}};
+
+            $.ajax({
+                url: "{{URL::to('admin/decuong/check-tiep-tuc-sao-chep-cac-hang-muc-khung-chuong-trinh')}}",
+                method: 'GET',
+                data:{id_khung_hien_tai:id_khung_hien_tai, nambatdau:nambatdau, id_khung_sao_chep:id_khung_sao_chep, sao_chep_po:sao_chep_po, sao_chep_plo:sao_chep_plo, sao_chep_hocphan:sao_chep_hocphan, sao_chep_decuong:sao_chep_decuong},
+                success: function(data) {
+                    if (data != null) {
+                
+                        $('#text-thay-doi').html(data);
+
+                        document.getElementById("layout-sao-chep-1").style.display = 'None';
+                        document.getElementById("layout-sao-chep-2").style.display = 'Block';
+
+                    }   
+                }
+            });
+
+        });
+
+        $(".table-modal-sao-chep-noi-dung-khung-chuong-trinh").on('click', 'button#quay-lai', function() {
+            document.getElementById("layout-sao-chep-1").style.display = 'Block';
+            document.getElementById("layout-sao-chep-2").style.display = 'None';
+        });
+
+        $("#chon-khung-muon-sao-chep").change(function() {
+            id_khung_sao_chep = this.value;
+            checktieptuc();
+        });
+
+        function checktieptuc() {
+            var checked = document.querySelectorAll('input.checktieptucsaochep:checked');
+
+            if (checked.length === 0 || id_khung_sao_chep == 0) {
+                $('#tiep-tuc').attr("disabled", true);  
+            } else {
+                $('#tiep-tuc').attr("disabled", false); 
+            }
+        }
+
+        checktieptuc();
+
+        $("#sao-chep-po").change(function() {
+
+            checktieptuc();
+
+            if(this.checked) {
+                sao_chep_po = true;
+            } else {
+                sao_chep_po = false;
+            }
+        });
+
+        $("#sao-chep-plo").change(function() {
+
+            checktieptuc();
+
+            if(this.checked) {
+                sao_chep_plo = true;
+            } else {
+                sao_chep_plo = false;
+            }
+        });
+
+        $("#sao-chep-hoc-phan").change(function() {
+
+            checktieptuc();
+
+            if(this.checked) {
+                sao_chep_hocphan = true;
+            } else {
+                sao_chep_hocphan = false;
+            }
+        });
+
+        $("#sao-chep-de-cuong").change(function() {
+
+            checktieptuc();
+
+            if(this.checked) {
+                sao_chep_decuong = true;
+            } else {
+                sao_chep_decuong = false;
+            }
+        });
+
+        $("#layout-sao-chep-2").on('click', 'button#tien-hanh-sao-chep', function() {
+
+            let nambatdau = {{$nambatdau}};
+            let id_khung_hien_tai = {{$id_khung}};
+
+            $.ajax({
+                url: "{{URL::to('admin/decuong/tien-hanh-sao-chep-cac-hang-muc-khung-chuong-trinh')}}",
+                method: 'GET',
+                data:{id_khung_hien_tai:id_khung_hien_tai, nambatdau:nambatdau, id_khung_sao_chep:id_khung_sao_chep, sao_chep_po:sao_chep_po, sao_chep_plo:sao_chep_plo, sao_chep_hocphan:sao_chep_hocphan, sao_chep_decuong:sao_chep_decuong},
+                success: function(data) {
+                    if (data != null) {
+
+                        alert(data);
+
+                        id_khung_sao_chep = 0;
+                        sao_chep_po = false;
+                        sao_chep_plo = false;
+                        sao_chep_hocphan = false;
+                        sao_chep_decuong = false;
+
+                        $('#chon-khung-muon-sao-chep').prop('selectedIndex',0);
+
+                        $('#sao-chep-po').prop('checked', false); 
+                        $('#sao-chep-plo').prop('checked', false); 
+                        $('#sao-chep-hoc-phan').prop('checked', false); 
+                        $('#sao-chep-de-cuong').prop('checked', false); 
+                        
+                        document.getElementById("layout-sao-chep-1").style.display = 'Block';
+                        document.getElementById("layout-sao-chep-2").style.display = 'None';
+
+                        $('#tiep-tuc').attr("disabled", true);  
+
+                        document.getElementById("modal-sao-chep-noi-dung-khung-chuong-trinh").style.display = "None";
+
+                        load_hocphan_khungchuongtrinh(0);
+
+                    }   
+                }
+            });
+        });
+
+
+        $(".list-option").on('click', 'span#xoa-noi-dung-ctdt', function() {
+
+            var answer = window.confirm("Bạn có chắc chắn muốn Xóa Tất Cả nội dung của Chương trình đào tạo không?");
+            if (answer) {
+
+                let id_khung_hien_tai = {{$id_khung}};
+               
+                $.ajax({
+                    url: "{{URL::to('admin/decuong/xoa-noi-dung-ctdt')}}",
+                    method: 'GET',
+                    data:{id_khung_hien_tai:id_khung_hien_tai},
+                    success: function(data) {
+                        if (data != null) {
+                    
+                            alert(data);
+
+                        }   
+                    }
+                });
+
+            }
+
+        });
+
+        $(".list-option").on('click', 'span#xoa-ctdt', function() {
+            
+            var answer = window.confirm("Bạn có chắc chắn muốn Xóa Chương trình đào tạo không?");
+            if (answer) {
+
+                let id_khung_hien_tai = {{$id_khung}};
+               
+                $.ajax({
+                url: "{{URL::to('admin/decuong/xoa-ctdt')}}",
+                method: 'GET',
+                data:{id_khung_hien_tai:id_khung_hien_tai},
+                success: function(data) {
+                    if (data != null) {
+
+                        window.location.href = "{{URL::to('admin/decuong/quan-ly-chuong-trinh-dao-tao/142')}}";
+                
+                        alert(data);
+
+                    }   
+                }
+            });
+
+            }
+
+        });
+        
+
+
+
+
+
 
 
     });

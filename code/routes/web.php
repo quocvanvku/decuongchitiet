@@ -276,7 +276,17 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('sua-khung-chuong-trinh/{id_khung}', 'DeCuongChiTiet@postSuaKhungChuongTrinh');
 
         Route::get('nhan-ban-khung-chuong-trinh/{id_khung}', 'DeCuongChiTiet@getNhanBanKhungChuongTrinh');
-         
+
+
+        Route::get('check-tiep-tuc-sao-chep-cac-hang-muc-khung-chuong-trinh', 'KhungChuongTrinh@getTiepTucSaoChepCacHangMucKhungChuongTrinh');
+        Route::get('tien-hanh-sao-chep-cac-hang-muc-khung-chuong-trinh', 'KhungChuongTrinh@getTienHanhSaoChepCacHangMucKhungChuongTrinh');
+        
+        Route::get('xoa-noi-dung-ctdt', 'KhungChuongTrinh@getXoaNoiDungCTDT');
+
+        Route::get('xoa-ctdt', 'KhungChuongTrinh@getXoaCTDT');
+
+
+        Route::get('test', 'KhungChuongTrinh@test123');
     });
 
     Route::get('/', 'KhungChuongTrinh@chuongtrinhdaotao_layout');

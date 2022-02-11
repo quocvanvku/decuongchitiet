@@ -5,6 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\khungchuongtrinhhocphan;
+
+use App\Models\chuandauramonhoc;
+use App\Models\moilienhecloplo;
+use App\Models\moilienheclopi;
+use App\Models\modeldecuongchitiet;
+use App\Models\tailieuthamkhao;
+use App\Models\chuandaurachung;
+use App\Models\chuandaurachungchitiet;
+use App\Models\trongsohocphan;
+use App\Models\danhgiahocphan;
+use App\Models\kehoachgiangday;
+use App\Models\khungchuongtrinh_muctieu;
+use App\Models\moilienhepoplo;
+
 use DB;
 use Redirect;
 
@@ -48,15 +62,24 @@ class KhungChuongTrinh extends Controller
         $all_khungchuongtrinh = DB::table('table_khungchuongtrinh')->get();
         $all_khungchuongtrinh = $this->data_khungchuongtrinh($all_khungchuongtrinh, 0);
 
-        // echo "<pre>";
-        // print_r($khungchuongtrinh);
-        // die();
+        $cackhungkhac = DB::table('table_khungchuongtrinh')
+                        ->where('id', '!=',$id_khung)
+                        ->get();
+
+        $khunghientai = DB::table('table_khungchuongtrinh')
+                        ->join('table_namhoc_hocky', 'table_khungchuongtrinh.id_namapdung', 'table_namhoc_hocky.id')
+                        ->where('table_khungchuongtrinh.id', $id_khung)
+                        ->first();
+
+        $nambatdau = $khunghientai->nambatdau;
 
         return view('admin.decuong.quanlychuongtrinhdaotao.quanlychuongtrinhdaotao')
                 ->with('khungchuongtrinh', $khungchuongtrinh)
                 ->with('id_khung', $id_khung)
                 ->with('all_khungchuongtrinh', $all_khungchuongtrinh)
-                ->with('list_hocky', $list_hocky);
+                ->with('list_hocky', $list_hocky)
+                ->with('cackhungkhac', $cackhungkhac)
+                ->with('nambatdau', $nambatdau);
     }
 
     public function getSuaHocPhanKhungChuongTrinh($id_hocphan, $id_khung) {
@@ -722,6 +745,615 @@ class KhungChuongTrinh extends Controller
             echo $output;
         }
     }
+
+
+    public function getTiepTucSaoChepCacHangMucKhungChuongTrinh(Request $request) {
+
+        if($request->ajax()) {
+
+            $id_khung_hien_tai = (String)$request->id_khung_hien_tai; 
+
+            $nambatdau = (String)$request->nambatdau; 
+
+            $id_khung_sao_chep = (String)$request->id_khung_sao_chep; 
+
+            $sao_chep_po = (String)$request->sao_chep_po;
+            $sao_chep_plo = (String)$request->sao_chep_plo; 
+            $sao_chep_hocphan = (String)$request->sao_chep_hocphan; 
+            $sao_chep_decuong = (String)$request->sao_chep_decuong; 
+
+            $output = "Hiện truy vấn có: ";
+
+            if($sao_chep_po == 'true') {
+                
+                $count_po = DB::table('table_khungchuongtrinh_muctieu')
+                            ->where('id_khung', $id_khung_sao_chep)
+                            ->get();
+
+                $output .= count($count_po)." PO, ";
+                
+            } else if($sao_chep_po == 'false') {
+                $output .= "0 PO, ";
+            }
+
+            if($sao_chep_plo == 'true') {
+                
+                $count_plo = DB::table('table_chuandaura_chung')
+                            ->where('id_khungchuongtrinh', $id_khung_sao_chep)
+                            ->count();
+
+                $output .= $count_plo." PLO, ";
+            } else if($sao_chep_plo == 'false') {
+                $output .= "0 PLO, ";
+            }
+
+            $hocphan_saochep = [];
+
+            if($sao_chep_hocphan == 'true') {
+
+                $all_hocphan_hientai = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung_hien_tai)
+                                        ->get();
+
+                $all_hocphan_saochep = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung_sao_chep)
+                                        ->get();  
+
+                foreach($all_hocphan_saochep as $value_all_hocphan_saochep) {
+
+                    $check = FALSE;
+
+                    foreach($all_hocphan_hientai as $value_all_hocphan_hientai) {
+                        if($value_all_hocphan_saochep->id_hocphan == $value_all_hocphan_hientai->id_hocphan) {
+                            $check = TRUE;
+                            break;
+                        }
+                    }
+
+                    if($check == FALSE) {
+                        $hocphan_saochep[] = $value_all_hocphan_saochep;
+                    }
+
+                }
+
+                $output .= count($hocphan_saochep)." học phần, ";
+
+            } else if($sao_chep_hocphan == 'false') {
+                $output .= "0 học phần, ";
+            }
+
+            if($sao_chep_decuong == 'true') {
+                
+                $khungdangchon = DB::table('table_khungchuongtrinh')
+                                ->join('table_namhoc_hocky', 'table_khungchuongtrinh.id_namapdung', 'table_namhoc_hocky.id')
+                                ->where('table_khungchuongtrinh.id', $id_khung_sao_chep)
+                                ->first();
+
+                if($nambatdau < 2020 && $khungdangchon->nambatdau < 2020 || $nambatdau >= 2020 && $khungdangchon->nambatdau >= 2020) {
+                    
+                    $all_hocphan_hientai = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung_hien_tai)
+                                        ->get();
+
+                    if(count($hocphan_saochep) > 0) {
+                        foreach($hocphan_saochep as $value_hocphan_saochep) {
+                            $all_hocphan_hientai[] = $value_hocphan_saochep;
+                        }
+                    }
+                    
+                    $all_decuong_saochep = DB::table('table_decuongchitiet')
+                                        ->where('khungchuongtrinh', $id_khung_sao_chep)
+                                        ->get();
+
+                    $cac_decuong_saochep = [];
+
+                    foreach($all_decuong_saochep as $value_all_decuong_saochep) {
+                        
+                        foreach($all_hocphan_hientai as $value_all_hocphan_hientai) {
+                            if($value_all_hocphan_hientai->id_hocphan == $value_all_decuong_saochep->id_hocphan) {
+                                $cac_decuong_saochep[] = $value_all_decuong_saochep;
+                                break;
+                            }
+                        }
+                    }
+
+                    $all_decuong_hientai = DB::table('table_decuongchitiet')
+                                        ->where('khungchuongtrinh', $id_khung_hien_tai)
+                                        ->get();
+
+                    $all_decuong_saochep = [];
+
+                    foreach($cac_decuong_saochep as $value_cac_decuong_saochep) {
+
+                        $check = FALSE;
+
+                        foreach($all_decuong_hientai as $value_all_decuong_hientai) {
+                            if($value_cac_decuong_saochep->id_hocphan == $value_all_decuong_hientai->id_hocphan) {
+                                $check = TRUE;
+                                break;
+                            }
+                        }
+
+                        if($check == FALSE) {
+                            $all_decuong_saochep[] = $value_cac_decuong_saochep;
+                        }
+
+                    }
+
+                    $output .= count($all_decuong_saochep)." Đề cương.";
+
+                } else {
+                    $output .= "0 Đề cương.";
+                }
+                
+
+            } else if($sao_chep_decuong == 'false') {
+                $output .= "0 Đề cương.";
+            }
+
+            echo $output;
+
+        }
+    }
+
+
+    public function getTienHanhSaoChepCacHangMucKhungChuongTrinh(Request $request) {
+
+        if($request->ajax()) {
+
+            $id_khung_hien_tai = (String)$request->id_khung_hien_tai; 
+
+            $nambatdau = (String)$request->nambatdau; 
+
+            $id_khung_sao_chep = (String)$request->id_khung_sao_chep; 
+
+            $sao_chep_po = (String)$request->sao_chep_po;
+            $sao_chep_plo = (String)$request->sao_chep_plo; 
+            $sao_chep_hocphan = (String)$request->sao_chep_hocphan; 
+            $sao_chep_decuong = (String)$request->sao_chep_decuong; 
+
+
+            if($sao_chep_po == 'true') {
+                
+                $count_po = DB::table('table_khungchuongtrinh_muctieu')
+                            ->where('id_khung', $id_khung_sao_chep)
+                            ->get();
+
+                foreach($count_po as $value_count_po) {
+
+                    DB::table('table_khungchuongtrinh_muctieu')->insert([
+                        "ten_po" => $value_count_po->ten_po,
+                        "noidung_po" => $value_count_po->noidung_po,
+                        "id_khung" => $id_khung_hien_tai
+                    ]);
+
+                }
+                
+            } 
+
+            if($sao_chep_plo == 'true') {
+                
+                $count_plo = DB::table('table_chuandaura_chung')
+                            ->where('id_khungchuongtrinh', $id_khung_sao_chep)
+                            ->get();
+
+
+                foreach($count_plo as $value_count_plo) {
+
+                    DB::table('table_chuandaura_chung')->insert([
+                        "ten_plo" => $value_count_plo->ten_plo,
+                        "noidung_cdr_chung" => $value_count_plo->noidung_cdr_chung,
+                        "id_khungchuongtrinh" => $id_khung_hien_tai
+                    ]);
+
+                }
+
+            } 
+
+            $hocphan_saochep = [];
+
+            if($sao_chep_hocphan == 'true') {
+
+                $all_hocphan_hientai = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung_hien_tai)
+                                        ->get();
+
+                $all_hocphan_saochep = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung_sao_chep)
+                                        ->get();  
+
+                foreach($all_hocphan_saochep as $value_all_hocphan_saochep) {
+
+                    $check = FALSE;
+
+                    foreach($all_hocphan_hientai as $value_all_hocphan_hientai) {
+                        if($value_all_hocphan_saochep->id_hocphan == $value_all_hocphan_hientai->id_hocphan) {
+                            $check = TRUE;
+                            break;
+                        }
+                    }
+
+                    if($check == FALSE) {
+                        $hocphan_saochep[] = $value_all_hocphan_saochep;
+                    }
+
+                }
+
+                foreach($hocphan_saochep as $value_hocphan_saochep) {
+
+                    DB::table('table_khungchuongtrinh_hocphan')->insert([
+                        "stt" => $value_hocphan_saochep->stt,
+                        "hocky" => $value_hocphan_saochep->hocky,
+                        "id_khung" => $id_khung_hien_tai,
+                        "id_hocphan" => $value_hocphan_saochep->id_hocphan,
+                        "id_hocphan_thaythe" => $value_hocphan_saochep->id_hocphan_thaythe,
+                        "tienquyet" => $value_hocphan_saochep->tienquyet,
+                        "hoctruoc" => $value_hocphan_saochep->hoctruoc,
+                        "songhanh" => $value_hocphan_saochep->songhanh,
+                        "tuongduong" => $value_hocphan_saochep->tuongduong,
+                        "hocghep" => $value_hocphan_saochep->hocghep,
+                        "tuchon" => $value_hocphan_saochep->tuchon,
+                        "da_chuyennganh" => $value_hocphan_saochep->da_chuyennganh,
+                        "da_totnghiep" => $value_hocphan_saochep->da_totnghiep,
+                        "khoikienthuc" => $value_hocphan_saochep->khoikienthuc
+                    ]);
+
+                }
+
+            } 
+
+            if($sao_chep_decuong == 'true') {
+                
+                $khungdangchon = DB::table('table_khungchuongtrinh')
+                                ->join('table_namhoc_hocky', 'table_khungchuongtrinh.id_namapdung', 'table_namhoc_hocky.id')
+                                ->where('table_khungchuongtrinh.id', $id_khung_sao_chep)
+                                ->first();
+
+                if($nambatdau < 2020 && $khungdangchon->nambatdau < 2020 || $nambatdau >= 2020 && $khungdangchon->nambatdau >= 2020) {
+                    
+                    $all_hocphan_hientai = DB::table('table_khungchuongtrinh_hocphan')
+                                        ->where('id_khung', $id_khung_hien_tai)
+                                        ->get();
+
+                    if(count($hocphan_saochep) > 0) {
+                        foreach($hocphan_saochep as $value_hocphan_saochep) {
+                            $all_hocphan_hientai[] = $value_hocphan_saochep;
+                        }
+                    }
+                    
+                    $all_decuong_saochep = DB::table('table_decuongchitiet')
+                                        ->where('khungchuongtrinh', $id_khung_sao_chep)
+                                        ->get();
+
+                    $cac_decuong_saochep = [];
+
+                    foreach($all_decuong_saochep as $value_all_decuong_saochep) {
+                        
+                        foreach($all_hocphan_hientai as $value_all_hocphan_hientai) {
+                            if($value_all_hocphan_hientai->id_hocphan == $value_all_decuong_saochep->id_hocphan) {
+                                $cac_decuong_saochep[] = $value_all_decuong_saochep;
+                                break;
+                            }
+                        }
+                    }
+
+                    $all_decuong_hientai = DB::table('table_decuongchitiet')
+                                        ->where('khungchuongtrinh', $id_khung_hien_tai)
+                                        ->get();
+
+                    $all_decuong_saochep = [];
+
+                    foreach($cac_decuong_saochep as $value_cac_decuong_saochep) {
+
+                        $check = FALSE;
+
+                        foreach($all_decuong_hientai as $value_all_decuong_hientai) {
+                            if($value_cac_decuong_saochep->id_hocphan == $value_all_decuong_hientai->id_hocphan) {
+                                $check = TRUE;
+                                break;
+                            }
+                        }
+
+                        if($check == FALSE) {
+                            $all_decuong_saochep[] = $value_cac_decuong_saochep;
+                        }
+
+                    }
+
+
+                    foreach($all_decuong_saochep as $value_all_decuong_saochep) {
+
+                        DB::table('table_decuongchitiet')->insert([
+                            "id_hocphan" => $value_all_decuong_saochep->id_hocphan,
+                            "phanbo_lythuyet" => $value_all_decuong_saochep->phanbo_lythuyet,
+                            "phanbo_baitap" => $value_all_decuong_saochep->phanbo_baitap,
+                            "phanbo_thuchanh" => $value_all_decuong_saochep->phanbo_thuchanh,
+                            "phanbo_tuhoc" => $value_all_decuong_saochep->phanbo_tuhoc,
+                            "giangvienphutrach_id" => $value_all_decuong_saochep->giangvienphutrach_id,
+                            "gv_daycung" => $value_all_decuong_saochep->gv_daycung,
+                            "khoaphutrach" => $value_all_decuong_saochep->khoaphutrach,
+                            "id_nganh" => $value_all_decuong_saochep->id_nganh,
+                            "loaihocphan" => $value_all_decuong_saochep->loaihocphan,
+                            "khoikienthuc" => $value_all_decuong_saochep->khoikienthuc,
+                            "mota_tomtat" => $value_all_decuong_saochep->mota_tomtat,
+                            "muctieu_kienthuc" => $value_all_decuong_saochep->muctieu_kienthuc,
+                            "muctieu_kynang" => $value_all_decuong_saochep->muctieu_kynang,
+                            "muctieu_thaido" => $value_all_decuong_saochep->muctieu_thaido,
+                            "nhiemvu" => $value_all_decuong_saochep->nhiemvu,
+                            "tailieuthamkhao_giaotrinh" => $value_all_decuong_saochep->tailieuthamkhao_giaotrinh,
+                            "tailieuthamkhao_sach" => $value_all_decuong_saochep->tailieuthamkhao_sach,
+                            "ngaypheduyet" => $value_all_decuong_saochep->ngaypheduyet,
+                            "khungchuongtrinh" => $id_khung_hien_tai
+
+                        ]);
+                    }
+
+                    $all_danhgiahocphan = DB::table('table_danhgiahocphan')
+                                        ->where('khungchuongtrinh', $id_khung_sao_chep)
+                                        ->get();
+
+                    foreach($all_danhgiahocphan as $value_all_danhgiahocphan) {
+
+                        DB::table('table_danhgiahocphan')->insert([
+                            "phuongphapdanhgia" => $value_all_danhgiahocphan->phuongphapdanhgia,
+                            "trongsobaidanhgia" => $value_all_danhgiahocphan->trongsobaidanhgia,
+                            "cdr_hocphan" => $value_all_danhgiahocphan->cdr_hocphan,
+                            "id_baidanhgia" => $value_all_danhgiahocphan->id_baidanhgia,
+                            "id_baidanhgia_parent" => $value_all_danhgiahocphan->id_baidanhgia_parent,
+                            "id_hocphan" => $value_all_danhgiahocphan->id_hocphan,
+                            "khungchuongtrinh" => $id_khung_hien_tai
+                        ]);
+                    }
+
+
+                    $all_trongsohocphan = DB::table('table_trongso_hp')
+                                        ->where('khungchuongtrinh', $id_khung_sao_chep)
+                                        ->get();
+
+                    foreach($all_trongsohocphan as $value_all_trongsohocphan) {
+
+                        DB::table('table_trongso_hp')->insert([
+                            "id_hp" => $value_all_trongsohocphan->id_hp,
+                            "id_trongso" => $value_all_trongsohocphan->id_trongso,
+                            "trongso" => $value_all_trongsohocphan->trongso,
+                            "trangthai" => $value_all_trongsohocphan->trangthai,
+                            "khungchuongtrinh" => $id_khung_hien_tai
+                        ]);
+                    }
+
+
+                    $all_kehoachgiangday = DB::table('table_kehoachgiangday')
+                                        ->where('khungchuongtrinh', $id_khung_sao_chep)
+                                        ->get();
+
+                    foreach($all_kehoachgiangday as $value_all_kehoachgiangday) {
+
+                        DB::table('table_kehoachgiangday')->insert([
+                            "buoi" => $value_all_kehoachgiangday->buoi,
+                            "noidung" => $value_all_kehoachgiangday->noidung,
+                            "hoatdongdayhoc" => $value_all_kehoachgiangday->hoatdongdayhoc,
+                            "baidanhgia" => $value_all_kehoachgiangday->baidanhgia,
+                            "cdrhocphan" => $value_all_kehoachgiangday->cdrhocphan,
+                            "id_hocphan" => $value_all_kehoachgiangday->id_hocphan,
+                            "thuochocphan" => $value_all_kehoachgiangday->thuochocphan,
+                            "khungchuongtrinh" => $id_khung_hien_tai
+                        ]);
+                    }
+
+
+                    $all_chuandauramonhoc = DB::table('table_chuandaura_monhoc')
+                                        ->where('khungchuongtrinh', $id_khung_sao_chep)
+                                        ->get();
+
+                    foreach($all_chuandauramonhoc as $value_all_chuandauramonhoc) {
+
+                        DB::table('table_chuandaura_monhoc')->insert([
+                            "stt" => $value_all_chuandauramonhoc->stt,
+                            "noi_dung" => $value_all_chuandauramonhoc->noi_dung,
+                            "id_hocphan" => $value_all_chuandauramonhoc->id_hocphan,
+                            "khungchuongtrinh" => $id_khung_hien_tai
+                        ]);
+                    }
+
+
+                    $all_tailieuthamkhao = DB::table('table_tailieuthamkhao')
+                                        ->where('khungchuongtrinh', $id_khung_sao_chep)
+                                        ->get();
+
+                    foreach($all_tailieuthamkhao as $value_all_tailieuthamkhao) {
+
+                        DB::table('table_tailieuthamkhao')->insert([
+                            "tentacgia" => $value_all_tailieuthamkhao->tentacgia,
+                            "namxuatban" => $value_all_tailieuthamkhao->namxuatban,
+                            "tensach" => $value_all_tailieuthamkhao->tensach,
+                            "noixuatban" => $value_all_tailieuthamkhao->noixuatban,
+                            "nhaxuatban" => $value_all_tailieuthamkhao->nhaxuatban,
+                            "url" => $value_all_tailieuthamkhao->url,
+                            "loaitailieu" => $value_all_tailieuthamkhao->loaitailieu,
+                            "id_hocphan" => $value_all_tailieuthamkhao->id_hocphan,
+                            "khungchuongtrinh" => $id_khung_hien_tai
+                        ]);
+                    }
+
+                } 
+                
+            }
+
+            echo "Sao chép Thành Công";
+
+        }
+
+    }
+
+    public function getXoaNoiDungCTDT(Request $request) {
+        if($request->ajax()) {
+
+            $id_khung_hien_tai = $request->id_khung_hien_tai;
+
+            $all_plo = DB::table('table_chuandaura_chung')
+                        ->where('id_khungchuongtrinh', $id_khung_hien_tai)
+                        ->get();
+
+            if(count($all_plo) > 0) {
+                foreach($all_plo as $value_all_plo) {
+
+                    $delete_pi = DB::table('table_chuandaura_chung_chitiet')
+                                ->where('id_cdr_chung', $value_all_plo->id_cdr_chung)
+                                ->first();
+
+                    if (isset($delete_pi)) {
+                        $delete_pi->delete();
+                    }
+     
+                }
+            }
+            
+            $delete_po = DB::table('table_khungchuongtrinh_muctieu')->where('id_khung', $id_khung_hien_tai)->delete();
+
+            $delete_plo = DB::table('table_chuandaura_chung')->where('id_khungchuongtrinh', $id_khung_hien_tai)->delete();
+
+            $delete_moilienhe_po_plo = DB::table('table_moilienhe_po_plo')->where('id_khung', $id_khung_hien_tai)->delete();
+
+
+            $deletedghp = danhgiahocphan::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletedghp)) {
+                $deletedghp->delete();
+            }
+            
+            $deletetslhp = trongsohocphan::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletetslhp)) {
+                $deletetslhp->delete();
+            }
+
+            $deletekhgd = kehoachgiangday::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletekhgd)) {
+                $deletekhgd->delete();
+            }
+
+            $deletecdrmh = chuandauramonhoc::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletecdrmh)) {
+                $deletecdrmh->delete();
+            }
+
+            $deletemlh = moilienhecloplo::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletemlh)) {
+                $deletemlh->delete();
+            }
+
+            $deletemlhpi = moilienheclopi::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletemlhpi)) {
+                $deletemlhpi->delete();
+            }
+
+            $deletetltk = tailieuthamkhao::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletetltk)) {
+                $deletetltk->delete();
+            }
+
+            $delete_dc = modeldecuongchitiet::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($delete_dc)) {
+                $delete_dc->delete();
+            }
+
+            $delete_khungchuongtrinh = DB::table('table_khungchuongtrinh_hocphan')->where('id_khung', $id_khung_hien_tai)->delete();
+
+            echo 'Xóa Thành Công';
+            
+        }
+    }
+
+    public function getXoaCTDT(Request $request) {
+
+        if($request->ajax()) {
+
+            $id_khung_hien_tai = $request->id_khung_hien_tai;
+
+            $all_plo = DB::table('table_chuandaura_chung')
+                        ->where('id_khungchuongtrinh', $id_khung_hien_tai)
+                        ->get();
+
+            if(count($all_plo) > 0) {
+                foreach($all_plo as $value_all_plo) {
+
+                    $delete_pi = DB::table('table_chuandaura_chung_chitiet')
+                                ->where('id_cdr_chung', $value_all_plo->id_cdr_chung)
+                                ->first();
+
+                    if (isset($delete_pi)) {
+                        $delete_pi->delete();
+                    }
+     
+                }
+            }
+            
+            $delete_po = DB::table('table_khungchuongtrinh_muctieu')->where('id_khung', $id_khung_hien_tai)->delete();
+
+            $delete_plo = DB::table('table_chuandaura_chung')->where('id_khungchuongtrinh', $id_khung_hien_tai)->delete();
+
+            $delete_moilienhe_po_plo = DB::table('table_moilienhe_po_plo')->where('id_khung', $id_khung_hien_tai)->delete();
+
+
+            $deletedghp = danhgiahocphan::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletedghp)) {
+                $deletedghp->delete();
+            }
+            
+            $deletetslhp = trongsohocphan::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletetslhp)) {
+                $deletetslhp->delete();
+            }
+
+            $deletekhgd = kehoachgiangday::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletekhgd)) {
+                $deletekhgd->delete();
+            }
+
+            $deletecdrmh = chuandauramonhoc::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletecdrmh)) {
+                $deletecdrmh->delete();
+            }
+
+            $deletemlh = moilienhecloplo::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletemlh)) {
+                $deletemlh->delete();
+            }
+
+            $deletemlhpi = moilienheclopi::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletemlhpi)) {
+                $deletemlhpi->delete();
+            }
+
+            $deletetltk = tailieuthamkhao::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($deletetltk)) {
+                $deletetltk->delete();
+            }
+
+            $delete_dc = modeldecuongchitiet::where('khungchuongtrinh', $id_khung_hien_tai);
+            if (isset($delete_dc)) {
+                $delete_dc->delete();
+            }
+
+            $delete_khungchuongtrinh = DB::table('table_khungchuongtrinh_hocphan')->where('id_khung', $id_khung_hien_tai)->delete();
+
+            $delete_khungchuongtrinh = DB::table('table_khungchuongtrinh')->where('id', $id_khung_hien_tai)->delete();
+
+            echo "Xóa Thành Công";
+
+        }
+
+    }
+
+    
+
+
+    public function test123() {
+
+        
+        
+
+    }
+
+    
 
 
 

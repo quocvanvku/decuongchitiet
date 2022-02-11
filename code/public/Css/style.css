@@ -56,6 +56,15 @@ li {
     font-size: 14px;
 }
 
+.quan-ly-chuong-trinh-dao-tao .row .top .list-option span a {
+    color: #000;
+}
+
+.quan-ly-chuong-trinh-dao-tao .row .top .list-option span {
+    color: #000;
+    cursor: pointer;
+}
+
 .quan-ly-chuong-trinh-dao-tao .row .top .list-option span#tao-moi-ctdt i {
     color: #3e64ff;
 }
@@ -3104,6 +3113,48 @@ li {
     border: 1px solid #000;
     border-radius: 5px;
     padding-left: 5px;
+}
+
+
+
+
+#modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh {
+    margin: 30px;
+    font-size: 15px;
+}
+
+#modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh h4 {
+    text-align: center;
+}
+
+#modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh table {
+    margin: auto;
+}
+
+#modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh table tr td {
+    text-align: left;
+}
+
+#modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh table tr td input {
+    margin-right: 15px;
+}
+
+#modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh #layout-sao-chep-2 #quay-lai {
+    float: left;
+}
+
+#modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh #layout-sao-chep-2 p {
+    text-align: center;
+}
+
+#modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh table tr td select {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    height: 30px;
+}
+
+#modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh table tr td strong {
+    font-size: 18px;
 }
 
 
