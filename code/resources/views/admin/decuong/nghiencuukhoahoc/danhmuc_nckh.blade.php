@@ -87,11 +87,13 @@
                                 <span id="them-moi-nckh" onclick="openHdNckh(event, 'themmoi-nckh')" >Thêm mới NCKH</span>
                                 <span id="sua-nckh">Sửa hoạt động NCKH</span>
                                 <span id="xoa-nckh">Xóa hoạt động NCKH</span>
+                                <a href="<?php echo url('admin/decuong/duyet-nghien-cuu-khoa-hoc/'.$id_namhoc); ?>"><span id="xet-duyet">Xét duyệt</span></a>
 
                                 <div class="list-duyet" style="float: right;">
                                     <span><i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i> Đang chờ duyệt</span>
                                     <span><i style="color:#f0134d;padding-right:3px" class="fas fa-ban"></i>   Không duyệt</span>
                                     <span><i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i> Đã duyệt</span>
+                                    <span style="padding-left:35px; cursor: pointer;" id="gui-duyet-tat-ca" ><i style="color:#1FD537;padding-right:3px" class="fas fa-file-import"></i> Gửi duyệt hết</span>
                                 </div>
                             </div>
                             
@@ -126,7 +128,7 @@
                                                     <?php $stt_l1 = 1; ?>
                                                     @foreach ($all_hoatdong_cuatoi_view1 as $value_all_hdct_view1)
                                                         @if ($value_all_hdct_view1->id_hoatdong == $value_all_hoatdong_nckh->id)
-                                                        <tr class="click-hoat-dong-cua-toi" data-value="<?php echo url('admin/decuong/sua-nghien-cuu-khoa-hoc-loai-1/'.$value_all_hdct_view1->id.'/'.$id_namhoc); ?>">
+                                                        <tr class="click-hoat-dong-cua-toi" data-link="<?php echo url('admin/decuong/xoa-nghien-cuu-khoa-hoc-loai-1/'.$value_all_hdct_view1->id.'/'.$id_namhoc); ?>" data-value="<?php echo url('admin/decuong/sua-nghien-cuu-khoa-hoc-loai-1/'.$value_all_hdct_view1->id.'/'.$id_namhoc); ?>">
                                                             <td class="align-middle" style="text-align: left;">
                                                                 <b>{{$stt_l1++.'. '.$value_all_hdct_view1->tenbaibao}}</b> <br>
                                                                 Tác giả: 
@@ -158,10 +160,12 @@
                                                             <td class="align-middle">{{$value_all_hdct_view1->thanhgionckh}} Giờ</td>
                                                             <td class="align-middle">
                                                                 @if ($value_all_hdct_view1->trangthaiduyet==0)
-                                                                    <i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i>
+                                                                    
                                                                 @elseif ($value_all_hdct_view1->trangthaiduyet==1)
-                                                                    <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
+                                                                    <i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i>
                                                                 @elseif ($value_all_hdct_view1->trangthaiduyet==2)
+                                                                    <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
+                                                                @elseif ($value_all_hdct_view1->trangthaiduyet==3)
                                                                     <i style="color:#f0134d;padding-right:3px" class="fas fa-ban"></i>
                                                                 @endif
                                                             </td>
@@ -174,7 +178,7 @@
                                                     <?php $stt_l2 = 1; ?>
                                                     @foreach ($all_hoatdong_cuatoi_view2 as $value_all_hdct_view2)
                                                         @if ($value_all_hdct_view2->id_hoatdong == $value_all_hoatdong_nckh->id)
-                                                        <tr class="click-hoat-dong-cua-toi" data-value="<?php echo url('admin/decuong/sua-nghien-cuu-khoa-hoc-loai-2/'.$value_all_hdct_view2->id.'/'.$id_namhoc); ?>">
+                                                        <tr class="click-hoat-dong-cua-toi" data-link="<?php echo url('admin/decuong/xoa-nghien-cuu-khoa-hoc-loai-2/'.$value_all_hdct_view2->id.'/'.$id_namhoc); ?>" data-value="<?php echo url('admin/decuong/sua-nghien-cuu-khoa-hoc-loai-2/'.$value_all_hdct_view2->id.'/'.$id_namhoc); ?>">
                                                             <td class="align-middle" style="text-align: left;">
                                                                 <b>{{$stt_l2++.'. '.$value_all_hdct_view2->tensach}}</b> <br>
                                                                 Tác giả: 
@@ -204,10 +208,12 @@
                                                             <td class="align-middle">{{$value_all_hdct_view2->thanhgionckh}} Giờ</td>
                                                             <td class="align-middle">
                                                                 @if($value_all_hdct_view2->trangthaiduyet==0)
-                                                                    <i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i>
+                                                                    
                                                                 @elseif ($value_all_hdct_view2->trangthaiduyet==1)
-                                                                    <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
+                                                                    <i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i>
                                                                 @elseif ($value_all_hdct_view2->trangthaiduyet==2)
+                                                                    <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
+                                                                @elseif ($value_all_hdct_view2->trangthaiduyet==3)
                                                                     <i style="color:#f0134d;padding-right:3px" class="fas fa-ban"></i>
                                                                 @endif
                                                             </td>
@@ -220,7 +226,7 @@
                                                     <?php $stt_l3 = 1; ?>
                                                     @foreach ($all_hoatdong_cuatoi_view3 as $value_all_hdct_view3)
                                                         @if ($value_all_hdct_view3->id_hoatdong == $value_all_hoatdong_nckh->id)
-                                                        <tr class="click-hoat-dong-cua-toi" data-value="<?php echo url('admin/decuong/sua-nghien-cuu-khoa-hoc-loai-3/'.$value_all_hdct_view3->id.'/'.$id_namhoc); ?>">
+                                                        <tr class="click-hoat-dong-cua-toi" data-link="<?php echo url('admin/decuong/xoa-nghien-cuu-khoa-hoc-loai-3/'.$value_all_hdct_view3->id.'/'.$id_namhoc); ?>" data-value="<?php echo url('admin/decuong/sua-nghien-cuu-khoa-hoc-loai-3/'.$value_all_hdct_view3->id.'/'.$id_namhoc); ?>">
                                                             <td class="align-middle" style="text-align: left;">
                                                                 {{$stt_l3++.'. '.$value_all_hdct_view3->minhchung}} <br>
                                                 
@@ -244,10 +250,12 @@
                                                             <td class="align-middle">{{$value_all_hdct_view3->thanhgionckh}} Giờ</td>
                                                             <td class="align-middle">
                                                                 @if($value_all_hdct_view3->trangthaiduyet==0)
-                                                                <i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i>
+                                                                
                                                                 @elseif ($value_all_hdct_view3->trangthaiduyet==1)
-                                                                    <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
+                                                                    <i style="color:#64c4ed;padding-right:3px" class="fas fa-hourglass-half"></i>
                                                                 @elseif ($value_all_hdct_view3->trangthaiduyet==2)
+                                                                    <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
+                                                                @elseif ($value_all_hdct_view3->trangthaiduyet==3)
                                                                     <i style="color:#f0134d;padding-right:3px" class="fas fa-ban"></i>
                                                                 @endif
                                                             </td>
@@ -267,7 +275,9 @@
                                                 </tr>
                                             @endif
                                         @endforeach
-                                        <input type="hidden" name="" id="id-hoatdong-clicked">
+                                        <input type="hidden" name="" id="link-sua-hoatdong-clicked">
+
+                                        <input type="hidden" name="" id="link-xoa-hoatdong-clicked">
 
                                         <tr>
                                             <td class="align-middle"></td>
@@ -356,12 +366,27 @@
         $('.table-nghien-cuu-khoa-hoc').on('click', 'table tbody tr.click-hoat-dong-cua-toi', function() {
             $(".click-hoat-dong-cua-toi").removeClass('active');
             $(this).addClass("active");
-            $("#id-hoatdong-clicked").val($(this).attr('data-value'));
+            $("#link-sua-hoatdong-clicked").val($(this).attr('data-value'));
+            $("#link-xoa-hoatdong-clicked").val($(this).attr('data-link'));
         });
 
         $('#sua-nckh').click(function() {
 
-            let link_href = $("#id-hoatdong-clicked").val();
+            let data_link = $("#link-sua-hoatdong-clicked").val();
+
+            if(data_link.trim().length) {
+
+                window.location.href = data_link;
+
+            } else {
+                alert("Vui lòng chọn hoạt động cần sửa và tiếp tục !!!");
+            }
+
+        });
+
+        $('#xoa-nckh').click(function() {
+
+            let link_href = $("#link-xoa-hoatdong-clicked").val();
 
             if(link_href.trim().length) {
                 
@@ -369,6 +394,29 @@
 
             } else {
                 alert("Vui lòng chọn hoạt động cần sửa và tiếp tục !!!");
+            }
+
+        });
+
+        $('#gui-duyet-tat-ca').click(function() {
+
+            let id_namhoc = {{$id_namhoc}};
+            let id_tacgia = {{$id_tacgia}}
+           
+            var answer = window.confirm("Bạn muốn gửi yêu cầu duyệt tất cả các mục?");
+            if (answer) {
+                $.ajax({
+                    url: "{{URL::to('admin/decuong/gui-xet-duyet-nckh')}}",
+                    method: 'get',
+                    data:{id_namhoc:id_namhoc, id_tacgia:id_tacgia},
+                    success: function(data) {
+                        if (data != null) {
+                            if(data == 'Successfull') {
+                                location.reload();
+                            }
+                        }   
+                    }
+                });
             }
 
         });
@@ -412,6 +460,8 @@
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+
+    
 
     
 

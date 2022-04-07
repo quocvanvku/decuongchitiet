@@ -18,7 +18,7 @@ class NghienCuuKhoaHoc extends Controller
 {
     public function index($id_namhoc) {
 
-        $id_tacgia = 0;
+        $id_tacgia = 23;                                                    
 
         $all_hoatdong_nckh = DB::table('table_nghiencuukhoahoc_hoatdong')
                                 ->where('namhoc', $id_namhoc)
@@ -41,6 +41,7 @@ class NghienCuuKhoaHoc extends Controller
 
             $all_ht_cuatoi_loai1 = DB::table('table_nghiencuukhoahoc_loai1')
                         ->where('id_hoatdong', $value_all_hoatdong_nckh->id)
+                        ->where('id_tacgia', $id_tacgia)
                         ->count();
             if($all_ht_cuatoi_loai1 > 0) {
                 $value_all_hoatdong_nckh->count_sub = $all_ht_cuatoi_loai1;
@@ -48,6 +49,7 @@ class NghienCuuKhoaHoc extends Controller
 
             $all_ht_cuatoi_loai2 = DB::table('table_nghiencuukhoahoc_loai2')
                         ->where('id_hoatdong', $value_all_hoatdong_nckh->id)
+                        ->where('id_tacgia', $id_tacgia)
                         ->count();
             if($all_ht_cuatoi_loai2 > 0) {
                 $value_all_hoatdong_nckh->count_sub = $all_ht_cuatoi_loai2;
@@ -55,6 +57,7 @@ class NghienCuuKhoaHoc extends Controller
 
             $all_ht_cuatoi_loai3 = DB::table('table_nghiencuukhoahoc_loai3')
                         ->where('id_hoatdong', $value_all_hoatdong_nckh->id)
+                        ->where('id_tacgia', $id_tacgia)
                         ->count();
             if($all_ht_cuatoi_loai3 > 0) {
                 $value_all_hoatdong_nckh->count_sub = $all_ht_cuatoi_loai3;
@@ -84,6 +87,11 @@ class NghienCuuKhoaHoc extends Controller
         foreach($all_hoatdong_cuatoi_view1 as $value_all_hoatdong_cuatoi_view1) {
             $list_cactacgia = [];
             $sotacgia = 0;
+
+            $tacgia_chinh = DB::table('table_giangvien')->where('id', $value_all_hoatdong_cuatoi_view1->id_tacgia)->first();
+            $list_cactacgia[] = $tacgia_chinh;
+            $sotacgia += 1;
+
             if(isset($value_all_hoatdong_cuatoi_view1->id_cactacgia) && $value_all_hoatdong_cuatoi_view1->id_cactacgia != null) {
                 $id_ctg = explode("_", $value_all_hoatdong_cuatoi_view1->id_cactacgia);            
                 foreach ($id_ctg as $value) {
@@ -91,9 +99,11 @@ class NghienCuuKhoaHoc extends Controller
                     $list_cactacgia[] = $tg;
                     $sotacgia = $sotacgia+1;
                 }
+
             }
+            
             $value_all_hoatdong_cuatoi_view1->id_cactacgia = $list_cactacgia;
-            $value_all_hoatdong_cuatoi_view1->sotacgia = $sotacgia+1;
+            $value_all_hoatdong_cuatoi_view1->sotacgia = $sotacgia;
 
             // $list_hinhanhminhchung = explode("|", $value_all_hoatdong_cuatoi_view1->hinhanhminhchung);   
             // $value_all_hoatdong_cuatoi_view1->hinhanhminhchung = $list_hinhanhminhchung;
@@ -124,6 +134,11 @@ class NghienCuuKhoaHoc extends Controller
 
             $list_cactacgia = [];
             $sotacgia = 0;
+
+            $tacgia_chinh = DB::table('table_giangvien')->where('id', $value_all_hoatdong_cuatoi_view2->id_tacgia)->first();
+            $list_cactacgia[] = $tacgia_chinh;
+            $sotacgia += 1;
+
             if(isset($value_all_hoatdong_cuatoi_view2->id_cactacgia) && $value_all_hoatdong_cuatoi_view2->id_cactacgia != null) {
                 $id_ctg = explode("_", $value_all_hoatdong_cuatoi_view2->id_cactacgia);            
                 foreach ($id_ctg as $value) {
@@ -133,7 +148,7 @@ class NghienCuuKhoaHoc extends Controller
                 }
             }
             $value_all_hoatdong_cuatoi_view2->id_cactacgia = $list_cactacgia;
-            $value_all_hoatdong_cuatoi_view2->sotacgia = $sotacgia+1;
+            $value_all_hoatdong_cuatoi_view2->sotacgia = $sotacgia;
 
             
             $list_hinhanhminhchung = explode("|", $value_all_hoatdong_cuatoi_view2->hinhanhminhchung);  
@@ -252,6 +267,7 @@ class NghienCuuKhoaHoc extends Controller
                 ->with('namhoc_dangchon', $namhoc_dangchon)
                 ->with('all_namhoc', $all_namhoc)
                 ->with('id_namhoc', $id_namhoc)
+                ->with('id_tacgia', $id_tacgia)
                 ->with('all_hoatdong_cuatoi_view1', $all_hoatdong_cuatoi_view1)
                 ->with('all_hoatdong_cuatoi_view2', $all_hoatdong_cuatoi_view2)
                 ->with('all_hoatdong_cuatoi_view3', $all_hoatdong_cuatoi_view3)
@@ -360,7 +376,7 @@ class NghienCuuKhoaHoc extends Controller
             }
             $hinhanhminhchung = rtrim($hinhanhminhchung, '|');
         }
-
+ 
         $detai_nckh_loai1 = new nghiencuukhoahocloai1;
         $detai_nckh_loai1->tenbaibao = $tenbaibao;
         $detai_nckh_loai1->id_cactacgia = $id_cactacgia;
@@ -926,7 +942,7 @@ class NghienCuuKhoaHoc extends Controller
 
     public function ThongKeNghienCuuKhoaHocCuaToi($id_namhoc) {
 
-        $id_gv = 0;
+        $id_gv = 23;
 
         $namhoc_dangchon = DB::table('table_namhoc_hocky')
                         ->select('id', 'nambatdau', 'namketthuc', 'hienhanh')
@@ -1177,7 +1193,701 @@ class NghienCuuKhoaHoc extends Controller
                     ->with('gioconthieu', $gioconthieu);
     }
 
+    public function getDuyetNghienCuuKhoaHoc($id_namhoc) {
+
+        $namhoc_dangchon = DB::table('table_namhoc_hocky')
+                        ->select('id', 'nambatdau', 'namketthuc', 'hienhanh')
+                        ->where('nambatdau', '>', 0)
+                        ->where('id', $id_namhoc)
+                        ->DISTINCT()
+                        ->first();
+
+        $all_namhoc = DB::table('table_namhoc_hocky')
+                        ->select('id', 'nambatdau', 'namketthuc', 'hienhanh')
+                        ->where('nambatdau', '>', 0)
+                        ->DISTINCT()
+                        ->get();
+
+        $ds_tacgia_duyet = [];
+
+        $ds_tacgia_view1 = DB::table('table_nghiencuukhoahoc_loai1')
+                            ->select('id_tacgia', 'trangthaiduyet')
+                            ->where('namhoc', $id_namhoc)
+                            ->DISTINCT()
+                            ->get();
+
+        foreach($ds_tacgia_view1 as $value_ds_tacgia_view1) {
+            $ds_tacgia_duyet[] = $value_ds_tacgia_view1->id_tacgia;
+        }
+
+        $ds_tacgia_view2 = DB::table('table_nghiencuukhoahoc_loai2')
+                            ->select('id_tacgia')
+                            ->where('namhoc', $id_namhoc)
+                            ->DISTINCT()
+                            ->get();
+
+        foreach($ds_tacgia_view2 as $value_ds_tacgia_view2) {
+            $ds_tacgia_duyet[] = $value_ds_tacgia_view2->id_tacgia;
+        }
+
+        $ds_tacgia_view3 = DB::table('table_nghiencuukhoahoc_loai3')
+                            ->select('id_tacgia')
+                            ->where('namhoc', $id_namhoc)
+                            ->DISTINCT()
+                            ->get();
+
+       foreach($ds_tacgia_view3 as $value_ds_tacgia_view3) {
+            $ds_tacgia_duyet[] = $value_ds_tacgia_view3->id_tacgia;
+        }
+
+
+        $ds_tacgia_duyet = array_unique($ds_tacgia_duyet);
+
+        $danhsach_duyet = [];
+
+        foreach($ds_tacgia_duyet as $value_ds_tacgia_duyet) {
+
+            //$thongtinduyet = 
+
+            $tacgia = DB::table('table_giangvien')
+                        ->select('table_giangvien.id', 'table_giangvien.hodem', 'table_giangvien.ten')
+                        ->where('table_giangvien.id', $value_ds_tacgia_duyet)
+                        ->first();
+
+            $thongtinduyet = $tacgia;
+            $diemkhoahoc = 0;
+
+            $view1 = DB::table('table_nghiencuukhoahoc_loai1')
+                    ->join('table_nghiencuukhoahoc_hoatdong', 'table_nghiencuukhoahoc_loai1.id_hoatdong', 'table_nghiencuukhoahoc_hoatdong.id')
+                    ->select('table_nghiencuukhoahoc_loai1.id_tacgia', 'table_nghiencuukhoahoc_loai1.id_cactacgia', 'table_nghiencuukhoahoc_hoatdong.giokhoahoc', 'table_nghiencuukhoahoc_hoatdong.diemcongtrinh')
+                    ->where('table_nghiencuukhoahoc_loai1.id_tacgia', $value_ds_tacgia_duyet)
+                    ->where('table_nghiencuukhoahoc_loai1.trangthaiduyet', 1)
+                    ->where('table_nghiencuukhoahoc_loai1.namhoc', $id_namhoc)
+                    ->get();
+
+            foreach($view1 as $value_view1) {
+
+                if ($value_view1->id_cactacgia) {
+                    $id_ctg = explode("_", $value_view1->id_cactacgia);
+                    $c_sotacgia = count($id_ctg)+1;
+                } else {
+                    $c_sotacgia = 1;
+                }
+  
+                $diemkhoahoc = $diemkhoahoc+$value_view1->giokhoahoc*(($value_view1->diemcongtrinh/$c_sotacgia));
+            }
+
+            $view2 = DB::table('table_nghiencuukhoahoc_loai2')
+                        ->join('table_nghiencuukhoahoc_hoatdong', 'table_nghiencuukhoahoc_loai2.id_hoatdong', 'table_nghiencuukhoahoc_hoatdong.id')
+                        ->select('table_nghiencuukhoahoc_loai2.id_tacgia', 'table_nghiencuukhoahoc_loai2.id_cactacgia', 'table_nghiencuukhoahoc_hoatdong.giokhoahoc', 'table_nghiencuukhoahoc_hoatdong.diemcongtrinh')
+                        ->where('table_nghiencuukhoahoc_loai2.id_tacgia', $value_ds_tacgia_duyet)
+                        ->where('table_nghiencuukhoahoc_loai2.trangthaiduyet', 1)
+                        ->where('table_nghiencuukhoahoc_loai2.namhoc', $id_namhoc)
+                        ->get();
+
+            foreach($view2 as $value_view2) {
+
+                    if ($value_view2->id_cactacgia) {
+                        $id_ctg = explode("_", $value_view2->id_cactacgia);
+                        $c_sotacgia = count($id_ctg)+1;
+                    } else {
+                        $c_sotacgia = 1;
+                    }
+                    
+                    $diemkhoahoc = $diemkhoahoc+$value_view2->giokhoahoc*($value_view2->diemcongtrinh/$c_sotacgia);
+            }
+
+            $view3 = DB::table('table_nghiencuukhoahoc_loai3')
+                        ->join('table_nghiencuukhoahoc_hoatdong', 'table_nghiencuukhoahoc_loai3.id_hoatdong', 'table_nghiencuukhoahoc_hoatdong.id')
+                        ->select('table_nghiencuukhoahoc_loai3.id_tacgia', 'table_nghiencuukhoahoc_hoatdong.giokhoahoc', 'table_nghiencuukhoahoc_hoatdong.diemcongtrinh')
+                        ->where('table_nghiencuukhoahoc_loai3.id_tacgia', $value_ds_tacgia_duyet)
+                        ->where('table_nghiencuukhoahoc_loai3.trangthaiduyet', 1)
+                        ->where('table_nghiencuukhoahoc_loai3.namhoc', $id_namhoc)
+                        ->get();
+
+            foreach($view3 as $value_view3) { 
+                $diemkhoahoc = $diemkhoahoc+($value_view3->giokhoahoc*$value_view3->diemcongtrinh);
+            }
+
+            $tinhtrang = DB::table('table_nghiencuukhoahoc_duyet')
+                        ->where('id_tacgia', $value_ds_tacgia_duyet)
+                        ->where('namhoc', $id_namhoc)
+                        ->get();
+
+            $tinhtrangduyet = 0;
+            $ngayguiduyet = 0;
+
+            foreach($tinhtrang as $value_tinhtrang) {
+
+                if($value_tinhtrang->tinhtrangduyet == 1) {
+                    $tinhtrangduyet = 1;
+                    $ngayguiduyet = $value_tinhtrang->ngayguiduyet;
+                } else if($value_tinhtrang->tinhtrangduyet == 0) {
+                    $tinhtrangduyet = 0;
+                    $ngayguiduyet = $value_tinhtrang->ngayguiduyet;
+                    break;
+                } else if($value_tinhtrang->tinhtrangduyet == 2) {
+                    $tinhtrangduyet = 2;
+                    $ngayguiduyet = $value_tinhtrang->ngayguiduyet;
+                }
+
+            }
+
+            $thongtinduyet->diemkhoahoc = $diemkhoahoc;
+            $thongtinduyet->ngayguiduyet = $ngayguiduyet;
+            $thongtinduyet->tinhtrangduyet = $tinhtrangduyet;
+            $danhsach_duyet[] = $thongtinduyet;
+
+        }
+
+        // echo "<pre>";
+        // print_r($danhsach_duyet);
+        // die();
+
+        return view('admin.decuong.nghiencuukhoahoc.duyet_nckh')
+                    ->with('namhoc_dangchon', $namhoc_dangchon)
+                    ->with('all_namhoc', $all_namhoc)
+                    ->with('id_namhoc', $id_namhoc)
+                    ->with('danhsach_duyet', $danhsach_duyet);
+    }
+
+    public function getGuiXetDuyetNCKH(Request $request) {
+        if ($request->ajax()) {
+
+            $id_namhoc = $request->id_namhoc;
+            $id_tacgia = $request->id_tacgia;
+
+            $ds_gui_duyet = [];
+
+            $view1 = DB::table('table_nghiencuukhoahoc_loai1')
+                    ->select('id')
+                    ->where('namhoc', $id_namhoc)
+                    ->where('id_tacgia', $id_tacgia)
+                    ->where('trangthaiduyet', 0)
+                    ->get();
+
+            foreach($view1 as $value_view1) {
+                $update = DB::table('table_nghiencuukhoahoc_loai1')
+                        ->where('id', $value_view1->id)
+                        ->update(['trangthaiduyet' => 1]);
+
+                $insert = DB::table('table_nghiencuukhoahoc_duyet')
+                            ->insert([
+                                'id_tacgia' => $id_tacgia,
+                                'id_nckh' => $value_view1->id, 
+                                'loai_hoatdong' => 'loai1', 
+                                'tinhtrangduyet' => 0, 
+                                'ngayguiduyet' => strtotime(date('d-m-Y')),
+                                'namhoc' => $id_namhoc
+                            ]);
+            }
+
+            $view2 = DB::table('table_nghiencuukhoahoc_loai2')
+                    ->select('id')
+                    ->where('namhoc', $id_namhoc)
+                    ->where('id_tacgia', $id_tacgia)
+                    ->where('trangthaiduyet', 0)
+                    ->get();
+
+            foreach($view2 as $value_view2) {
+                $update = DB::table('table_nghiencuukhoahoc_loai2')
+                        ->where('id', $value_view2->id)
+                        ->update(['trangthaiduyet' => 1]);
+
+                $insert = DB::table('table_nghiencuukhoahoc_duyet')
+                            ->insert([
+                                'id_tacgia' => $id_tacgia,
+                                'id_nckh' => $value_view2->id, 
+                                'loai_hoatdong' => 'loai2', 
+                                'tinhtrangduyet' => 0, 
+                                'ngayguiduyet' => strtotime(date('d-m-Y')),
+                                'namhoc' => $id_namhoc
+                            ]);
+            }
+
+            $view3 = DB::table('table_nghiencuukhoahoc_loai3')
+                    ->select('id')
+                    ->where('namhoc', $id_namhoc)
+                    ->where('id_tacgia', $id_tacgia)
+                    ->where('trangthaiduyet', 0)
+                    ->get();
+
+            foreach($view3 as $value_view3) {
+                $update = DB::table('table_nghiencuukhoahoc_loai3')
+                        ->where('id', $value_view3->id)
+                        ->update(['trangthaiduyet' => 1]);
+
+                $insert = DB::table('table_nghiencuukhoahoc_duyet')
+                            ->insert([
+                                'id_tacgia' => $id_tacgia,
+                                'id_nckh' => $value_view3->id, 
+                                'loai_hoatdong' => 'loai3', 
+                                'tinhtrangduyet' => 0, 
+                                'ngayguiduyet' => strtotime(date('d-m-Y')),
+                                'namhoc' => $id_namhoc
+                            ]);
+            }
+
+            echo "Successfull";
+
+        }
+    }
+
+    public function getDuyetNCKHChiTiet($id_tacgia, $id_namhoc) {
+
+        $namhoc_dangchon = DB::table('table_namhoc_hocky')
+                            ->select('id', 'nambatdau', 'namketthuc', 'hienhanh')
+                            ->where('nambatdau', '>', 0)
+                            ->where('id', $id_namhoc)
+                            ->DISTINCT()
+                            ->first();
+
+        $all_namhoc = DB::table('table_namhoc_hocky')
+                ->select('id', 'nambatdau', 'namketthuc', 'hienhanh')
+                ->where('nambatdau', '>', 0)
+                ->DISTINCT()
+                ->get();
+
+        $all_hoatdong_nckh = DB::table('table_nghiencuukhoahoc_hoatdong')
+        ->where('namhoc', $id_namhoc)
+        ->get();
+
+
+        foreach($all_hoatdong_nckh as $value_all_hoatdong_nckh) {
+
+            $all_ht_cuatoi_loai1 = DB::table('table_nghiencuukhoahoc_loai1')
+                        ->where('id_hoatdong', $value_all_hoatdong_nckh->id)
+                        ->where('id_tacgia', $id_tacgia)
+                        ->count();
+            if($all_ht_cuatoi_loai1 > 0) {
+                $value_all_hoatdong_nckh->count_sub = $all_ht_cuatoi_loai1;
+            }
+
+            $all_ht_cuatoi_loai2 = DB::table('table_nghiencuukhoahoc_loai2')
+                        ->where('id_hoatdong', $value_all_hoatdong_nckh->id)
+                        ->where('id_tacgia', $id_tacgia)
+                        ->count();
+            if($all_ht_cuatoi_loai2 > 0) {
+                $value_all_hoatdong_nckh->count_sub = $all_ht_cuatoi_loai2;
+            }
+
+            $all_ht_cuatoi_loai3 = DB::table('table_nghiencuukhoahoc_loai3')
+                        ->where('id_hoatdong', $value_all_hoatdong_nckh->id)
+                        ->where('id_tacgia', $id_tacgia)
+                        ->count();
+            if($all_ht_cuatoi_loai3 > 0) {
+                $value_all_hoatdong_nckh->count_sub = $all_ht_cuatoi_loai3;
+            }
+
+        }
+
+        $all_hoatdong_cuatoi_view1 = DB::table('table_nghiencuukhoahoc_hoatdong')
+                                    ->join('table_nghiencuukhoahoc_loai1', 'table_nghiencuukhoahoc_loai1.id_hoatdong', 'table_nghiencuukhoahoc_hoatdong.id')
+                                    ->join('table_nghiencuukhoahoc_duyet', 'table_nghiencuukhoahoc_duyet.id_nckh', 'table_nghiencuukhoahoc_loai1.id')
+                                    ->where('table_nghiencuukhoahoc_duyet.loai_hoatdong', 'loai1')
+                                    ->where('table_nghiencuukhoahoc_loai1.namhoc', $id_namhoc)
+                                    ->where('table_nghiencuukhoahoc_loai1.id_tacgia', $id_tacgia)
+                                    ->get();
+
+        $all_hoatdong_cuatoi_view2 = DB::table('table_nghiencuukhoahoc_hoatdong')
+                                    ->join('table_nghiencuukhoahoc_loai2', 'table_nghiencuukhoahoc_loai2.id_hoatdong', 'table_nghiencuukhoahoc_hoatdong.id')
+                                    ->join('table_nghiencuukhoahoc_duyet', 'table_nghiencuukhoahoc_duyet.id_nckh', 'table_nghiencuukhoahoc_loai2.id')
+                                    ->where('table_nghiencuukhoahoc_duyet.loai_hoatdong', 'loai2')
+                                    ->where('table_nghiencuukhoahoc_loai2.namhoc', $id_namhoc)
+                                    ->where('table_nghiencuukhoahoc_loai2.id_tacgia', $id_tacgia)
+                                    ->get();
+
+
+        $all_hoatdong_cuatoi_view3 = DB::table('table_nghiencuukhoahoc_hoatdong')
+                                    ->join('table_nghiencuukhoahoc_loai3', 'table_nghiencuukhoahoc_loai3.id_hoatdong', 'table_nghiencuukhoahoc_hoatdong.id')
+                                    ->join('table_nghiencuukhoahoc_duyet', 'table_nghiencuukhoahoc_duyet.id_nckh', 'table_nghiencuukhoahoc_loai3.id')
+                                    ->where('table_nghiencuukhoahoc_duyet.loai_hoatdong', 'loai3')
+                                    ->where('table_nghiencuukhoahoc_loai3.namhoc', $id_namhoc)
+                                    ->where('table_nghiencuukhoahoc_loai3.id_tacgia', $id_tacgia)
+                                    ->get();
+
+        foreach($all_hoatdong_cuatoi_view1 as $value_all_hoatdong_cuatoi_view1) {
+            $list_cactacgia = [];
+            $sotacgia = 0;
+
+            $tacgia_chinh = DB::table('table_giangvien')->where('id', $value_all_hoatdong_cuatoi_view1->id_tacgia)->first();
+            $list_cactacgia[] = $tacgia_chinh;
+            $sotacgia += 1;
+
+            if(isset($value_all_hoatdong_cuatoi_view1->id_cactacgia) && $value_all_hoatdong_cuatoi_view1->id_cactacgia != null) {
+                $id_ctg = explode("_", $value_all_hoatdong_cuatoi_view1->id_cactacgia);            
+                foreach ($id_ctg as $value) {
+                    $tg = DB::table('table_giangvien')->where('id', $value)->first();
+                    $list_cactacgia[] = $tg;
+                    $sotacgia = $sotacgia+1;
+                }
+
+            }
+            
+            $value_all_hoatdong_cuatoi_view1->id_cactacgia = $list_cactacgia;
+            $value_all_hoatdong_cuatoi_view1->sotacgia = $sotacgia;
+
+            // $list_hinhanhminhchung = explode("|", $value_all_hoatdong_cuatoi_view1->hinhanhminhchung);   
+            // $value_all_hoatdong_cuatoi_view1->hinhanhminhchung = $list_hinhanhminhchung;
+
+            
+            $list_hinhanhminhchung = explode("|", $value_all_hoatdong_cuatoi_view1->hinhanhminhchung);  
+            foreach($list_hinhanhminhchung as $value_list_hinhanhminhchung) {
+                if(!empty($value_list_hinhanhminhchung)) {
+                    $hinhanhminhchung = new stdClass;
+                    $hinhanhminhchung->link = $value_list_hinhanhminhchung;
+
+                    $xuly = explode('.', $value_list_hinhanhminhchung);
+                    $hinhanhminhchung->duoi = $xuly[count($xuly)-1];
+
+                    $value_all_hoatdong_cuatoi_view1->show_hinhanhminhchung[] = $hinhanhminhchung;
+                }
+            }
+
+            $diemcuatoi = number_format((float)$value_all_hoatdong_cuatoi_view1->diemcongtrinh/$value_all_hoatdong_cuatoi_view1->sotacgia, 2, '.', '');
+            $value_all_hoatdong_cuatoi_view1->diemcuatoi = $diemcuatoi;
+
+            $thanhgionckh = $value_all_hoatdong_cuatoi_view1->giokhoahoc*($value_all_hoatdong_cuatoi_view1->diemcongtrinh/$value_all_hoatdong_cuatoi_view1->sotacgia);
+            $value_all_hoatdong_cuatoi_view1->thanhgionckh = $thanhgionckh;
+
+        }
+
+        foreach($all_hoatdong_cuatoi_view2 as $value_all_hoatdong_cuatoi_view2) {
+
+            $list_cactacgia = [];
+            $sotacgia = 0;
+
+            $tacgia_chinh = DB::table('table_giangvien')->where('id', $value_all_hoatdong_cuatoi_view2->id_tacgia)->first();
+            $list_cactacgia[] = $tacgia_chinh;
+            $sotacgia += 1;
+
+            if(isset($value_all_hoatdong_cuatoi_view2->id_cactacgia) && $value_all_hoatdong_cuatoi_view2->id_cactacgia != null) {
+                $id_ctg = explode("_", $value_all_hoatdong_cuatoi_view2->id_cactacgia);            
+                foreach ($id_ctg as $value) {
+                    $tg = DB::table('table_giangvien')->where('id', $value)->first();
+                    $list_cactacgia[] = $tg;
+                    $sotacgia = $sotacgia+1;
+                }
+            }
+            $value_all_hoatdong_cuatoi_view2->id_cactacgia = $list_cactacgia;
+            $value_all_hoatdong_cuatoi_view2->sotacgia = $sotacgia;
+
+            
+            $list_hinhanhminhchung = explode("|", $value_all_hoatdong_cuatoi_view2->hinhanhminhchung);  
+            foreach($list_hinhanhminhchung as $value_list_hinhanhminhchung) {
+                if(!empty($value_list_hinhanhminhchung)) {
+                    $hinhanhminhchung = new stdClass;
+                    $hinhanhminhchung->link = $value_list_hinhanhminhchung;
+
+                    $xuly = explode('.', $value_list_hinhanhminhchung);
+                    $hinhanhminhchung->duoi = $xuly[count($xuly)-1];
+
+                    $value_all_hoatdong_cuatoi_view2->show_hinhanhminhchung[] = $hinhanhminhchung;
+                }
+            }
+
+            $diemcuatoi = number_format((float)$value_all_hoatdong_cuatoi_view2->diemcongtrinh/$value_all_hoatdong_cuatoi_view2->sotacgia, 2, '.', '');
+            $value_all_hoatdong_cuatoi_view2->diemcuatoi = $diemcuatoi;
+
+            $thanhgionckh = $value_all_hoatdong_cuatoi_view2->giokhoahoc*($value_all_hoatdong_cuatoi_view2->diemcongtrinh/$value_all_hoatdong_cuatoi_view2->sotacgia);
+            $value_all_hoatdong_cuatoi_view2->thanhgionckh = $thanhgionckh;
+                   
+        }
+
+        foreach($all_hoatdong_cuatoi_view3 as $value_all_hoatdong_cuatoi_view3) {
+            
+            $list_hinhanhminhchung = explode("|", $value_all_hoatdong_cuatoi_view3->hinhanhminhchung);  
+            foreach($list_hinhanhminhchung as $value_list_hinhanhminhchung) {
+                if(!empty($value_list_hinhanhminhchung)) {
+                    $hinhanhminhchung = new stdClass;
+                    $hinhanhminhchung->link = $value_list_hinhanhminhchung;
+
+                    $xuly = explode('.', $value_list_hinhanhminhchung);
+                    $hinhanhminhchung->duoi = $xuly[count($xuly)-1];
+
+                    $value_all_hoatdong_cuatoi_view3->show_hinhanhminhchung[] = $hinhanhminhchung;
+                }
+            }
+
+            $thanhgionckh = $value_all_hoatdong_cuatoi_view3->giokhoahoc*$value_all_hoatdong_cuatoi_view3->diemcongtrinh;
+            $value_all_hoatdong_cuatoi_view3->thanhgionckh = $thanhgionckh;
+                   
+        }
+
+        $counttongsogio = 0;
+
+        foreach($all_hoatdong_nckh as $value_them_tongsogio) {
+
+            if(isset($value_them_tongsogio->count_sub)) {
+
+                if($value_them_tongsogio->loai_hoatdong == 1) {
+
+                    $tongsogio_view1 = 0;
+                    $tongsodiem_view1 = 0;
+
+                    foreach($all_hoatdong_cuatoi_view1 as $value_view1_them_tongsogio) {
+                        if($value_view1_them_tongsogio->id_hoatdong == $value_them_tongsogio->id) {
+                            $tongsogio_view1 += $value_view1_them_tongsogio->thanhgionckh;
+                            $tongsodiem_view1 += $value_view1_them_tongsogio->diemcuatoi;
+                        }
+                    }
+
+                    $value_them_tongsogio->tongsogio = $tongsogio_view1;
+                    $value_them_tongsogio->tongsodiem = $tongsodiem_view1;
+
+                    $counttongsogio += $tongsogio_view1;
+
+                }
+
+                if($value_them_tongsogio->loai_hoatdong == 2) {
+
+                    $tongsogio_view2 = 0;
+                    $tongsodiem_view2 = 0;
+
+                    foreach($all_hoatdong_cuatoi_view2 as $value_view2_them_tongsogio) {
+                        if($value_view2_them_tongsogio->id_hoatdong == $value_them_tongsogio->id) {
+                            $tongsogio_view2 += $value_view2_them_tongsogio->thanhgionckh;
+                            $tongsodiem_view2 += $value_view2_them_tongsogio->diemcuatoi;
+                        }
+                    }
+
+                    $value_them_tongsogio->tongsogio = $tongsogio_view2;
+                    $value_them_tongsogio->tongsodiem = $tongsodiem_view2;
+
+                    $counttongsogio += $tongsogio_view2;
+
+                }
+
+                if($value_them_tongsogio->loai_hoatdong == 3) {
+
+                    $tongsogio_view3 = 0;
+                    $tongsodiem_view3 = 0;
+
+                    foreach($all_hoatdong_cuatoi_view3 as $value_view3_them_tongsogio) {
+                        if($value_view3_them_tongsogio->id_hoatdong == $value_them_tongsogio->id) {
+                            $tongsogio_view3 += $value_view3_them_tongsogio->thanhgionckh;
+                            $tongsodiem_view3 += $value_view3_them_tongsogio->diemcongtrinh;
+                        }
+                    }
+
+                    $value_them_tongsogio->tongsogio = $tongsogio_view3;
+                    $value_them_tongsogio->tongsodiem = $tongsodiem_view3;
+
+                    $counttongsogio += $tongsogio_view3;
+
+                }
+
+            }
+        }
+
+
+        // echo "<pre>";
+        // print_r($all_noidung_sua_nckh);
+        // die();
+        
+        return view('admin.decuong.nghiencuukhoahoc.duyet_nckh_chitiet')
+                ->with('namhoc_dangchon', $namhoc_dangchon)
+                ->with('all_namhoc', $all_namhoc)
+                ->with('all_hoatdong_nckh', $all_hoatdong_nckh)
+                ->with('id_namhoc', $id_namhoc)
+                ->with('id_tacgia', $id_tacgia)
+                ->with('all_hoatdong_cuatoi_view1', $all_hoatdong_cuatoi_view1)
+                ->with('all_hoatdong_cuatoi_view2', $all_hoatdong_cuatoi_view2)
+                ->with('all_hoatdong_cuatoi_view3', $all_hoatdong_cuatoi_view3)
+                ->with('counttongsogio', $counttongsogio);
+
+    }
+
+    public function getXetDuyetNCKH(Request $request) {
+
+        if($request->ajax()) {
+
+            $id_nckh = $request->id_nckh;
+            $loai_hoatdong = $request->loai_hoatdong;
+            $id_tacgia = $request->id_tacgia;
+            $id_namhoc = $request->id_namhoc;
+
+            if($loai_hoatdong == "loai1") {
+
+                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai1')
+                    ->where('id', $id_nckh)
+                    ->update(['trangthaiduyet' => 2]);
+                    
+            }      
+            
+            if($loai_hoatdong == "loai2") {
+
+                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai2')
+                    ->where('id', $id_nckh)
+                    ->update(['trangthaiduyet' => 2]);
+                    
+            }
+
+            if($loai_hoatdong == "loai3") {
+
+                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai3')
+                    ->where('id', $id_nckh)
+                    ->update(['trangthaiduyet' => 2]);
+                    
+            }
+
+            $update_duyet = DB::table('table_nghiencuukhoahoc_duyet')
+                            ->where('id_tacgia', $id_tacgia)
+                            ->where('id_nckh', $id_nckh)
+                            ->where('loai_hoatdong', $loai_hoatdong)
+                            ->where('namhoc', $id_namhoc)
+                            ->update([
+                                'tinhtrangduyet' => 1,
+                                'ngayduyet' => strtotime(date('d-m-Y'))
+                            ]);
+
+            echo "Successfull";
+
+        }
+    }
+
+    public function getChoDuyetNCKH(Request $request) {
+
+        if($request->ajax()) {
+
+            $id_nckh = $request->id_nckh;
+            $loai_hoatdong = $request->loai_hoatdong;
+            $id_tacgia = $request->id_tacgia;
+            $id_namhoc = $request->id_namhoc;
+
+            if($loai_hoatdong == "loai1") {
+
+                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai1')
+                    ->where('id', $id_nckh)
+                    ->update(['trangthaiduyet' => 1]);
+                    
+            }      
+            
+            if($loai_hoatdong == "loai2") {
+
+                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai2')
+                    ->where('id', $id_nckh)
+                    ->update(['trangthaiduyet' => 1]);
+                    
+            }
+
+            if($loai_hoatdong == "loai3") {
+
+                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai3')
+                    ->where('id', $id_nckh)
+                    ->update(['trangthaiduyet' => 1]);
+                    
+            }
+
+            $update_duyet = DB::table('table_nghiencuukhoahoc_duyet')
+                            ->where('id_tacgia', $id_tacgia)
+                            ->where('id_nckh', $id_nckh)
+                            ->where('loai_hoatdong', $loai_hoatdong)
+                            ->where('namhoc', $id_namhoc)
+                            ->update([
+                                'tinhtrangduyet' => 0,
+                                'ngayduyet' => strtotime(date('d-m-Y'))
+                            ]);
+
+            echo "Successfull";
+
+        }
+    }
+
+    public function getSuaDuyetNCKH(Request $request) {
+
+        if($request->ajax()) {
+
+            $id_nckh = $request->id_nckh;
+            $loai_hoatdong = $request->loai_hoatdong;
+            $id_tacgia = $request->id_tacgia;
+            $id_namhoc = $request->id_namhoc;
+            $noi_dung_sua = $request->noi_dung_sua;
+
+            if($loai_hoatdong == "loai1") {
+
+                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai1')
+                    ->where('id', $id_nckh)
+                    ->update(['trangthaiduyet' => 3]);
+                    
+            }      
+            
+            if($loai_hoatdong == "loai2") {
+
+                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai2')
+                    ->where('id', $id_nckh)
+                    ->update(['trangthaiduyet' => 3]);
+                    
+            }
+
+            if($loai_hoatdong == "loai3") {
+
+                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai3')
+                    ->where('id', $id_nckh)
+                    ->update(['trangthaiduyet' => 3]);
+                    
+            }
+
+            $update_duyet = DB::table('table_nghiencuukhoahoc_duyet')
+                            ->where('id_tacgia', $id_tacgia)
+                            ->where('id_nckh', $id_nckh)
+                            ->where('loai_hoatdong', $loai_hoatdong)
+                            ->where('namhoc', $id_namhoc)
+                            ->update([
+                                'tinhtrangduyet' => 2,
+                                'ngayduyet' => strtotime(date('d-m-Y'))
+                            ]);
+
+            $sua_duyet_nckh = DB::table('table_nghiencuukhoahoc_sua')
+                            ->insert([
+                                    'id_tacgia' => $id_tacgia, 
+                                    'id_nckh' => $id_nckh, 
+                                    'loai_hoatdong' => $loai_hoatdong, 
+                                    'noidung_sua' => $noi_dung_sua,
+                                    'namhoc' => $id_namhoc
+                                ]);
+
+            echo "Successfull";
+
+        }
+    }
+
+
+    public function getXemNoiDungSuaDuyetNCKH(Request $request) {
+
+        if($request->ajax()) {
+
+            $id_nckh = $request->id_nckh;
+            $loai_hoatdong = $request->loai_hoatdong;
+            $id_tacgia = $request->id_tacgia;
+            $id_namhoc = $request->id_namhoc;
+
+            $all_noidung_sua = DB::table('table_nghiencuukhoahoc_sua')
+                                ->where('id_tacgia', $id_tacgia)
+                                ->where('id_nckh', $id_nckh)
+                                ->where('loai_hoatdong', $loai_hoatdong)
+                                ->where('namhoc', $id_namhoc)
+                                ->get();
+
+            $output = '';
+            $stt = 1;
+            foreach($all_noidung_sua as $value_all_noidung_sua) {
+                $output .='<p> Nội dung cần sửa '.$stt++.'</p>';
+                $output .= '<textarea disabled="true">';
+                $output .= $value_all_noidung_sua->noidung_sua;
+                $output .= '</textarea>';
+            }
+
+            echo $output;
+
+        }
+    }
     
+
+
+
+  
+
 
 
 }

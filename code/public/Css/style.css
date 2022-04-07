@@ -1052,44 +1052,46 @@ li {
 }
 
 .nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action span#them-moi-nckh {
-    color: #3e64ff;
+    color: #fff;
+    background: #3e64ff;
     border-color: #3e64ff;
 }
 
 .nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action span#xoa-nckh {
-    color: #f0134d;
+    color: #fff;
+    background: #f0134d;
     border-color: #f0134d;
 }
 
 .nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action span#sua-nckh {
-    color: #f1bc31;
+    color: #fff;
+    background: #f1bc31;
     border-color: #f1bc31;
 }
 
 .nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action span#them-moi-nckh:hover {
     transition: ease 0.5s;
-    background: #64c4ed !important;
+    background: #fff !important;
     border-color: #64c4ed !important;
-    color: #fff !important;
+    color: #64c4ed !important;
 }
 
 .nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action span#sua-nckh:hover {
     transition: ease 0.5s;
-    background: #f1bc31 !important;
+    background: #fff !important;
     border-color: #f1bc31 !important;
-    color: #fff !important;
+    color: #f1bc31 !important;
 }
 
 .nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action span#xoa-nckh:hover {
     transition: ease 0.5s;
-    background: #f0134d !important;
+    background: #fff !important;
     border-color: #f0134d !important;
-    color: #fff !important;
+    color: #f0134d !important;
 }
 
 .nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action .list-duyet {
     font-size: 15px;
-    padding-right: 100px;
 }
 
 .nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action .list-duyet > span {
@@ -1266,6 +1268,28 @@ li {
     color: #f0134d !important;
     background: #fff !important;
     border-color: #f0134d !important;
+}
+
+.nghien-cuu-khoa-hoc .row #hoatdong-nckh .duyet-nckh {
+    width: 98.7%;
+    height: auto;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.nghien-cuu-khoa-hoc .row #hoatdong-nckh .duyet-nckh fieldset {
+    border: 1px solid #DDD;
+    padding: 10px;
+}
+
+.nghien-cuu-khoa-hoc .row #hoatdong-nckh .duyet-nckh fieldset legend {
+    width: auto;
+    font-weight: bold;
+    font-size: 17px;
+    color: #0f55ac;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 .nghien-cuu-khoa-hoc .row #thongke-nckh fieldset {
@@ -3156,6 +3180,139 @@ li {
 #modal-sao-chep-noi-dung-khung-chuong-trinh .table-modal-sao-chep-noi-dung-khung-chuong-trinh table tr td strong {
     font-size: 18px;
 }
+
+.nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action a {
+    text-decoration: none;
+}
+
+.nghien-cuu-khoa-hoc .row .list-nghien-cuu-khoa-hoc .list-action a span#xet-duyet {
+    border: 1px solid #ccc;
+    padding: 4px 15px 7px 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+
+.nghien-cuu-khoa-hoc .duyet-nckh table {
+    border-collapse: collapse;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin: auto;
+    margin-bottom: 50px;
+    font-size: 15px;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh table thead tr {
+    background-color: #212a3b;
+    color: #ffffff;
+    text-align: left; 
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh table th,
+.nghien-cuu-khoa-hoc .duyet-nckh table td {
+    padding: 10px 12px;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh table tbody tr.click-hoat-dong-cua-toi {
+    cursor: pointer;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh table tbody tr.click-hoat-dong-cua-toi:hover {
+    background: #d5d5d5;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh table tbody tr.active {
+    color: #f0134d;
+    background: #fff;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh table tbody tr:last-of-type {
+    border-bottom: 2px solid #212a3b;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .list-option-duyet {
+    margin-bottom: 10px;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .list-option-duyet .option-duyet {
+    float: right;
+    padding-bottom: 10px;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .list-option-duyet .option-duyet span {
+    padding-left: 10px;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .list-option-duyet .option-duyet span:last-child {
+    padding-right: 5px;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .list-option-duyet > span {
+    border: 1px solid #ccc;
+    padding: 3px 10px;
+    padding-bottom: 5px;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh #modal-khong-duyet-nckh .modal-content {
+    width: 50%;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .content-modal-khong-duyet-nckh {
+    margin: 30px;
+    font-size: 15px;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .content-modal-khong-duyet-nckh h4 {
+    text-align: center;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .content-modal-khong-duyet-nckh textarea#noi-dung-sua-nckh {
+    width: 100%;
+    height: 100px;
+    padding: 5px 12px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+.nghien-cuu-khoa-hoc .duyet-nckh #modal-xem-noi-dung-sua .modal-content {
+    width: 50%;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .content-modal-xem-noi-dung-sua {
+    margin: 30px;
+    font-size: 15px;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .content-modal-xem-noi-dung-sua h4 {
+    text-align: center;
+}
+
+.nghien-cuu-khoa-hoc .duyet-nckh .content-modal-xem-noi-dung-sua textarea {
+    width: 100%;
+    height: 100px;
+    padding: 5px 12px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+
+
 
 
 

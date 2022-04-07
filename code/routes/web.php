@@ -164,6 +164,16 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('insert-them-hoat-dong-nghien-cuu-khoa-hoc', 'NghienCuuKhoaHoc@PostThemHoatDongNghienCuuKhoaHoc');
 
+        Route::get('duyet-nghien-cuu-khoa-hoc/{id_namhoc}', 'NghienCuuKhoaHoc@getDuyetNghienCuuKhoaHoc');
+        Route::get('duyet-nckh-chi-tiet/{id_tacgia}/{id_namhoc}', 'NghienCuuKhoaHoc@getDuyetNCKHChiTiet');
+
+        Route::get('gui-xet-duyet-nckh', 'NghienCuuKhoaHoc@getGuiXetDuyetNCKH');
+
+        Route::get('xet-duyet-nckh', 'NghienCuuKhoaHoc@getXetDuyetNCKH');
+        Route::get('cho-duyet-nckh', 'NghienCuuKhoaHoc@getChoDuyetNCKH');
+        Route::get('sua-duyet-nckh', 'NghienCuuKhoaHoc@getSuaDuyetNCKH');
+        Route::get('xem-noi-dung-sua-duyet-nckh', 'NghienCuuKhoaHoc@getXemNoiDungSuaDuyetNCKH');
+
         //Thong ke nghien cuu khoa hoc
         Route::get('chon-nam-hoc-thong-ke-nckh-cua-toi', 'NghienCuuKhoaHoc@ChonNamHocThongKeNCKHCuaToi');
         Route::get('thong-ke-nghien-cuu-khoa-hoc-cua-toi/{id_namhoc}', 'NghienCuuKhoaHoc@ThongKeNghienCuuKhoaHocCuaToi');
