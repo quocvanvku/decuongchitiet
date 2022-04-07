@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 08/01/2022 22:53:58
+ Date: 07/04/2022 14:13:34
 */
 
 SET NAMES utf8mb4;
@@ -35,9 +35,9 @@ CREATE TABLE `table_nghiencuukhoahoc_loai3`  (
 -- ----------------------------
 -- Records of table_nghiencuukhoahoc_loai3
 -- ----------------------------
-INSERT INTO `table_nghiencuukhoahoc_loai3` VALUES (1, 0, 'minh chung loai 3 test', '06_11_21_59_bieudien.png', 0, 5, 15);
-INSERT INTO `table_nghiencuukhoahoc_loai3` VALUES (2, 0, 'minh chung loai 3 2', 'hinh anh 3 2', 0, 5, 15);
-INSERT INTO `table_nghiencuukhoahoc_loai3` VALUES (3, 0, 'minh chung loai 3 3', '', 0, 5, 17);
-INSERT INTO `table_nghiencuukhoahoc_loai3` VALUES (8, 0, 'demo 6', '03_11_21_17_10-CNTT-NGUYEN THAI NGHE(81-91).pdf', 0, 5, 13);
+INSERT INTO `table_nghiencuukhoahoc_loai3` VALUES (1, 23, 'minh chung loai 3 test', '06_11_21_59_bieudien.png', 1, 5, 15);
+INSERT INTO `table_nghiencuukhoahoc_loai3` VALUES (2, 23, 'minh chung loai 3 2', 'hinh anh 3 2', 1, 5, 15);
+INSERT INTO `table_nghiencuukhoahoc_loai3` VALUES (3, 23, 'minh chung loai 3 3', '', 1, 5, 17);
+INSERT INTO `table_nghiencuukhoahoc_loai3` VALUES (8, 21, 'demo 6', '03_11_21_17_10-CNTT-NGUYEN THAI NGHE(81-91).pdf', 2, 5, 13);
 
 SET FOREIGN_KEY_CHECKS = 1;

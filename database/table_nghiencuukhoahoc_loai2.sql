@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 08/01/2022 22:53:53
+ Date: 07/04/2022 14:13:25
 */
 
 SET NAMES utf8mb4;
@@ -40,9 +40,9 @@ CREATE TABLE `table_nghiencuukhoahoc_loai2`  (
 -- ----------------------------
 -- Records of table_nghiencuukhoahoc_loai2
 -- ----------------------------
-INSERT INTO `table_nghiencuukhoahoc_loai2` VALUES (1, 0, 'ten sach 1', '1_2', 1, 3, 2021, 'nha xuat ban 1', 'hinh anh minh chung', 0, 5, 10);
-INSERT INTO `table_nghiencuukhoahoc_loai2` VALUES (2, 0, 'ten sach 2', '3_4', 0, 3, 2020, 'nha xuat ban 2', 'hinh anh ', 0, 5, 12);
-INSERT INTO `table_nghiencuukhoahoc_loai2` VALUES (3, 0, 'ten sach 1 2', '1_5', 1, 12, 20212, 'nha xuat ban 1 2', '06_11_21_50_bieudien.png|06_11_21_4_03_11_21_90_apple.png|06_11_21_65_03_11_21_1_br.png', 0, 5, 9);
-INSERT INTO `table_nghiencuukhoahoc_loai2` VALUES (4, 0, 'ten sach 4', '', 1, 2, 2, 'nha xuat ban 4', '03_11_21_20_fruit.png', 0, 5, 9);
+INSERT INTO `table_nghiencuukhoahoc_loai2` VALUES (1, 23, 'ten sach 1', '1_2', 1, 3, 2021, 'nha xuat ban 1', 'hinh anh minh chung', 1, 5, 10);
+INSERT INTO `table_nghiencuukhoahoc_loai2` VALUES (2, 23, 'ten sach 2', '3_4', 0, 3, 2020, 'nha xuat ban 2', 'hinh anh ', 1, 5, 12);
+INSERT INTO `table_nghiencuukhoahoc_loai2` VALUES (3, 23, 'ten sach 1 2', '1_5', 1, 12, 20212, 'nha xuat ban 1 2', '06_11_21_50_bieudien.png|06_11_21_4_03_11_21_90_apple.png|06_11_21_65_03_11_21_1_br.png', 1, 5, 9);
+INSERT INTO `table_nghiencuukhoahoc_loai2` VALUES (4, 23, 'ten sach 4', '', 1, 2, 2, 'nha xuat ban 4', '03_11_21_20_fruit.png', 1, 5, 9);
 
 SET FOREIGN_KEY_CHECKS = 1;
