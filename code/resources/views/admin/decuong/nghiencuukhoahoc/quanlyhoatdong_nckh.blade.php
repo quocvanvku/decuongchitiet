@@ -292,7 +292,7 @@
                 document.getElementById("modal-sua-quan-ly-hoat-dong-nckh").style.display = "none";
             }
 
-        }
+        } 
 
         $('#them-moi-hoat-dong').click(function() {
             document.getElementById("modal-them-quan-ly-hoat-dong-nckh").style.display = "block";

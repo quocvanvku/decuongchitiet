@@ -5,9 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 nopadding">
-                <div class="top">
-                    <span id="click-nam-hoc-nckh" class="nam-hoc">{{$namhoc_dangchon->nambatdau.' - '.$namhoc_dangchon->namketthuc}}</span>   
-                
+                <div class="top" style="height:0px">
                     <div id="modal-nam-hoc-nckh" class="modal">
                         <div class="modal-content">
                             <span class="close-modal">&times;</span>
@@ -15,8 +13,8 @@
                                 <h4>Đổi năm học</h4>
                                 <hr>
                                 <p><i>Chọn năm học cần đổi</i> <br> </p>
-                                <span><i style="color:#9c0225;" class="fas fa-square"></i> : Năm học đã kết thúc <br> </span>
-                                <span><i style="color:#3d9af9;" class="fas fa-check-circle"></i> : Năm học đang chọn</span>
+                                <span><i style="color:#9c0225;" class="fa fa-square"></i> : Năm học đã kết thúc <br> </span>
+                                <span><i style="color:#3d9af9;" class="fa fa-check-circle"></i> : Năm học đang chọn</span>
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -34,12 +32,12 @@
                                                     <td>
                                                         <a href="<?php echo url('admin/decuong/duyet-nghien-cuu-khoa-hoc/'.$value_all_namhoc->id); ?>">{{$value_all_namhoc->nambatdau.' - '.$value_all_namhoc->namketthuc}}</a>
                                                     </td>
-                                                    <td><i style="color:#3d9af9;" class="fas fa-check-circle"></i></td>
+                                                    <td><i style="color:#3d9af9;" class="fa fa-check-circle"></i></td>
                                                 @else
                                                     <td>
                                                         <a>{{$value_all_namhoc->nambatdau.' - '.$value_all_namhoc->namketthuc}}</a>
                                                     </td>
-                                                    <td><i style="color:#9c0225;" class="fas fa-square"></i></td>
+                                                    <td><i style="color:#9c0225;" class="fa fa-square"></i></td>
                                                 @endif
                                             </tr>
                                         @endforeach
@@ -51,28 +49,13 @@
 
                 </div>
 
-                <div class="tab">
-                    <ul>
-                        <li>
-                            <a class="tablinks active">
-                                <span>Hoạt động NCKH</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="tablinks" href="<?php echo url('admin/decuong/thong-ke-nghien-cuu-khoa-hoc-cua-toi/'.$namhoc_dangchon->id); ?>" >
-                                <span id="thong-ke-nckh">Thống kê NCKH</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="tablinks" onclick="opentab(event, 'trogiup')" >
-                                <span>Trợ giúp</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
                 
                 <div id="hoatdong-nckh" class="tabcontent active" >
+
+                    <br/>
+                    <div class="list-choice">
+						<button  class="btn btn-warning"><span id="click-nam-hoc-nckh">Đổi năm học {{$namhoc_dangchon->nambatdau.' - '.$namhoc_dangchon->namketthuc}}</span>   </button>
+                    </div>
                     
                     <div class="duyet-nckh">
                         <fieldset>

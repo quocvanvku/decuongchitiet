@@ -259,7 +259,7 @@ class NghienCuuKhoaHoc extends Controller
         }
 
         // echo "<pre>";
-        // print_r($all_hoatdong_cuatoi_view1);
+        // print_r($all_hoatdong_nckh);
         // die();
 
         return view('admin.decuong.nghiencuukhoahoc.danhmuc_nckh')
@@ -772,6 +772,33 @@ class NghienCuuKhoaHoc extends Controller
         $detai_nckh_loai3->save();
 
         return Redirect::to('/admin/decuong/nghien-cuu-khoa-hoc/'.$namhoc);
+    }
+
+    public function getXoaDeTaiNCKH($loai_hoatdong, $id_hoatdong, $id_namhoc) {
+
+        if($loai_hoatdong == 1) {
+            $nckh_loai1 = DB::table('table_nghiencuukhoahoc_loai1')
+                            ->where('id', $id_hoatdong)
+                            ->where('namhoc', $id_namhoc)
+                            ->delete();
+        }
+
+        if($loai_hoatdong == 2) {
+            $nckh_loai2 = DB::table('table_nghiencuukhoahoc_loai2')
+                            ->where('id', $id_hoatdong)
+                            ->where('namhoc', $id_namhoc)
+                            ->delete();
+        }
+
+        if($loai_hoatdong == 3) {
+            $nckh_loai3 = DB::table('table_nghiencuukhoahoc_loai3')
+                            ->where('id', $id_hoatdong)
+                            ->where('namhoc', $id_namhoc)
+                            ->delete();
+        }
+
+        return Redirect::to('/admin/decuong/nghien-cuu-khoa-hoc/'.$id_namhoc);
+
     }
 
     public function ChonNamHocQuanLyHoatDongNckh() {
@@ -1682,7 +1709,7 @@ class NghienCuuKhoaHoc extends Controller
 
 
         // echo "<pre>";
-        // print_r($all_noidung_sua_nckh);
+        // print_r($all_hoatdong_cuatoi_view1);
         // die();
         
         return view('admin.decuong.nghiencuukhoahoc.duyet_nckh_chitiet')
@@ -1698,100 +1725,85 @@ class NghienCuuKhoaHoc extends Controller
 
     }
 
-    public function getXetDuyetNCKH(Request $request) {
+    public function getXetDuyetNCKH($id_nckh, $loai_hoatdong, $id_tacgia, $id_namhoc) {
 
-        if($request->ajax()) {
+        if($loai_hoatdong == "loai1") {
 
-            $id_nckh = $request->id_nckh;
-            $loai_hoatdong = $request->loai_hoatdong;
-            $id_tacgia = $request->id_tacgia;
-            $id_namhoc = $request->id_namhoc;
+            $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai1')
+                ->where('id', $id_nckh)
+                ->update(['trangthaiduyet' => 2]);
+                
+        }      
+        
+        if($loai_hoatdong == "loai2") {
 
-            if($loai_hoatdong == "loai1") {
-
-                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai1')
-                    ->where('id', $id_nckh)
-                    ->update(['trangthaiduyet' => 2]);
-                    
-            }      
-            
-            if($loai_hoatdong == "loai2") {
-
-                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai2')
-                    ->where('id', $id_nckh)
-                    ->update(['trangthaiduyet' => 2]);
-                    
-            }
-
-            if($loai_hoatdong == "loai3") {
-
-                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai3')
-                    ->where('id', $id_nckh)
-                    ->update(['trangthaiduyet' => 2]);
-                    
-            }
-
-            $update_duyet = DB::table('table_nghiencuukhoahoc_duyet')
-                            ->where('id_tacgia', $id_tacgia)
-                            ->where('id_nckh', $id_nckh)
-                            ->where('loai_hoatdong', $loai_hoatdong)
-                            ->where('namhoc', $id_namhoc)
-                            ->update([
-                                'tinhtrangduyet' => 1,
-                                'ngayduyet' => strtotime(date('d-m-Y'))
-                            ]);
-
-            echo "Successfull";
-
+            $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai2')
+                ->where('id', $id_nckh)
+                ->update(['trangthaiduyet' => 2]);
+                
         }
+
+        if($loai_hoatdong == "loai3") {
+
+            $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai3')
+                ->where('id', $id_nckh)
+                ->update(['trangthaiduyet' => 2]);
+                
+        }
+
+        $update_duyet = DB::table('table_nghiencuukhoahoc_duyet')
+                        ->where('id_tacgia', $id_tacgia)
+                        ->where('id_nckh', $id_nckh)
+                        ->where('loai_hoatdong', $loai_hoatdong)
+                        ->where('namhoc', $id_namhoc)
+                        ->update([
+                            'tinhtrangduyet' => 1,
+                            'ngayduyet' => strtotime(date('d-m-Y'))
+                        ]);
+
+        return Redirect::to('/admin/decuong/duyet-nckh-chi-tiet/'.$id_tacgia.'/'.$id_namhoc);
+
     }
 
-    public function getChoDuyetNCKH(Request $request) {
+    public function getChoDuyetNCKH($id_nckh, $loai_hoatdong, $id_tacgia, $id_namhoc) {
 
-        if($request->ajax()) {
+        if($loai_hoatdong == "loai1") {
 
-            $id_nckh = $request->id_nckh;
-            $loai_hoatdong = $request->loai_hoatdong;
-            $id_tacgia = $request->id_tacgia;
-            $id_namhoc = $request->id_namhoc;
+            $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai1')
+                ->where('id', $id_nckh)
+                ->update(['trangthaiduyet' => 1]);
+                
+        }      
+        
+        if($loai_hoatdong == "loai2") {
 
-            if($loai_hoatdong == "loai1") {
-
-                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai1')
-                    ->where('id', $id_nckh)
-                    ->update(['trangthaiduyet' => 1]);
-                    
-            }      
-            
-            if($loai_hoatdong == "loai2") {
-
-                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai2')
-                    ->where('id', $id_nckh)
-                    ->update(['trangthaiduyet' => 1]);
-                    
-            }
-
-            if($loai_hoatdong == "loai3") {
-
-                $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai3')
-                    ->where('id', $id_nckh)
-                    ->update(['trangthaiduyet' => 1]);
-                    
-            }
-
-            $update_duyet = DB::table('table_nghiencuukhoahoc_duyet')
-                            ->where('id_tacgia', $id_tacgia)
-                            ->where('id_nckh', $id_nckh)
-                            ->where('loai_hoatdong', $loai_hoatdong)
-                            ->where('namhoc', $id_namhoc)
-                            ->update([
-                                'tinhtrangduyet' => 0,
-                                'ngayduyet' => strtotime(date('d-m-Y'))
-                            ]);
-
-            echo "Successfull";
-
+            $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai2')
+                ->where('id', $id_nckh)
+                ->update(['trangthaiduyet' => 1]);
+                
         }
+
+        if($loai_hoatdong == "loai3") {
+
+            $update_hoatdong = DB::table('table_nghiencuukhoahoc_loai3')
+                ->where('id', $id_nckh)
+                ->update(['trangthaiduyet' => 1]);
+                
+        }
+
+        $update_duyet = DB::table('table_nghiencuukhoahoc_duyet')
+                        ->where('id_tacgia', $id_tacgia)
+                        ->where('id_nckh', $id_nckh)
+                        ->where('loai_hoatdong', $loai_hoatdong)
+                        ->where('namhoc', $id_namhoc)
+                        ->update([
+                            'tinhtrangduyet' => 0,
+                            'ngayduyet' => strtotime(date('d-m-Y'))
+                        ]);
+
+
+        return Redirect::to('/admin/decuong/duyet-nckh-chi-tiet/'.$id_tacgia.'/'.$id_namhoc);
+        
     }
 
     public function getSuaDuyetNCKH(Request $request) {

@@ -153,6 +153,8 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('sua-nghien-cuu-khoa-hoc-loai-2', 'NghienCuuKhoaHoc@PostSuaDeTaiNCKHLoai2');
         Route::get('sua-nghien-cuu-khoa-hoc-loai-3/{id_hoatdong_loai3}/{id_namhoc}', 'NghienCuuKhoaHoc@getSuaDeTaiNCKHLoai3');
         Route::post('sua-nghien-cuu-khoa-hoc-loai-3', 'NghienCuuKhoaHoc@PostSuaDeTaiNCKHLoai3');
+       
+        Route::get('xoa-nghien-cuu-khoa-hoc/{loai_hoatdong}/{id_hoatdong}/{id_namhoc}', 'NghienCuuKhoaHoc@getXoaDeTaiNCKH');
 
         Route::get('load-nckh-cuatoi', 'NghienCuuKhoaHoc@load_nckh_cuatoi');
 
@@ -169,8 +171,8 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('gui-xet-duyet-nckh', 'NghienCuuKhoaHoc@getGuiXetDuyetNCKH');
 
-        Route::get('xet-duyet-nckh', 'NghienCuuKhoaHoc@getXetDuyetNCKH');
-        Route::get('cho-duyet-nckh', 'NghienCuuKhoaHoc@getChoDuyetNCKH');
+        Route::get('xet-duyet-nckh/{id_nckh}/{loai_hoatdong}/{id_tacgia}/{id_namhoc}', 'NghienCuuKhoaHoc@getXetDuyetNCKH');
+        Route::get('cho-duyet-nckh/{id_nckh}/{loai_hoatdong}/{id_tacgia}/{id_namhoc}', 'NghienCuuKhoaHoc@getChoDuyetNCKH');
         Route::get('sua-duyet-nckh', 'NghienCuuKhoaHoc@getSuaDuyetNCKH');
         Route::get('xem-noi-dung-sua-duyet-nckh', 'NghienCuuKhoaHoc@getXemNoiDungSuaDuyetNCKH');
 

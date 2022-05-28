@@ -5,9 +5,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 nopadding">
-                <div class="top">
-                    <span id="click-nam-hoc-nckh" class="nam-hoc">{{$namhoc_dangchon->nambatdau.' - '.$namhoc_dangchon->namketthuc}}</span>   
-                
+                <div class="top" style="height:0px">
+                    
                     <div id="modal-nam-hoc-nckh" class="modal">
                         <div class="modal-content">
                             <span class="close-modal">&times;</span>
@@ -48,40 +47,23 @@
                             </div> 
                         </div>
                     </div>
-
                 </div>
 
-                <div class="tab">
-                    <ul>
-                        <li>
-                            <a class="tablinks active" >
-                                <span>Hoạt động NCKH</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="tablinks" href="<?php echo url('admin/decuong/thong-ke-nghien-cuu-khoa-hoc-cua-toi/'.$namhoc_dangchon->id); ?>" onclick="opentab(event, 'thongke-nckh')" >
-                                <span id="thong-ke-nckh">Thống kê NCKH</span>
-                            </a>
-                        </li> 
-                        <li> 
-                            <a class="tablinks" onclick="opentab(event, 'trogiup')" >
-                                <span>Trợ giúp</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                
                 <div id="hoatdong-nckh" class="tabcontent active" >
+
+                    <br/>
+                    <div class="list-choice">
+						<button  class="btn btn-warning"><span id="click-nam-hoc-nckh">Đổi năm học {{$namhoc_dangchon->nambatdau.' - '.$namhoc_dangchon->namketthuc}}</span>   </button>
+                    </div>
 
                     <div class="duyet-nckh">
                         <fieldset>
                             <legend>Chi tiết duyệt NCKH</legend>
 
                             <div class="list-option-duyet">
-                                <span class="btn btn-success" id="duyet-de-tai-nckh" >Duyệt</span>
+                                <!-- <span class="btn btn-success" id="duyet-de-tai-nckh" >Duyệt</span>
                                 <span class="btn btn-info" id="cho-duyet-de-tai-nckh" >Chờ duyệt</span>
-                                <span class="btn btn-danger" id="khong-duyet-de-tai-nckh" >Không duyệt</span>
+                                <span class="btn btn-danger" id="khong-duyet-de-tai-nckh" >Không duyệt</span> -->
                                 <div class="option-duyet">
                                     <span><i class="fa fa-clock"></i> Đang chờ duyệt</span>
                                     <span><i class="fa fa-ban"></i>Không duyệt</span>
@@ -99,6 +81,7 @@
                                         <td>Định mức</td>
                                         <td>Tính thành giờ NCKH</td>
                                         <td>Duyệt</td>
+                                        <td>Chức năng</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -109,11 +92,12 @@
                                             <tr>
                                                 <td class="align-middle" rowspan="{{$value_all_hoatdong_nckh->count_sub+1}}">{{$stt++}}</td>
                                                 <td class="align-middle" style="text-align: left;text-align: justify;" rowspan="{{$value_all_hoatdong_nckh->count_sub+1}}">{{$value_all_hoatdong_nckh->tenhoatdongnghiencuu}}</td>
-                                                <td style="background: none repeat scroll 0 0 #ffeca9;"></td>
-                                                <td style="background: none repeat scroll 0 0 #ffeca9;">{{$value_all_hoatdong_nckh->tongsodiem}} Điểm</td>
-                                                <td style="background: none repeat scroll 0 0 #ffeca9;"></td>
-                                                <td style="background: none repeat scroll 0 0 #ffeca9;">{{$value_all_hoatdong_nckh->tongsogio}}</td>
-                                                <td style="background: none repeat scroll 0 0 #ffeca9;"></td>
+                                                <td class="align-middle" style="background: none repeat scroll 0 0 #ffeca9;"></td>
+                                                <td class="align-middle" style="background: none repeat scroll 0 0 #ffeca9;">{{$value_all_hoatdong_nckh->tongsodiem}} Điểm</td>
+                                                <td class="align-middle" style="background: none repeat scroll 0 0 #ffeca9;"></td>
+                                                <td class="align-middle" style="background: none repeat scroll 0 0 #ffeca9;">{{$value_all_hoatdong_nckh->tongsogio}}</td>
+                                                <td class="align-middle" style="background: none repeat scroll 0 0 #ffeca9;"></td>
+                                                <td class="align-middle" style="background: none repeat scroll 0 0 #ffeca9;"></td>
                                             </tr>
                                             @if ($value_all_hoatdong_nckh->loai_hoatdong == 1)
                                                 <?php $stt_l1 = 1; ?>
@@ -156,6 +140,26 @@
                                                                 <i style="color:#1FD537;padding-right:3px" class="fas fa-check"></i>
                                                             @elseif ($value_all_hdct_view1->tinhtrangduyet==2)
                                                                 <i style="color:#f0134d;padding-right:3px" class="fas fa-ban" id="xem-noi-dung-sua" data-value="{{$value_all_hdct_view1->id_nckh}}_{{$value_all_hdct_view1->loai_hoatdong}}_{{$value_all_hdct_view1->tinhtrangduyet}}" >Xem</i> 
+                                                            @endif
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            @if ($value_all_hdct_view1->tinhtrangduyet == 0)
+                                                                <a href="<?php echo url('admin/decuong/xet-duyet-nckh/'.$value_all_hdct_view1->id_nckh.'/'.$value_all_hdct_view1->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span style="margin-bottom: 7px;" class="btn btn-success">Duyệt</span>
+                                                                </a>
+                                                                <span class="btn btn-danger" id="khong-duyet-nckh" data-value="<?php echo $value_all_hdct_view1->id_nckh.'_'.$value_all_hdct_view1->loai_hoatdong.'_'.$id_tacgia.'_'.$id_namhoc; ?>" >Không duyệt</span>
+                                                            @elseif ($value_all_hdct_view1->tinhtrangduyet == 1)
+                                                                <a href="<?php echo url('admin/decuong/cho-duyet-nckh/'.$value_all_hdct_view1->id_nckh.'/'.$value_all_hdct_view1->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span style="margin-bottom: 7px;" class="btn btn-primary">Chờ duyệt</span>
+                                                                </a>
+                                                                <span class="btn btn-danger" id="khong-duyet-nckh" data-value="<?php echo $value_all_hdct_view1->id_nckh.'_'.$value_all_hdct_view1->loai_hoatdong.'_'.$id_tacgia.'_'.$id_namhoc; ?>" >Không duyệt</span>
+                                                            @elseif ($value_all_hdct_view1->tinhtrangduyet == 2)
+                                                                <a href="<?php echo url('admin/decuong/xet-duyet-nckh/'.$value_all_hdct_view1->id_nckh.'/'.$value_all_hdct_view1->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span style="margin-bottom: 7px;" class="btn btn-success">Duyệt</span>
+                                                                </a>
+                                                                <a href="<?php echo url('admin/decuong/cho-duyet-nckh/'.$value_all_hdct_view1->id_nckh.'/'.$value_all_hdct_view1->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span class="btn btn-primary">Chờ duyệt</span>
+                                                                </a>
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -204,6 +208,26 @@
                                                                 <i style="color:#f0134d;padding-right:3px" class="fas fa-ban"></i> Xem
                                                             @endif
                                                         </td>
+                                                        <td class="align-middle">
+                                                            @if ($value_all_hdct_view2->tinhtrangduyet == 0)
+                                                                <a href="<?php echo url('admin/decuong/xet-duyet-nckh/'.$value_all_hdct_view2->id_nckh.'/'.$value_all_hdct_view2->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span style="margin-bottom: 7px;" class="btn btn-success">Duyệt</span>
+                                                                </a>
+                                                                <span class="btn btn-danger" id="khong-duyet-nckh" data-value="<?php echo $value_all_hdct_view2->id_nckh.'_'.$value_all_hdct_view2->loai_hoatdong.'_'.$id_tacgia.'_'.$id_namhoc; ?>" >Không duyệt</span>
+                                                            @elseif ($value_all_hdct_view2->tinhtrangduyet == 1)
+                                                                <a href="<?php echo url('admin/decuong/cho-duyet-nckh/'.$value_all_hdct_view2->id_nckh.'/'.$value_all_hdct_view2->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span style="margin-bottom: 7px;" class="btn btn-primary">Chờ duyệt</span>
+                                                                </a>
+                                                                <span class="btn btn-danger" id="khong-duyet-nckh" data-value="<?php echo $value_all_hdct_view2->id_nckh.'_'.$value_all_hdct_view2->loai_hoatdong.'_'.$id_tacgia.'_'.$id_namhoc; ?>" >Không duyệt</span>
+                                                            @elseif ($value_all_hdct_view2->tinhtrangduyet == 2)
+                                                                <a href="<?php echo url('admin/decuong/xet-duyet-nckh/'.$value_all_hdct_view2->id_nckh.'/'.$value_all_hdct_view2->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span style="margin-bottom: 7px;" class="btn btn-success">Duyệt</span>
+                                                                </a>
+                                                                <a href="<?php echo url('admin/decuong/cho-duyet-nckh/'.$value_all_hdct_view2->id_nckh.'/'.$value_all_hdct_view2->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span class="btn btn-primary">Chờ duyệt</span>
+                                                                </a>
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                     @endif
                                                 @endforeach
@@ -244,6 +268,26 @@
                                                                 <i style="color:#f0134d;padding-right:3px" class="fas fa-ban"></i> Xem
                                                             @endif
                                                         </td>
+                                                        <td class="align-middle">
+                                                            @if ($value_all_hdct_view3->tinhtrangduyet == 0)
+                                                                <a href="<?php echo url('admin/decuong/xet-duyet-nckh/'.$value_all_hdct_view3->id_nckh.'/'.$value_all_hdct_view3->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span style="margin-bottom: 7px;" class="btn btn-success">Duyệt</span>
+                                                                </a>
+                                                                <span class="btn btn-danger" id="khong-duyet-nckh" data-value="<?php echo $value_all_hdct_view3->id_nckh.'_'.$value_all_hdct_view3->loai_hoatdong.'_'.$id_tacgia.'_'.$id_namhoc; ?>" >Không duyệt</span>
+                                                            @elseif ($value_all_hdct_view3->tinhtrangduyet == 1)
+                                                                <a href="<?php echo url('admin/decuong/cho-duyet-nckh/'.$value_all_hdct_view3->id_nckh.'/'.$value_all_hdct_view3->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span style="margin-bottom: 7px;" class="btn btn-primary">Chờ duyệt</span>
+                                                                </a>
+                                                                <span class="btn btn-danger" id="khong-duyet-nckh" data-value="<?php echo $value_all_hdct_view3->id_nckh.'_'.$value_all_hdct_view3->loai_hoatdong.'_'.$id_tacgia.'_'.$id_namhoc; ?>" >Không duyệt</span>
+                                                            @elseif ($value_all_hdct_view3->tinhtrangduyet == 2)
+                                                                <a href="<?php echo url('admin/decuong/xet-duyet-nckh/'.$value_all_hdct_view3->id_nckh.'/'.$value_all_hdct_view3->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span style="margin-bottom: 7px;" class="btn btn-success">Duyệt</span>
+                                                                </a>
+                                                                <a href="<?php echo url('admin/decuong/cho-duyet-nckh/'.$value_all_hdct_view3->id_nckh.'/'.$value_all_hdct_view3->loai_hoatdong.'/'.$id_tacgia.'/'.$id_namhoc); ?>">
+                                                                    <span class="btn btn-primary">Chờ duyệt</span>
+                                                                </a>
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                     @endif
                                                 @endforeach
@@ -263,7 +307,7 @@
                                     </tr>
                                 </tbody>
 
-                                <input type="hidden" name="" id="nckh-clicked" >
+                                <input type="hidden" name="" id="nckh-clicked-khong-duyet" >
 
                             </table>
 
@@ -296,18 +340,6 @@
 
                         </fieldset>
                     </div>
-
-                </div>
-
-                <div id="thongke-nckh" class="tabcontent">
-
-                    
-                </div>
-
-                <div id="trogiup" class="tabcontent">
-                    
-                </div>
-
             </div>
         </div>
     </div>
@@ -345,118 +377,11 @@
 
         }
 
-        $('.duyet-nckh').on('click', 'table tbody tr.click-hoat-dong-cua-toi', function() {
-            $(".click-hoat-dong-cua-toi").removeClass('active');
-            $(this).addClass("active");
-            $("#nckh-clicked").val($(this).attr('data-value'));
-
-            let trangthaiduyet = $(this).attr('data-value').split('_');
-
-            if(trangthaiduyet[2] == 0) {
-                document.getElementById("cho-duyet-de-tai-nckh").disabled = true;
-            }
-
-            if(trangthaiduyet[2] == 1) {
-                document.getElementById("duyet-de-tai-nckh").disabled = true;
-            }
-
-            if(trangthaiduyet[2] == 2) {
-                document.getElementById("khong-duyet-de-tai-nckh").disabled = true;
-            }
-
+        $('#khong-duyet-nckh').click(function() {
+            let value = $(this).attr('data-value');
+            $('#nckh-clicked-khong-duyet').val(value);
+            document.getElementById("modal-khong-duyet-nckh").style.display = "block";
         });
-
-        $('.list-option-duyet').on('click', '#duyet-de-tai-nckh', function() {
-
-            let value_nckh_clicked = $("#nckh-clicked").val();
-
-            if(value_nckh_clicked.trim().length) {
-
-                let list_value = value_nckh_clicked.split('_');
-
-                let id_nckh = list_value[0];
-                let loai_hoatdong = list_value[1];
-                let id_tacgia = {{$id_tacgia}};
-                let id_namhoc = {{$id_namhoc}};
-
-                var answer = window.confirm("Bạn có chắc chắn muốn duyệt đề tài này không?");
-                if (answer) {
-                    $.ajax({
-                        url: "{{URL::to('admin/decuong/xet-duyet-nckh')}}",
-                        method: 'get',
-                        data:{id_nckh:id_nckh, loai_hoatdong:loai_hoatdong, id_tacgia:id_tacgia, id_namhoc:id_namhoc},
-                        success: function(data) {
-                            if (data != null) {
-                                if(data == 'Successfull') {
-                                    location.reload();
-                                }
-                            }   
-                        }
-                    });
-                }
-
-            } else {
-                alert("Vui lòng chọn đề tài cần duyệt và tiếp tục !!!");
-            }
-
-        }); 
-
-        $('.list-option-duyet').on('click', '#cho-duyet-de-tai-nckh', function() {
-
-            let value_nckh_clicked = $("#nckh-clicked").val();
-
-            if(value_nckh_clicked.trim().length) {
-
-                let list_value = value_nckh_clicked.split('_');
-
-                let id_nckh = list_value[0];
-                let loai_hoatdong = list_value[1];
-                let id_tacgia = {{$id_tacgia}};
-                let id_namhoc = {{$id_namhoc}};
-
-                var answer = window.confirm("Bạn có chắc chắn muốn chờ duyệt đề tài này không?");
-                if (answer) {
-                    $.ajax({
-                        url: "{{URL::to('admin/decuong/cho-duyet-nckh')}}",
-                        method: 'get',
-                        data:{id_nckh:id_nckh, loai_hoatdong:loai_hoatdong, id_tacgia:id_tacgia, id_namhoc:id_namhoc},
-                        success: function(data) {
-                            if (data != null) {
-                                if(data == 'Successfull') {
-                                    location.reload();
-                                }
-                            }   
-                        }
-                    });
-                }
-
-            } else {
-                alert("Vui lòng chọn đề tài cần chờ duyệt và tiếp tục !!!");
-            }
-
-        }); 
-
-        $('.list-option-duyet').on('click', '#khong-duyet-de-tai-nckh', function() {
-
-            let value_nckh_clicked = $("#nckh-clicked").val();
-
-            if(value_nckh_clicked.trim().length) {
-
-                let list_value = value_nckh_clicked.split('_');
-
-                let id_nckh = list_value[0];
-                let loai_hoatdong = list_value[1];
-                let id_tacgia = {{$id_tacgia}};
-                let id_namhoc = {{$id_namhoc}};
-
-                document.getElementById("modal-khong-duyet-nckh").style.display = "block";   
-
-                
-            } else {
-                alert("Vui lòng chọn đề tài không duyệt và tiếp tục !!!");
-            }
-
-        }); 
 
         $('.content-modal-khong-duyet-nckh').on('click', '#sua-de-tai-nckh', function() {
 
@@ -464,7 +389,7 @@
 
             if(noi_dung_sua.trim().length) {
 
-                let value_nckh_clicked = $("#nckh-clicked").val();
+                let value_nckh_clicked = $("#nckh-clicked-khong-duyet").val();
                 let list_value = value_nckh_clicked.split('_');
 
                 let id_nckh = list_value[0];
@@ -494,6 +419,7 @@
             }
 
         }); 
+
         
         $('.click-hoat-dong-cua-toi').on('click', '#xem-noi-dung-sua', function() {
 
@@ -517,54 +443,9 @@
                     }   
                 }
             });
-
         }); 
         
-        
-        
-
     });
-
-    function opentab(evt, tabName) {
-
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-
-        tablinks = document.getElementsByClassName("tablinks");
-
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
-    function openHdNckh(evt, tabName) {
-
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabhoatdongnckh");
-
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-
-        tablinks = document.getElementsByClassName("tablinkshdnckh");
-
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
-
-    
 
 </script>
 
